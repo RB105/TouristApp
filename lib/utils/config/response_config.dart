@@ -1,5 +1,7 @@
 /* January 2026 , Baxrom Rajabov, Tashkent , Uzbekistan */
 
+import 'package:touristapp/utils/enums/error_type.dart' show ErrorType;
+
 class NetworkResponse<T> {
   final T? data;
   final T? error;
