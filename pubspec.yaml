@@ -68,7 +68,7 @@ flutter:
     - assets/
     - assets/images/
     - assets/icons/
-    - assets/fonts/
+#    - assets/fonts/
     - assets/lotties/
     - lib/generated/
 
