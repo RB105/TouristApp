@@ -2,8 +2,10 @@
 class Assets {
   Assets._();
 
-  static const String iconsAppLogo10032 = 'assets/icons/app_logo_100_32.svg';
+  static const String iconsAppLogo100X32Black = 'assets/icons/app_logo_100_x_32_black.svg';
+  static const String iconsAppLogo100X32Blue = 'assets/icons/app_logo_100_x_32_blue.svg';
   static const String iconsAppLogos = 'assets/icons/app_logos.svg';
+  static const String iconsAuthPhone = 'assets/icons/auth_phone.svg';
   static const String iconsTextBonus = 'assets/icons/text_bonus.svg';
   static const String iconsTextCard = 'assets/icons/text_card.svg';
   static const String iconsTextGlobe = 'assets/icons/text_globe.svg';
