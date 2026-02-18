@@ -1,35 +1,27 @@
 /* February 2026 , Baxrom Rajabov, Tashkent , Uzbekistan */
 
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart' show SvgPicture;
-import 'package:pinput/pinput.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:touristapp/generated/assets.dart' show Assets;
-import 'package:touristapp/ui/auth/create_password_screen.dart';
-import 'package:touristapp/utils/extensions/color_extension.dart'
-    show ColorExtension;
-import 'package:touristapp/utils/extensions/context_extensions.dart'
-    show ContextExtensions;
-import 'package:touristapp/utils/extensions/text_styles_extension.dart'
-    show TextStyles;
+import 'package:touristapp/ui/widgets/animated_auth_background.dart';
+import 'package:touristapp/utils/extensions/color_extension.dart' show ColorExtension;
+import 'package:touristapp/utils/extensions/context_extensions.dart' show ContextExtensions;
+import 'package:touristapp/utils/extensions/text_styles_extension.dart';
 
-class OtpScreen extends StatefulWidget {
-  const OtpScreen({super.key});
+class AuthConfirmScreen extends StatefulWidget {
+  const AuthConfirmScreen({super.key});
 
   @override
-  State<OtpScreen> createState() => _OtpScreenState();
+  State<AuthConfirmScreen> createState() => _AuthConfirmScreenState();
 }
 
-class _OtpScreenState extends State<OtpScreen> {
+class _AuthConfirmScreenState extends State<AuthConfirmScreen> {
   @override
   Widget build(BuildContext context) => Scaffold(
     body: Stack(
       children: [
         Positioned.fill(
-          child: MediaQuery.removeViewInsets(
-            context: context,
-            removeBottom: true,
-            child: SvgPicture.asset(Assets.imagesState6, fit: BoxFit.cover),
-          ),
+          child: AnimatedAuthBackground(svgAsset: Assets.imagesPasswordBg),
         ),
         SafeArea(
           child: Padding(
@@ -115,13 +107,6 @@ class _OtpScreenState extends State<OtpScreen> {
                       ),
                     ),
                     context.szBoxHeight24,
-                    Pinput(
-                      onCompleted: (value) {
-                        Navigator.of(context).push(MaterialPageRoute(builder: (context) => CreatePasswordScreen(),));
-                      },
-                      onTapOutside: (event) => FocusScope.of(context).unfocus(),
-                      length: 6,
-                    ),
                     context.szBoxHeight20,
                   ],
                 ),

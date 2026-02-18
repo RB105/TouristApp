@@ -1,30 +1,41 @@
 /* February 2026 , Baxrom Rajabov, Tashkent , Uzbekistan */
 
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flutter_svg/flutter_svg.dart' show SvgPicture;
+import 'package:pinput/pinput.dart';
 import 'package:touristapp/generated/assets.dart' show Assets;
-import 'package:touristapp/utils/extensions/color_extension.dart' show ColorExtension;
-import 'package:touristapp/utils/extensions/context_extensions.dart' show ContextExtensions;
-import 'package:touristapp/utils/extensions/text_styles_extension.dart';
+import 'package:touristapp/ui/auth/view/create_password_screen.dart';
+import 'package:touristapp/ui/widgets/animated_auth_background.dart';
+import 'package:touristapp/utils/extensions/color_extension.dart'
+    show ColorExtension;
+import 'package:touristapp/utils/extensions/context_extensions.dart'
+    show ContextExtensions;
+import 'package:touristapp/utils/extensions/text_styles_extension.dart'
+    show TextStyles;
 
-class AuthConfirmScreen extends StatefulWidget {
-  const AuthConfirmScreen({super.key});
+class OtpScreen extends StatefulWidget {
+  const OtpScreen({super.key});
 
   @override
-  State<AuthConfirmScreen> createState() => _AuthConfirmScreenState();
+  State<OtpScreen> createState() => _OtpScreenState();
 }
 
-class _AuthConfirmScreenState extends State<AuthConfirmScreen> {
+class _OtpScreenState extends State<OtpScreen> {
+  final _otpController = TextEditingController();
+
+  final  _focusNode = FocusNode();
+
+  @override
+  void initState() {
+    _focusNode.requestFocus();
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) => Scaffold(
     body: Stack(
       children: [
         Positioned.fill(
-          child: MediaQuery.removeViewInsets(
-            context: context,
-            removeBottom: true,
-            child: SvgPicture.asset(Assets.imagesPasswordBg, fit: BoxFit.cover),
-          ),
+          child: AnimatedAuthBackground(svgAsset: Assets.imagesState6),
         ),
         SafeArea(
           child: Padding(
@@ -110,6 +121,15 @@ class _AuthConfirmScreenState extends State<AuthConfirmScreen> {
                       ),
                     ),
                     context.szBoxHeight24,
+                    Pinput(
+                      focusNode: _focusNode,
+                      controller: _otpController,
+                      onCompleted: (value) {
+                        Navigator.of(context).push(MaterialPageRoute(builder: (context) => CreatePasswordScreen(),));
+                      },
+                      onTapOutside: (event) => FocusScope.of(context).unfocus(),
+                      length: 6,
+                    ),
                     context.szBoxHeight20,
                   ],
                 ),

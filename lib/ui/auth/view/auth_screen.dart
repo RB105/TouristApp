@@ -4,7 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart' show SvgPicture;
 import 'package:touristapp/generated/assets.dart' show Assets;
-import 'package:touristapp/ui/auth/otp_screen.dart';
+import 'package:touristapp/ui/auth/view/otp_screen.dart' show OtpScreen;
+
+import 'package:touristapp/ui/widgets/animated_auth_background.dart';
 import 'package:touristapp/ui/widgets/animated_switcher.dart';
 import 'package:touristapp/utils/extensions/color_extension.dart';
 import 'package:touristapp/utils/extensions/context_extensions.dart';
@@ -27,17 +29,21 @@ class _AuthScreenState extends State<AuthScreen> {
 
   final _phoneController = TextEditingController();
 
+  final  _focusNode = FocusNode();
+
+  @override
+  void initState() {
+    _focusNode.requestFocus();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Stack(
         children: [
           Positioned.fill(
-            child: MediaQuery.removeViewInsets(
-              context: context,
-              removeBottom: true,
-              child: SvgPicture.asset(Assets.imagesState6, fit: BoxFit.cover),
-            ),
+            child: AnimatedAuthBackground(svgAsset: Assets.imagesState6),
           ),
           SafeArea(
             child: Padding(
@@ -105,11 +111,12 @@ class _AuthScreenState extends State<AuthScreen> {
                       ),
                       context.szBoxHeight24,
                       TextFormField(
+                        focusNode: _focusNode,
                         controller: _phoneController,
                         onTapOutside: (event) =>
                             FocusScope.of(context).unfocus(),
                         onChanged: (value) {
-                          // setState(() {});
+                          setState(() {});
                         },
                         keyboardType: TextInputType.number,
                         decoration: InputDecoration(
@@ -128,9 +135,10 @@ class _AuthScreenState extends State<AuthScreen> {
                             borderSide: BorderSide.none,
                           ),
                           suffixIcon: Padding(
-                            padding: const EdgeInsets.all(6.0),
+                            padding: context.k8Padding,
                             child: SizedBox(
                               width: 56,
+                              height: 40,
                               child: DecoratedBox(
                                 decoration: BoxDecoration(
                                   color: _phoneController.text.isEmpty

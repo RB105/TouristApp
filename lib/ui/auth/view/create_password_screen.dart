@@ -4,7 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show HapticFeedback;
 import 'package:flutter_svg/flutter_svg.dart' show SvgPicture;
 import 'package:touristapp/generated/assets.dart' show Assets;
-import 'package:touristapp/ui/auth/auth_confirm_screen.dart';
+import 'package:touristapp/ui/home/home_screen.dart';
+import 'package:touristapp/ui/widgets/animated_auth_background.dart';
 import 'package:touristapp/ui/widgets/animated_switcher.dart'
     show AppAnimatedSwitcher;
 import 'package:touristapp/utils/extensions/color_extension.dart'
@@ -25,7 +26,11 @@ class _CreatePasswordScreenState extends State<CreatePasswordScreen> {
   final _password1Controller = TextEditingController();
   final _password2Controller = TextEditingController();
 
+  final _focusNode1 = FocusNode();
+  final _focusNode2 = FocusNode();
+
   bool isObs1 = true;
+  bool isObs2 = true;
 
   bool nextTapped = false;
 
@@ -34,11 +39,7 @@ class _CreatePasswordScreenState extends State<CreatePasswordScreen> {
     body: Stack(
       children: [
         Positioned.fill(
-          child: MediaQuery.removeViewInsets(
-            context: context,
-            removeBottom: true,
-            child: SvgPicture.asset(Assets.imagesPasswordBg, fit: BoxFit.cover),
-          ),
+          child: AnimatedAuthBackground(svgAsset: Assets.imagesPasswordBg),
         ),
         SafeArea(
           child: Padding(
@@ -110,20 +111,21 @@ class _CreatePasswordScreenState extends State<CreatePasswordScreen> {
                       child: DecoratedBox(
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(24),
-                          color: context.bgElevated
+                          color: context.bgElevated,
                         ),
                         child: Column(
                           mainAxisSize: .max,
                           children: [
                             TextFormField(
+                              focusNode: _focusNode1,
                               controller: _password1Controller,
                               onTapOutside: (event) =>
                                   FocusScope.of(context).unfocus(),
                               onChanged: (value) {
-                                // setState(() {});
+                                if (value.isEmpty) nextTapped = false;
+                                setState(() {});
                               },
                               obscureText: isObs1,
-                              keyboardType: TextInputType.number,
                               decoration: InputDecoration(
                                 contentPadding: context.k16Padding,
                                 hintText: "Create new password",
@@ -134,7 +136,11 @@ class _CreatePasswordScreenState extends State<CreatePasswordScreen> {
                                   borderSide: BorderSide(
                                     color: context.strokeBrand,
                                   ),
-                                  borderRadius: nextTapped ? BorderRadius.vertical(top: Radius.circular(28)) : BorderRadius.circular(28),
+                                  borderRadius: nextTapped
+                                      ? BorderRadius.vertical(
+                                          top: Radius.circular(28),
+                                        )
+                                      : BorderRadius.circular(28),
                                 ),
                                 enabledBorder: OutlineInputBorder(
                                   borderRadius: BorderRadius.all(
@@ -149,7 +155,9 @@ class _CreatePasswordScreenState extends State<CreatePasswordScreen> {
                                 suffixIcon: Padding(
                                   padding: const EdgeInsets.only(right: 8.0),
                                   child: Row(
-                                    mainAxisAlignment: nextTapped ? .end : .spaceBetween,
+                                    mainAxisAlignment: nextTapped
+                                        ? .end
+                                        : .spaceBetween,
                                     children: [
                                       InkWell(
                                         child: SizedBox(
@@ -161,47 +169,54 @@ class _CreatePasswordScreenState extends State<CreatePasswordScreen> {
                                                 : Assets.iconsEyeOff,
                                           ),
                                         ),
-                                        onTap: () =>
-                                            setState(() {
-                                              isObs1 = !isObs1;
-                                              // nextTapped = !nextTapped;
-                                            }),
+                                        onTap: () => setState(() {
+                                          isObs1 = !isObs1;
+                                          // nextTapped = !nextTapped;
+                                        }),
                                       ),
                                       AppAnimatedSwitcher(
-                                        child: nextTapped ? SizedBox.shrink() : SizedBox(
-                                          width: 56,
-                                          height: 40,
-                                          child: DecoratedBox(
-                                            decoration: BoxDecoration(
-                                              color:
-                                                  _password1Controller.text.isEmpty
-                                                  ? context.bgMuted
-                                                  : context.primary,
-                                              borderRadius: BorderRadius.circular(
-                                                28,
-                                              ),
-                                            ),
-                                            child: InkWell(
-                                              onTap: () {
-                                                HapticFeedback.mediumImpact();
-                                                setState(() {
-                                                  nextTapped = !nextTapped;
-                                                });
-                                              },
-                                              child: SizedBox(
-                                                width: 24,
-                                                height: 24,
-                                                child: Center(
-                                                  child: AppAnimatedSwitcher(
-                                                    child: SvgPicture.asset(
-                                                      Assets.iconsArrowForward,
+                                        child: nextTapped
+                                            ? SizedBox.shrink()
+                                            : SizedBox(
+                                                width: 56,
+                                                height: 40,
+                                                child: DecoratedBox(
+                                                  decoration: BoxDecoration(
+                                                    color:
+                                                        _password1Controller
+                                                            .text
+                                                            .isEmpty
+                                                        ? context.bgMuted
+                                                        : context.primary,
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                          28,
+                                                        ),
+                                                  ),
+                                                  child: InkWell(
+                                                    onTap: () {
+                                                      HapticFeedback.mediumImpact();
+                                                      setState(() {
+                                                        nextTapped = true;
+                                                      });
+                                                      _focusNode2
+                                                          .requestFocus();
+                                                    },
+                                                    child: SizedBox(
+                                                      width: 24,
+                                                      height: 24,
+                                                      child: Center(
+                                                        child: AppAnimatedSwitcher(
+                                                          child: SvgPicture.asset(
+                                                            Assets
+                                                                .iconsArrowForward,
+                                                          ),
+                                                        ),
+                                                      ),
                                                     ),
                                                   ),
                                                 ),
                                               ),
-                                            ),
-                                          ),
-                                        ),
                                       ),
                                     ],
                                   ),
@@ -209,28 +224,33 @@ class _CreatePasswordScreenState extends State<CreatePasswordScreen> {
                               ),
                             ),
                             AppAnimatedSwitcher(
-                              child: nextTapped
+                              child:
+                                  nextTapped &&
+                                      _password1Controller.text.isNotEmpty
                                   ? TextFormField(
+                                      focusNode: _focusNode2,
                                       controller: _password2Controller,
                                       onTapOutside: (event) =>
                                           FocusScope.of(context).unfocus(),
                                       onChanged: (value) {
                                         setState(() {});
                                       },
-                                      obscureText: isObs1,
-                                      keyboardType: TextInputType.number,
+                                      obscureText: isObs2,
                                       decoration: InputDecoration(
                                         fillColor: context.bgElevated,
                                         filled: true,
-                                        hintText: "Create new password",
-                                        hintStyle: context.mediumMutedMd.copyWith(
-                                          color: context.textDisabled,
-                                        ),
+                                        hintText: "Confirm new password",
+                                        hintStyle: context.mediumMutedMd
+                                            .copyWith(
+                                              color: context.textDisabled,
+                                            ),
                                         focusedBorder: OutlineInputBorder(
                                           borderSide: BorderSide(
                                             color: context.strokeBrand,
                                           ),
-                                          borderRadius: BorderRadius.vertical(bottom: Radius.circular(28)),
+                                          borderRadius: BorderRadius.vertical(
+                                            bottom: Radius.circular(28),
+                                          ),
                                         ),
                                         enabledBorder: OutlineInputBorder(
                                           borderRadius: BorderRadius.all(
@@ -250,17 +270,19 @@ class _CreatePasswordScreenState extends State<CreatePasswordScreen> {
                                                 width: 24,
                                                 height: 24,
                                                 child: SvgPicture.asset(
-                                                  isObs1
+                                                  isObs2
                                                       ? Assets.iconsEyeOn
                                                       : Assets.iconsEyeOff,
                                                 ),
                                               ),
                                               onTap: () => setState(
-                                                () => isObs1 = !isObs1,
+                                                () => isObs2 = !isObs2,
                                               ),
                                             ),
                                             Padding(
-                                              padding: const EdgeInsets.all(6.0),
+                                              padding: const EdgeInsets.all(
+                                                6.0,
+                                              ),
                                               child: SizedBox(
                                                 width: 56,
                                                 height: 40,
@@ -273,12 +295,21 @@ class _CreatePasswordScreenState extends State<CreatePasswordScreen> {
                                                         ? context.bgMuted
                                                         : context.primary,
                                                     borderRadius:
-                                                        BorderRadius.circular(28),
+                                                        BorderRadius.circular(
+                                                          28,
+                                                        ),
                                                   ),
                                                   child: InkWell(
                                                     onTap: () {
                                                       HapticFeedback.mediumImpact();
-                                                      Navigator.of(context).push(MaterialPageRoute(builder: (context) => AuthConfirmScreen(),));
+                                                      Navigator.of(
+                                                        context,
+                                                      ).push(
+                                                        MaterialPageRoute(
+                                                          builder: (context) =>
+                                                              HomeScreen(),
+                                                        ),
+                                                      );
                                                     },
                                                     child: SizedBox(
                                                       width: 24,

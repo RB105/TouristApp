@@ -20,6 +20,7 @@ class Assets {
   static const String iconsTextWallet = 'assets/icons/text_wallet.svg';
   static const String iconsVerification = 'assets/icons/verification.svg';
   static const String iconsVerificationActive = 'assets/icons/verification_active.svg';
+  static const String imagesHomeBg = 'assets/images/home_bg.svg';
   static const String imagesPasswordBg = 'assets/images/password_bg.svg';
   static const String imagesState1 = 'assets/images/state1.svg';
   static const String imagesState6 = 'assets/images/state6.svg';

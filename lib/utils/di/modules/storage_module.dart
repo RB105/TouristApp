@@ -1,0 +1,7 @@
+/* February 2026 , Baxrom Rajabov, Tashkent , Uzbekistan */
+
+part of '../di.dart';
+
+void _registerStorage() {
+  _registerIfNotExists<GetStorage>(() => GetStorage());
+}

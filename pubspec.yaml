@@ -39,6 +39,12 @@ dependencies:
   size_config: ^2.0.3
   mask_text_input_formatter: ^2.9.0
   pinput: ^6.0.1
+  dio: ^5.7.0
+  bloc: ^9.2.0
+  flutter_bloc: ^9.1.1
+  easy_localization: ^3.0.8
+  get_it: ^9.2.0
+  get_storage: ^2.1.1
 
 dev_dependencies:
   flutter_test:
