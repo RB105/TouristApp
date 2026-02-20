@@ -8,11 +8,11 @@ class AuthService {
 
   AuthService(this.apiClient);
 
-  Future register() async {
+  Future register({required String phone}) async {
     final response = await apiClient.post(
       endPoint: Endpoints.telegramVerify,
       params: {
-        "phone_number": "+998974559995",
+        "phone_number": phone,
         "otp_type": 1
       },
     );
@@ -20,27 +20,27 @@ class AuthService {
     return response;
   }
 
-    Future verifyOtp() async {
+    Future verifyOtp({required String phone, required int otp}) async {
       final response = await apiClient.post(
         endPoint: Endpoints.telegramVerify,
         params: {
-          "phone_number": "+998974559995",
+          "phone_number": phone,
           "otp_type": 1,
-          "otp_code": 1234
+          "otp_code": otp
         },
       );
 
       return response;
     }
 
-    Future setPassword() async {
+    Future setPassword({required String phone, required String password, required String key}) async {
       final response = await apiClient.post(
         endPoint: Endpoints.setPassword,
         params: {
-          "phone_number": "998974559995",
-          "password": "125698_Sa",
-          "confirm_password": "125698_Sa",
-          "secret_key": "31b3c505-b417-4f1e-a937-3d439ea62d00"
+          "phone_number": phone,
+          "password": password,
+          "confirm_password": password,
+          "secret_key": key
         },
       );
 
