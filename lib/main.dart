@@ -2,8 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:size_config/size_config.dart' show SizeConfigInit;
 import 'package:touristapp/ui/splash/on_boarding_screen.dart';
 import 'package:touristapp/utils/config/size_config.dart';
+import 'package:touristapp/utils/di/di.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  setUpDI();
   runApp(const TouristApp());
 }
 

@@ -6,7 +6,6 @@ import 'package:lottie/lottie.dart';
 import 'package:touristapp/generated/assets.dart';
 import 'package:touristapp/ui/auth/view/auth_screen.dart';
 import 'package:touristapp/ui/splash/widgets/tourist_ticker.dart' show TouristTicker;
-import 'package:touristapp/ui/widgets/animated_auth_background.dart';
 
 class OnBoardingScreen extends StatefulWidget {
   const OnBoardingScreen({super.key});
@@ -22,8 +21,10 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
       backgroundColor: Colors.white,
       body: Stack(
         children: [
-          const Positioned.fill(
-            child: AnimatedAuthBackground(svgAsset: Assets.imagesState1),
+          SizedBox(
+            width: double.infinity,
+            height: double.infinity,
+            child: SvgPicture.asset(Assets.imagesState1),
           ),
           SafeArea(
             child: Padding(

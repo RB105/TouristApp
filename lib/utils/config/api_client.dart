@@ -1,9 +1,12 @@
 /* February 2026 , Baxrom Rajabov, Tashkent , Uzbekistan */
 
-import 'package:dio/dio.dart' show Dio, DioException, DioExceptionType, Response;
-import 'package:easy_localization/easy_localization.dart' show StringTranslateExtension, Intl;
+import 'package:dio/dio.dart'
+    show Dio, DioException, DioExceptionType, Response;
+import 'package:easy_localization/easy_localization.dart'
+    show StringTranslateExtension, Intl;
 import 'package:flutter/foundation.dart' show debugPrint;
-import 'package:touristapp/utils/config/response_config.dart' show NetworkResponse;
+import 'package:touristapp/utils/config/response_config.dart'
+    show NetworkResponse;
 import 'package:touristapp/utils/enums/error_type.dart' show ErrorType;
 
 class ApiClient {
@@ -18,10 +21,28 @@ class ApiClient {
   }) async {
     try {
       debugPrint('\nRequest(url: $endPoint  , \n body: $params )');
-      final response = await dio.post(
-        endPoint ?? '',
-        data: params,
+      final response = await dio.post(endPoint ?? '', data: params);
+
+      debugPrint('\nResponse(url: $endPoint , \n data: ${response.data} )');
+      return _getResponse(response);
+    } on DioException catch (e) {
+      return _catchException(e);
+    } catch (_) {
+      return NetworkResponse.error(
+        error: 'errors.error_other'.tr(),
+        errorType: ErrorType.other,
       );
+    }
+  }
+
+  /// Makes RPC GET request
+  Future<NetworkResponse> get<T>({
+    required String? endPoint,
+    Map<String, dynamic>? params,
+  }) async {
+    try {
+      debugPrint('\nRequest(url: $endPoint  , \n body: $params )');
+      final response = await dio.get(endPoint ?? '', data: params);
 
       debugPrint('\nResponse(url: $endPoint , \n data: ${response.data} )');
       return _getResponse(response);
@@ -38,9 +59,9 @@ class ApiClient {
   NetworkResponse _getResponse(Response response) {
     switch (response.statusCode) {
       case 200:
-        if (response.data['result'] != null &&
-            response.data['status'] == true) {
-          return NetworkResponse.success(data: response.data['result']);
+      case 201:
+        if (response.data['success'] == true) {
+          return NetworkResponse.success(data: response.data);
         }
         final lang = Intl.getCurrentLocale();
 
@@ -69,23 +90,27 @@ class ApiClient {
         return NetworkResponse.error(error: 'errors.error_unknown'.tr());
       case 401:
         return NetworkResponse.error(
-          error: 'errors.error_401'.tr(),
+          error: response.data ?? 'errors.error_401'.tr(),
           errorType: ErrorType.unAuthorized_401,
+          errorCode: 401,
         );
       case 500:
         return NetworkResponse.error(
-          error: 'errors.error_500'.tr(),
+          error: response.data ?? 'errors.error_500'.tr(),
           errorType: ErrorType.internalServer_500,
+          errorCode: 500,
         );
       case 502:
         return NetworkResponse.error(
-          error: 'errors.error_502'.tr(),
+          error: response.data ?? 'errors.error_502'.tr(),
           errorType: ErrorType.badGateway_502,
+          errorCode: 502,
         );
       case 503:
         return NetworkResponse.error(
-          error: 'errors.error_503'.tr(),
+          error: response.data ?? 'errors.error_503'.tr(),
           errorType: ErrorType.serviceUnavailable_503,
+          errorCode: 503,
         );
       default:
         return NetworkResponse.error(error: 'errors.error_unknown'.tr());

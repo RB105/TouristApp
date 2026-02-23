@@ -14,7 +14,9 @@ import 'package:touristapp/utils/extensions/text_styles_extension.dart'
     show TextStyles;
 
 class OtpScreen extends StatefulWidget {
-  const OtpScreen({super.key});
+  final String phoneNumber;
+  final String secretKey;
+  const OtpScreen({super.key, required this.phoneNumber, required this.secretKey});
 
   @override
   State<OtpScreen> createState() => _OtpScreenState();
@@ -39,7 +41,7 @@ class _OtpScreenState extends State<OtpScreen> {
         ),
         SafeArea(
           child: Padding(
-            padding: const EdgeInsets.all(16.0),
+            padding: context.k16Padding,
             child: Column(
               crossAxisAlignment: .start,
               children: [
