@@ -67,4 +67,41 @@ class AuthCubit extends Cubit<AuthState> {
       );
     }
   }
+
+  void setPassword({
+    required String password,
+    required String phone,
+    required String key,
+  }) async {
+    emit(state.copyWith(registerPasswordStatus: .loading));
+    try {
+      final response = await authService.setPassword(
+        password: password,
+        phone: phone,
+        key: key,
+      );
+      if (response.isSuccess) {
+        emit(
+          state.copyWith(
+            registerPasswordStatus: ApiStatus.success,
+            registerSuccess: response.data ?? false,
+          ),
+        );
+      } else {
+        emit(
+          state.copyWith(
+            registerPasswordStatus: ApiStatus.error,
+            registerErrorMessage: response.error.toString(),
+          ),
+        );
+      }
+    } catch (e) {
+      emit(
+        state.copyWith(
+          registerPasswordStatus: ApiStatus.error,
+          registerErrorMessage: e.toString(),
+        ),
+      );
+    }
+  }
 }
