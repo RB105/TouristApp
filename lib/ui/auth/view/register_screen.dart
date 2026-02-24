@@ -48,6 +48,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
   final AuthCubit _authCubit = getIt<AuthCubit>();
 
+  bool get _isValid => false;
+
   @override
   Widget build(BuildContext context) => Scaffold(
     body: BlocProvider.value(
