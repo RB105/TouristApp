@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show HapticFeedback;
 import 'package:flutter_svg/flutter_svg.dart' show SvgPicture;
+import 'package:easy_localization/easy_localization.dart' show StringTranslateExtension;
 import 'package:touristapp/generated/assets.dart' show Assets;
 import 'package:touristapp/ui/home/home_screen.dart';
 import 'package:touristapp/ui/widgets/animated_auth_background.dart';
@@ -15,14 +16,16 @@ import 'package:touristapp/utils/extensions/context_extensions.dart'
 import 'package:touristapp/utils/extensions/text_styles_extension.dart'
     show TextStyles;
 
-class CreatePasswordScreen extends StatefulWidget {
-  const CreatePasswordScreen({super.key});
+class RegisterScreen extends StatefulWidget {
+  final String phoneNumber;
+  final String secretKey;
+  const RegisterScreen({super.key, required this.phoneNumber, required this.secretKey});
 
   @override
-  State<CreatePasswordScreen> createState() => _CreatePasswordScreenState();
+  State<RegisterScreen> createState() => _RegisterScreenState();
 }
 
-class _CreatePasswordScreenState extends State<CreatePasswordScreen> {
+class _RegisterScreenState extends State<RegisterScreen> {
   final _password1Controller = TextEditingController();
   final _password2Controller = TextEditingController();
 
@@ -45,7 +48,7 @@ class _CreatePasswordScreenState extends State<CreatePasswordScreen> {
           child: Padding(
             padding: const EdgeInsets.all(16.0),
             child: Column(
-              crossAxisAlignment: .start,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 SizedBox(
                   width: 100,
@@ -54,10 +57,10 @@ class _CreatePasswordScreenState extends State<CreatePasswordScreen> {
                 ),
                 Spacer(),
                 Column(
-                  crossAxisAlignment: .start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Row(
-                      crossAxisAlignment: .center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         SizedBox(
                           width: 24,
@@ -66,7 +69,7 @@ class _CreatePasswordScreenState extends State<CreatePasswordScreen> {
                         ),
                         context.szBoxWidth8,
                         Text(
-                          "Phone number",
+                          "auth.phone_number".tr(),
                           style: context.semiboldMd.copyWith(
                             color: context.textDisabled,
                           ),
@@ -75,7 +78,7 @@ class _CreatePasswordScreenState extends State<CreatePasswordScreen> {
                     ),
                     context.szBoxHeight20,
                     Row(
-                      crossAxisAlignment: .center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         SizedBox(
                           width: 24,
@@ -84,7 +87,7 @@ class _CreatePasswordScreenState extends State<CreatePasswordScreen> {
                         ),
                         context.szBoxWidth8,
                         Text(
-                          "Verification code",
+                          "auth.verification_code".tr(),
                           style: context.semiboldMd.copyWith(
                             color: context.textDisabled,
                           ),
@@ -97,10 +100,10 @@ class _CreatePasswordScreenState extends State<CreatePasswordScreen> {
                       height: 36,
                       child: SvgPicture.asset(Assets.iconsKey),
                     ),
-                    Text("Password", style: context.boldDisplayXs),
+                    Text("auth.password".tr(), style: context.boldDisplayXs),
                     context.szBoxHeight8,
                     Text(
-                      "Create a password to secure your account.",
+                      "auth.create_password".tr(),
                       style: context.textMd.copyWith(
                         color: context.textSecondary,
                       ),
@@ -114,7 +117,7 @@ class _CreatePasswordScreenState extends State<CreatePasswordScreen> {
                           color: context.bgElevated,
                         ),
                         child: Column(
-                          mainAxisSize: .max,
+                          mainAxisSize: MainAxisSize.max,
                           children: [
                             TextFormField(
                               focusNode: _focusNode1,
@@ -128,7 +131,7 @@ class _CreatePasswordScreenState extends State<CreatePasswordScreen> {
                               obscureText: isObs1,
                               decoration: InputDecoration(
                                 contentPadding: context.k16Padding,
-                                hintText: "Create new password",
+                                hintText: "auth.create_new_password".tr(),
                                 hintStyle: context.mediumMutedMd.copyWith(
                                   color: context.textDisabled,
                                 ),
@@ -239,7 +242,7 @@ class _CreatePasswordScreenState extends State<CreatePasswordScreen> {
                                       decoration: InputDecoration(
                                         fillColor: context.bgElevated,
                                         filled: true,
-                                        hintText: "Confirm new password",
+                                        hintText: "auth.confirm_new_password".tr(),
                                         hintStyle: context.mediumMutedMd
                                             .copyWith(
                                               color: context.textDisabled,

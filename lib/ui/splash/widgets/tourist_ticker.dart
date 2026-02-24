@@ -1,11 +1,10 @@
 /* January 2026 , Baxrom Rajabov, Tashkent , Uzbekistan */
 
-
-
 import 'dart:async' show Timer;
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart' show SvgPicture;
+import 'package:easy_localization/easy_localization.dart';
 import 'package:touristapp/generated/assets.dart' show Assets;
 import 'package:touristapp/ui/widgets/animated_switcher.dart' show AppAnimatedSwitcher;
 
@@ -18,14 +17,7 @@ class TouristTicker extends StatefulWidget {
 
 class _TouristTickerState extends State<TouristTicker> {
   // Your specific list of texts and icons
-  final List<Map<String, dynamic>> _items = [
-    {'text': 'Cashback & bonuses', 'icon': Assets.iconsTextBonus},
-    {'text': 'Safe with you', 'icon': Assets.iconsTextSafe},
-    {'text': 'World-wide usage', 'icon': Assets.iconsTextGlobe},
-    {'text': 'Fast money transfers', 'icon': Assets.iconsTextCard},
-    {'text': 'All in one wallet', 'icon': Assets.iconsTextWallet},
-    {'text': 'Fast QR payments', 'icon': Assets.iconsTextQr},
-  ];
+  late final List<Map<String, dynamic>> _items;
 
   late FixedExtentScrollController _controller;
   Timer? _timer;
@@ -34,6 +26,16 @@ class _TouristTickerState extends State<TouristTicker> {
   @override
   void initState() {
     super.initState();
+
+    _items = [
+      {'text': 'ticker.cashback_bonuses'.tr(), 'icon': Assets.iconsTextBonus},
+      {'text': 'ticker.safe_with_you'.tr(), 'icon': Assets.iconsTextSafe},
+      {'text': 'ticker.worldwide_usage'.tr(), 'icon': Assets.iconsTextGlobe},
+      {'text': 'ticker.fast_transfers'.tr(), 'icon': Assets.iconsTextCard},
+      {'text': 'ticker.all_in_one'.tr(), 'icon': Assets.iconsTextWallet},
+      {'text': 'ticker.fast_qr'.tr(), 'icon': Assets.iconsTextQr},
+    ];
+
     _controller = FixedExtentScrollController();
 
     // Start the auto-scroll timer
@@ -61,10 +63,8 @@ class _TouristTickerState extends State<TouristTicker> {
       child: ListWheelScrollView.useDelegate(
         controller: _controller,
         itemExtent: 50,
-        // Height of each row
         physics: NeverScrollableScrollPhysics(),
         perspective: 0.00001,
-        // Flat look like your video
         onSelectedItemChanged: (index) {
           setState(() => _currentIndex = index % _items.length);
         },
@@ -76,7 +76,6 @@ class _TouristTickerState extends State<TouristTicker> {
               mainAxisAlignment: .start,
               crossAxisAlignment: .center,
               children: [
-                // Icon/Emoji
                 AppAnimatedSwitcher(
                   reverseDuration: Duration(milliseconds: 100),
                   child: isActive

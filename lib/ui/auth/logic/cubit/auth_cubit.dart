@@ -47,7 +47,7 @@ class AuthCubit extends Cubit<AuthState> {
         emit(
           state.copyWith(
             confirmStatus: ApiStatus.success,
-            isRegistered: response.data['is_registered'] ?? false,
+            isRegistered: response.data ?? false,
           ),
         );
       } else {

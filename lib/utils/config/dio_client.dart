@@ -11,7 +11,8 @@ Future<Dio> createDio() async {
   // final String baseUrl = await methodChannel.invokeMethod('getKey', {
   //   'key': 'BASE_URL',
   // });
-  final String baseUrl = "https://staging-tourist-app.cloudgate.uz";
+  // final String baseUrl = "https://staging-tourist-app.cloudgate.uz";
+  final String baseUrl = "https://tourist-app.cloudgate.uz";
   final dio = Dio(
     BaseOptions(
       baseUrl: baseUrl,
@@ -27,6 +28,7 @@ Future<Dio> createDio() async {
 
 bool _validateStatus(int? statusCode) {
   if (statusCode != null) {
+
     return true;
   } else {
     return false;

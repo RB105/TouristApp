@@ -1,0 +1,48 @@
+{
+  "auth": {
+    "login": "Kirish",
+    "register": "Ro'yxatdan o'tish",
+    "email": "Elektron pochta",
+    "password": "Parol",
+    "confirm_password": "Parolni tasdiqlang",
+    "remember_me": "Meni eslab qol",
+    "forgot_password": "Parolni unutdingizmi?",
+    "phone_number": "Telefon raqami",
+    "verification_code": "Tasdiqlash kodi",
+    "create_password": "Hisobingizni himoya qilish uchun parol yarating.",
+    "create_new_password": "Yangi parol yarating",
+    "confirm_new_password": "Yangi parolni tasdiqlang",
+    "verification_message": "Sizga 6 xonali kod\n+{phone} raqamiga Telegram orqali yuborildi.\n\"Tasdiqlash kodlari\" chatini tekshiring",
+    "resend_in": "Qayta yuborish {seconds} soniyada",
+    "enter_phone": "Tasdiqlash kodini olish uchun \ntelefon raqamingizni kiriting.",
+    "enter_phone_placeholder": "Telefon raqamini kiriting"
+  },
+  "onboarding": {
+    "tagline": "Bitta hamyon. Chegarasiz.",
+    "subtitle": "Global o'tkazmalar, oddiy to'lovlar.",
+    "get_started": "Boshlash"
+  },
+  "ticker": {
+    "tourist_tip": "Turist maslahat",
+    "local_insight": "Mahalliy ma'lumot",
+    "travel_hack": "Sayohat hayflaydi",
+    "did_you_know": "Bilasizmi?",
+    "cashback_bonuses": "Keshbek va bonuslar",
+    "safe_with_you": "Siz bilan xavfsiz",
+    "worldwide_usage": "Dunyo bo'ylab foydalanish",
+    "fast_transfers": "Tez pul o'tkazmalari",
+    "all_in_one": "Hammasi bitta hamyonda",
+    "fast_qr": "Tez QR to'lovlar"
+  },
+  "errors": {
+    "error_other": "Kutilmagan xatolik yuz berdi",
+    "error_unknown": "Noma'lum xatolik yuz berdi",
+    "error_400": "Noto'g'ri so'rov",
+    "error_401": "Ruxsatsiz kirish",
+    "error_500": "Serverda ichki xatolik",
+    "error_502": "Gateway xatosi",
+    "error_503": "Xizmat mavjud emas",
+    "error_timeout": "Ulanish vaqti tugadi",
+    "error_connection": "Ulanish xatosi. Internetni tekshiring"
+  }
+}

@@ -7,6 +7,8 @@ enum ErrorType {
   connectionError,
 
   // clint errors
+  badRequest_400,
+
   unAuthorized_401,
 
   forbidden_403,

@@ -88,29 +88,35 @@ class ApiClient {
         }
 
         return NetworkResponse.error(error: 'errors.error_unknown'.tr());
-      case 401:
+      case 400:
         return NetworkResponse.error(
-          error: response.data ?? 'errors.error_401'.tr(),
+          error: response.data['message'] ?? 'errors.error_400'.tr(),
+          errorType: ErrorType.badRequest_400,
+          errorCode: response.data['code'] ?? 400,
+        );
+        case 401:
+        return NetworkResponse.error(
+          error: response.data['message'] ?? 'errors.error_401'.tr(),
           errorType: ErrorType.unAuthorized_401,
-          errorCode: 401,
+          errorCode: response.data['code'] ?? 401,
         );
       case 500:
         return NetworkResponse.error(
-          error: response.data ?? 'errors.error_500'.tr(),
+          error: response.data['message'] ?? 'errors.error_500'.tr(),
           errorType: ErrorType.internalServer_500,
-          errorCode: 500,
+          errorCode: response.data['code'] ?? 500,
         );
       case 502:
         return NetworkResponse.error(
-          error: response.data ?? 'errors.error_502'.tr(),
+          error: response.data['message'] ?? 'errors.error_502'.tr(),
           errorType: ErrorType.badGateway_502,
-          errorCode: 502,
+          errorCode: response.data['code'] ?? 502,
         );
       case 503:
         return NetworkResponse.error(
-          error: response.data ?? 'errors.error_503'.tr(),
+          error: response.data['message'] ?? 'errors.error_503'.tr(),
           errorType: ErrorType.serviceUnavailable_503,
-          errorCode: 503,
+          errorCode: response.data['code'] ?? 503,
         );
       default:
         return NetworkResponse.error(error: 'errors.error_unknown'.tr());

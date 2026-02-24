@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart' show SvgPicture;
+import 'package:easy_localization/easy_localization.dart';
 import 'package:touristapp/generated/assets.dart' show Assets;
 import 'package:touristapp/ui/auth/logic/cubit/auth_cubit.dart';
 import 'package:touristapp/ui/auth/view/otp_screen.dart' show OtpScreen;
@@ -56,9 +57,9 @@ class _AuthScreenState extends State<AuthScreen> {
   String _getPhoneNumber() {
     final digits = _phoneController.text.replaceAll(RegExp(r'\D'), '');
     if (iso == 'UZ') {
-      return '+998$digits';
+      return '998$digits';
     } else if (iso == 'RU') {
-      return '+7$digits';
+      return '7$digits';
     }
     return '';
   }
@@ -95,7 +96,7 @@ class _AuthScreenState extends State<AuthScreen> {
           if (state.registerStatus == ApiStatus.error) {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
-                content: Text(state.errorMessage ?? "An error occurred"),
+                content: Text(state.errorMessage ?? "errors.error_unknown".tr()),
               ),
             );
           } else if (state.registerStatus == ApiStatus.success) {
@@ -135,10 +136,10 @@ class _AuthScreenState extends State<AuthScreen> {
                             height: 36,
                             child: SvgPicture.asset(Assets.iconsAuthPhone),
                           ),
-                          Text("Phone number", style: context.boldDisplayXs),
+                          Text("auth.phone_number".tr(), style: context.boldDisplayXs),
                           context.szBoxHeight20,
                           Text(
-                            "Enter your phone number to \nget confirmation code.",
+                            "auth.enter_phone".tr(),
                             style: context.textMd.copyWith(
                               color: context.textSecondary,
                             ),
@@ -156,7 +157,7 @@ class _AuthScreenState extends State<AuthScreen> {
                               ),
                               context.szBoxWidth8,
                               Text(
-                                "Verification code",
+                                "auth.verification_code".tr(),
                                 style: context.semiboldMd.copyWith(
                                   color: context.textDisabled,
                                 ),
@@ -174,7 +175,7 @@ class _AuthScreenState extends State<AuthScreen> {
                               ),
                               context.szBoxWidth8,
                               Text(
-                                "Password",
+                                "auth.password".tr(),
                                 style: context.semiboldMd.copyWith(
                                   color: context.textDisabled,
                                 ),
@@ -195,7 +196,7 @@ class _AuthScreenState extends State<AuthScreen> {
                             decoration: InputDecoration(
                               fillColor: context.bgElevated,
                               filled: true,
-                              hintText: "Enter phone number",
+                              hintText: "auth.enter_phone_placeholder".tr(),
                               hintStyle: context.mediumMutedMd.copyWith(
                                 color: context.textDisabled,
                               ),

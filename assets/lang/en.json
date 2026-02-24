@@ -1,0 +1,44 @@
+{
+  "auth": {
+    "login": "Login",
+    "register": "Register",
+    "email": "Email",
+    "password": "Password",
+    "confirm_password": "Confirm Password",
+    "remember_me": "Remember Me",
+    "forgot_password": "Forgot Your Password?",
+    "phone_number": "Phone number",
+    "verification_code": "Verification code",
+    "create_password": "Create a password to secure your account.",
+    "create_new_password": "Create new password",
+    "confirm_new_password": "Confirm new password",
+    "verification_message": "We've sent you a 6-digit code to\n+{phone} via Telegram.\nPlease check out \"Verification Codes\" chat",
+    "resend_in": "Resend in {seconds} sec",
+    "enter_phone": "Enter your phone number to \nget confirmation code.",
+    "enter_phone_placeholder": "Enter phone number"
+  },
+  "onboarding": {
+    "tagline": "One wallet. No limits.",
+    "subtitle": "Global transfers, payments made simple.",
+    "get_started": "Get started"
+  },
+  "ticker": {
+    "cashback_bonuses": "Cashback & bonuses",
+    "safe_with_you": "Safe with you",
+    "worldwide_usage": "World-wide usage",
+    "fast_transfers": "Fast money transfers",
+    "all_in_one": "All in one wallet",
+    "fast_qr": "Fast QR payments"
+  },
+  "errors": {
+    "error_other": "An unexpected error occurred",
+    "error_unknown": "Unknown error occurred",
+    "error_400": "Bad request",
+    "error_401": "Unauthorized access",
+    "error_500": "Internal server error",
+    "error_502": "Bad gateway",
+    "error_503": "Service unavailable",
+    "error_timeout": "Connection timeout",
+    "error_connection": "Connection error. Please check your internet"
+  }
+}

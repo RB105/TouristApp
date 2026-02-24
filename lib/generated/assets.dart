@@ -24,6 +24,9 @@ class Assets {
   static const String imagesPasswordBg = 'assets/images/password_bg.svg';
   static const String imagesState1 = 'assets/images/state1.svg';
   static const String imagesState6 = 'assets/images/state6.svg';
+  static const String langEn = 'assets/lang/en.json';
+  static const String langRu = 'assets/lang/ru.json';
+  static const String langUz = 'assets/lang/uz.json';
   static const String lottiesGlobe = 'assets/lotties/globe.json';
 
 }

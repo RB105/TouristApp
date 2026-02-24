@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:lottie/lottie.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:touristapp/generated/assets.dart';
 import 'package:touristapp/ui/auth/view/auth_screen.dart';
 import 'package:touristapp/ui/splash/widgets/tourist_ticker.dart' show TouristTicker;
@@ -61,18 +62,18 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 mainAxisSize: MainAxisSize.min,
                                 children: [
-                                  const Text(
-                                    "One wallet. No limits.",
-                                    style: TextStyle(
+                                  Text(
+                                    "onboarding.tagline".tr(),
+                                    style: const TextStyle(
                                       fontSize: 20,
                                       color: Colors.white,
                                       fontWeight: FontWeight.bold,
                                     ),
                                   ),
                                   const SizedBox(height: 4),
-                                  const Text(
-                                    "Global transfers, payments made simple.",
-                                    style: TextStyle(color: Colors.white),
+                                  Text(
+                                    "onboarding.subtitle".tr(),
+                                    style: const TextStyle(color: Colors.white),
                                   ),
                                   const SizedBox(height: 20),
                                   SizedBox(
@@ -89,9 +90,9 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                                           ),
                                         );
                                       },
-                                      child: const Text(
-                                        "Get started",
-                                        style: TextStyle(color: Colors.white),
+                                      child: Text(
+                                        "onboarding.get_started".tr(),
+                                        style: const TextStyle(color: Colors.white),
                                       ),
                                     ),
                                   ),

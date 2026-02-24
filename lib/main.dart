@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:size_config/size_config.dart' show SizeConfigInit;
 import 'package:touristapp/ui/splash/on_boarding_screen.dart';
@@ -7,7 +8,16 @@ import 'package:touristapp/utils/di/di.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   setUpDI();
-  runApp(const TouristApp());
+  runApp(
+    EasyLocalization(
+      startLocale: const Locale('uz'),
+      fallbackLocale: const Locale('uz'),
+      supportedLocales: [Locale('uz'), Locale('ru'), Locale('en')],
+      path: 'assets/lang',
+      saveLocale: true,
+      child: const TouristApp(),
+    ),
+  );
 }
 
 class TouristApp extends StatelessWidget {
@@ -30,6 +40,9 @@ class TouristApp extends StatelessWidget {
               duration: Duration(milliseconds: 650),
               reverseDuration: Duration(milliseconds: 500),
             ),
+            localizationsDelegates: ctx.localizationDelegates,
+            supportedLocales: ctx.supportedLocales,
+            locale: ctx.locale,
             themeAnimationDuration: const Duration(milliseconds: 650),
             title: 'Tourist App',
             debugShowCheckedModeBanner: false,
