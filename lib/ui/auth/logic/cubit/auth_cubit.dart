@@ -18,7 +18,7 @@ class AuthCubit extends Cubit<AuthState> {
         emit(
           state.copyWith(
             registerStatus: ApiStatus.success,
-            secretKey: response.data ?? "",
+            isRegistered: response.data,
           ),
         );
       } else {
@@ -39,7 +39,7 @@ class AuthCubit extends Cubit<AuthState> {
     }
   }
 
-  void verifyOtp({required String phone, required int otp}) async {
+  void verifyOtp({required String phone, required String otp}) async {
     emit(state.copyWith(confirmStatus: ApiStatus.loading));
     try {
       final response = await authService.verifyOtp(phone: phone, otp: otp);
@@ -47,7 +47,7 @@ class AuthCubit extends Cubit<AuthState> {
         emit(
           state.copyWith(
             confirmStatus: ApiStatus.success,
-            isRegistered: response.data ?? false,
+            secretKey: response.data,
           ),
         );
       } else {
@@ -84,7 +84,7 @@ class AuthCubit extends Cubit<AuthState> {
         emit(
           state.copyWith(
             registerPasswordStatus: ApiStatus.success,
-            registerSuccess: response.data ?? false,
+            registerSuccess: true,
           ),
         );
       } else {

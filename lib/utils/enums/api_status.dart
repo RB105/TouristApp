@@ -9,4 +9,6 @@ enum ApiStatus {
 
   /// The API call failed due to an error.
   error,
+
+  initial,
 }

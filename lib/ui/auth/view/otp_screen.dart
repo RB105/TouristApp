@@ -3,12 +3,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart' show SvgPicture;
-import 'package:easy_localization/easy_localization.dart' show StringTranslateExtension;
+import 'package:easy_localization/easy_localization.dart'
+    show StringTranslateExtension;
 import 'package:pinput/pinput.dart';
 import 'package:touristapp/generated/assets.dart' show Assets;
 import 'package:touristapp/ui/auth/logic/cubit/auth_cubit.dart';
 import 'package:touristapp/ui/auth/view/register_screen.dart';
-import 'package:touristapp/ui/widgets/animated_auth_background.dart';
 import 'package:touristapp/utils/di/di.dart';
 import 'package:touristapp/utils/extensions/color_extension.dart'
     show ColorExtension;
@@ -20,12 +20,10 @@ import 'package:touristapp/utils/modal/modal_dialogs.dart';
 
 class OtpScreen extends StatefulWidget {
   final String phoneNumber;
-  final String secretKey;
 
   const OtpScreen({
     super.key,
     required this.phoneNumber,
-    required this.secretKey,
   });
 
   @override
@@ -53,22 +51,21 @@ class _OtpScreenState extends State<OtpScreen> {
         listener: (context, state) {
           if (state.confirmStatus == .success) {
             ModalDialogs.dismissCurrentDialog();
-            if (state.isRegistered ?? false) {
               Navigator.of(context).push(
                 MaterialPageRoute(
                   builder: (context) => RegisterScreen(
                     phoneNumber: widget.phoneNumber,
-                    secretKey: widget.secretKey,
+                    secretKey: state.secretKey ?? "",
                   ),
                 ),
               );
-            } else {
-              // Handle case when user is not registered
-            }
+
           } else if (state.confirmStatus == .error) {
             ModalDialogs.dismissCurrentDialog();
-            ModalDialogs.showErrorDialog(context, title: state.confirmErrorMessage ?? "");
-            // Handle error case, e.g., show a snackbar with state.confirmErrorMessage
+            ModalDialogs.showErrorDialog(
+              context,
+              title: state.confirmErrorMessage ?? "",
+            );
           } else if (state.confirmStatus == .loading) {
             // Optionally show a loading indicator
             ModalDialogs.showLoader(context);
@@ -77,7 +74,7 @@ class _OtpScreenState extends State<OtpScreen> {
         builder: (context, state) => Stack(
           children: [
             Positioned.fill(
-              child: AnimatedAuthBackground(svgAsset: Assets.imagesState6),
+              child: SvgPicture.asset(Assets.imagesState6, fit: .cover),
             ),
             SafeArea(
               child: Padding(
@@ -121,10 +118,15 @@ class _OtpScreenState extends State<OtpScreen> {
                             Assets.iconsVerificationActive,
                           ),
                         ),
-                        Text("auth.verification_code".tr(), style: context.boldDisplayXs),
+                        Text(
+                          "auth.verification_code".tr(),
+                          style: context.boldDisplayXs,
+                        ),
                         context.szBoxHeight20,
                         Text(
-                          "auth.verification_message".tr(namedArgs: {'phone': widget.phoneNumber}),
+                          "auth.verification_message".tr(
+                            namedArgs: {'phone': widget.phoneNumber},
+                          ),
                           style: context.textMd.copyWith(
                             color: context.textSecondary,
                           ),
@@ -158,7 +160,9 @@ class _OtpScreenState extends State<OtpScreen> {
                             child: Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: Text(
-                                "auth.resend_in".tr(namedArgs: {'seconds': '126'}),
+                                "auth.resend_in".tr(
+                                  namedArgs: {'seconds': '126'},
+                                ),
                                 style: context.textMd.copyWith(
                                   color: context.textDisabled,
                                 ),
@@ -173,7 +177,7 @@ class _OtpScreenState extends State<OtpScreen> {
                           onCompleted: (value) {
                             _authCubit.verifyOtp(
                               phone: widget.phoneNumber,
-                              otp: int.parse(_otpController.text),
+                              otp: _otpController.text,
                             );
                           },
                           onTapOutside: (event) =>

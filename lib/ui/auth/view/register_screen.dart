@@ -8,17 +8,19 @@ import 'package:easy_localization/easy_localization.dart'
     show StringTranslateExtension;
 import 'package:touristapp/generated/assets.dart' show Assets;
 import 'package:touristapp/ui/auth/logic/cubit/auth_cubit.dart';
-import 'package:touristapp/ui/home/home_screen.dart';
+import 'package:touristapp/ui/auth/view/auth_wallet_create.dart';
 import 'package:touristapp/ui/widgets/animated_auth_background.dart';
 import 'package:touristapp/ui/widgets/animated_switcher.dart'
     show AppAnimatedSwitcher;
 import 'package:touristapp/utils/di/di.dart';
+import 'package:touristapp/utils/enums/api_status.dart';
 import 'package:touristapp/utils/extensions/color_extension.dart'
     show ColorExtension;
 import 'package:touristapp/utils/extensions/context_extensions.dart'
     show ContextExtensions;
 import 'package:touristapp/utils/extensions/text_styles_extension.dart'
     show TextStyles;
+import 'package:touristapp/utils/modal/modal_dialogs.dart';
 
 class RegisterScreen extends StatefulWidget {
   final String phoneNumber;
@@ -48,18 +50,40 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
   final AuthCubit _authCubit = getIt<AuthCubit>();
 
-  bool get _isValid => false;
+  bool get _isValid => _password1Controller.text == _password2Controller.text;
 
   @override
   Widget build(BuildContext context) => Scaffold(
     body: BlocProvider.value(
       value: _authCubit,
       child: BlocConsumer<AuthCubit, AuthState>(
-        listener: (context, state) {},
+        listener: (context, state) {
+          switch (state.registerPasswordStatus) {
+            case ApiStatus.success:
+              ModalDialogs.dismissCurrentDialog();
+              Navigator.of(context).pushAndRemoveUntil(
+                MaterialPageRoute(builder: (context) => AuthWalletCreate()),
+                (route) => false,
+              );
+              break;
+            case ApiStatus.loading:
+              ModalDialogs.showLoader(context);
+              break;
+            case ApiStatus.error:
+              ModalDialogs.dismissCurrentDialog();
+              ModalDialogs.showErrorDialog(
+                context,
+                title: state.registerErrorMessage ?? "",
+              );
+              break;
+            case ApiStatus.initial:
+              break;
+          }
+        },
         builder: (context, state) => Stack(
           children: [
             Positioned.fill(
-              child: AnimatedAuthBackground(svgAsset: Assets.imagesPasswordBg),
+              child: SvgPicture.asset(Assets.imagesPasswordBg, fit: .cover),
             ),
             SafeArea(
               child: Padding(
@@ -319,12 +343,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                                     height: 40,
                                                     child: DecoratedBox(
                                                       decoration: BoxDecoration(
-                                                        color:
-                                                            _password2Controller
-                                                                .text
-                                                                .isEmpty
-                                                            ? context.bgMuted
-                                                            : context.primary,
+                                                        color: _isValid
+                                                            ? context.primary
+                                                            : context.bgMuted,
                                                         borderRadius:
                                                             BorderRadius.circular(
                                                               28,
@@ -333,8 +354,16 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                                       child: InkWell(
                                                         onTap: () {
                                                           HapticFeedback.mediumImpact();
-                                                          if(_isValid) {
-                                                            // _authCubit
+                                                          if (_isValid) {
+                                                            _authCubit.setPassword(
+                                                              password:
+                                                                  _password1Controller
+                                                                      .text,
+                                                              phone: widget
+                                                                  .phoneNumber,
+                                                              key: widget
+                                                                  .secretKey,
+                                                            );
                                                           }
                                                         },
                                                         child: SizedBox(

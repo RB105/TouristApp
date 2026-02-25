@@ -305,14 +305,6 @@ class _RegisterScreenState extends State<LoginScreen> {
                                                   child: InkWell(
                                                     onTap: () {
                                                       HapticFeedback.mediumImpact();
-                                                      Navigator.of(
-                                                        context,
-                                                      ).push(
-                                                        MaterialPageRoute(
-                                                          builder: (context) =>
-                                                              HomeScreen(),
-                                                        ),
-                                                      );
                                                     },
                                                     child: SizedBox(
                                                       width: 24,

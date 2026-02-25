@@ -1,22 +1,25 @@
 /* February 2026 , Baxrom Rajabov, Tashkent , Uzbekistan */
 
+import 'package:get_storage/get_storage.dart';
 import 'package:touristapp/utils/config/api_client.dart';
 import 'package:touristapp/utils/config/response_config.dart';
 import 'package:touristapp/utils/const/endpoints.dart';
+import 'package:touristapp/utils/di/di.dart';
 
 class AuthService {
+  final _getStorage = getIt<GetStorage>();
   final ApiClient apiClient;
 
   AuthService(this.apiClient);
 
   Future<NetworkResponse> register({required String phone}) async {
     final response = await apiClient.post(
-      endPoint: Endpoints.telegramVerify,
-      params: {"phone_number": phone, "otp_type": 1},
+      endPoint: Endpoints.register,
+      params: {"imprement": phone, "social_type": 1},
     );
 
     if (response.isSuccess) {
-      return NetworkResponse.success(data: response.data['secret_key'] ?? "");
+      return NetworkResponse.success(data: true);
     }
 
     return response;
@@ -24,15 +27,15 @@ class AuthService {
 
   Future<NetworkResponse> verifyOtp({
     required String phone,
-    required int otp,
+    required String otp,
   }) async {
     final response = await apiClient.post(
-      endPoint: Endpoints.checkTelegramVerify,
-      params: {"phone_number": phone, "otp_code": otp},
+      endPoint: Endpoints.confirmOtp,
+      params: {"imprement": phone, "otp_code": otp,"social_type": 1},
     );
 
     if (response.isSuccess) {
-      return NetworkResponse.success(data: true);
+      return NetworkResponse.success(data: response.data['secret_key'] ?? "");
     }
     // else if login state
     else if (response.error == "You already registered") {
@@ -50,12 +53,18 @@ class AuthService {
     final response = await apiClient.post(
       endPoint: Endpoints.setPassword,
       params: {
-        "phone_number": phone,
+        "imprement": phone,
         "password": password,
         "confirm_password": password,
         "secret_key": key,
       },
     );
+
+    if (response.isSuccess) {
+      _getStorage.write("refresh_token", response.data['refresh']);
+      _getStorage.write("access_token", response.data['access']);
+      return NetworkResponse.success(data: true);
+    }
 
     return response;
   }
@@ -68,6 +77,12 @@ class AuthService {
       endPoint: Endpoints.setPassword,
       params: {"phone_number": phone, "password": password},
     );
+
+    if (response.isSuccess) {
+      _getStorage.write("refresh_token", response.data['refresh']);
+      _getStorage.write("access_token", response.data['access']);
+      return NetworkResponse.success(data: true);
+    }
 
     return response;
   }

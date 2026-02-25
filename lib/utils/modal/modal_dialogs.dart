@@ -2,12 +2,16 @@
 
 /* January 2026 , Baxrom Rajabov, Tashkent , Uzbekistan */
 
-import 'package:easy_localization/easy_localization.dart' show StringTranslateExtension;
+import 'package:easy_localization/easy_localization.dart'
+    show StringTranslateExtension;
 import 'package:flutter/material.dart';
 import 'package:touristapp/ui/widgets/app_loader.dart';
-import 'package:touristapp/utils/extensions/context_extensions.dart' show ContextExtensions;
-import 'package:touristapp/utils/extensions/primary_decoration_ext.dart' show PrimaryDecorationExt;
-import 'package:touristapp/utils/extensions/text_styles_extension.dart' show TextStyles;
+import 'package:touristapp/utils/extensions/context_extensions.dart'
+    show ContextExtensions;
+import 'package:touristapp/utils/extensions/primary_decoration_ext.dart'
+    show PrimaryDecorationExt;
+import 'package:touristapp/utils/extensions/text_styles_extension.dart'
+    show TextStyles;
 
 class ModalDialogs {
   static BuildContext? _dialogContext;
@@ -25,13 +29,13 @@ class ModalDialogs {
   }
 
   static Future<void> showErrorDialog(
-      BuildContext context, {
-        required String title,
-        bool? isDismissible,
-        String? message,
-        String? buttonText,
-        VoidCallback? onConfirm,
-      }) async {
+    BuildContext context, {
+    required String title,
+    bool? isDismissible,
+    String? message,
+    String? buttonText,
+    VoidCallback? onConfirm,
+  }) async {
     showDialog(
       context: context,
       barrierDismissible: isDismissible ?? true,
@@ -48,11 +52,7 @@ class ModalDialogs {
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  Text(
-                    title,
-                    textAlign: TextAlign.center,
-                    style: ctx.mediumMd,
-                  ),
+                  Text(title, textAlign: TextAlign.center, style: ctx.mediumMd),
                   context.szBoxHeight12,
                   if (message != null)
                     Text(
@@ -61,22 +61,13 @@ class ModalDialogs {
                       style: ctx.mediumMd,
                     ),
                   context.szBoxHeight24,
-                  SizedBox(
-                    width: double.infinity,
-                    height: 48,
-                    child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(),
-                      onPressed: () {
-                        Navigator.of(context).pop();
-                        if (onConfirm != null) onConfirm();
-                      },
-                      child: Text(
-                        buttonText ?? 'monitoring.close'.tr(),
-                        style: const TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 16,
-                        ),
+                  Center(
+                    child: Text(
+                      buttonText ?? 'monitoring.close'.tr(),
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 16,
                       ),
                     ),
                   ),

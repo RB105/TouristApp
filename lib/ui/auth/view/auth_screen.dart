@@ -96,16 +96,15 @@ class _AuthScreenState extends State<AuthScreen> {
           if (state.registerStatus == ApiStatus.error) {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
-                content: Text(state.errorMessage ?? "errors.error_unknown".tr()),
+                content: Text(
+                  state.errorMessage ?? "errors.error_unknown".tr(),
+                ),
               ),
             );
           } else if (state.registerStatus == ApiStatus.success) {
             Navigator.of(context).push(
               MaterialPageRoute(
-                builder: (context) => OtpScreen(
-                  phoneNumber: _getPhoneNumber(),
-                  secretKey: state.secretKey ?? "",
-                ),
+                builder: (context) => OtpScreen(phoneNumber: _getPhoneNumber()),
               ),
             );
           }
@@ -136,7 +135,10 @@ class _AuthScreenState extends State<AuthScreen> {
                             height: 36,
                             child: SvgPicture.asset(Assets.iconsAuthPhone),
                           ),
-                          Text("auth.phone_number".tr(), style: context.boldDisplayXs),
+                          Text(
+                            "auth.phone_number".tr(),
+                            style: context.boldDisplayXs,
+                          ),
                           context.szBoxHeight20,
                           Text(
                             "auth.enter_phone".tr(),

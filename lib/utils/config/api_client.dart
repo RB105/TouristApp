@@ -4,7 +4,6 @@ import 'package:dio/dio.dart'
     show Dio, DioException, DioExceptionType, Response;
 import 'package:easy_localization/easy_localization.dart'
     show StringTranslateExtension, Intl;
-import 'package:flutter/foundation.dart' show debugPrint;
 import 'package:touristapp/utils/config/response_config.dart'
     show NetworkResponse;
 import 'package:touristapp/utils/enums/error_type.dart' show ErrorType;
@@ -16,14 +15,11 @@ class ApiClient {
 
   /// Makes RPC POST request
   Future<NetworkResponse> post<T>({
-    required String? endPoint,
+    required String endPoint,
     Map<String, dynamic>? params,
   }) async {
     try {
-      debugPrint('\nRequest(url: $endPoint  , \n body: $params )');
-      final response = await dio.post(endPoint ?? '', data: params);
-
-      debugPrint('\nResponse(url: $endPoint , \n data: ${response.data} )');
+      final response = await dio.post(endPoint, data: params);
       return _getResponse(response);
     } on DioException catch (e) {
       return _catchException(e);
@@ -37,14 +33,11 @@ class ApiClient {
 
   /// Makes RPC GET request
   Future<NetworkResponse> get<T>({
-    required String? endPoint,
+    required String endPoint,
     Map<String, dynamic>? params,
   }) async {
     try {
-      debugPrint('\nRequest(url: $endPoint  , \n body: $params )');
-      final response = await dio.get(endPoint ?? '', data: params);
-
-      debugPrint('\nResponse(url: $endPoint , \n data: ${response.data} )');
+      final response = await dio.get(endPoint, data: params);
       return _getResponse(response);
     } on DioException catch (e) {
       return _catchException(e);
