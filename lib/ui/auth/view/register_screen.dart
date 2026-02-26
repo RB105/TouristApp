@@ -9,7 +9,6 @@ import 'package:easy_localization/easy_localization.dart'
 import 'package:touristapp/generated/assets.dart' show Assets;
 import 'package:touristapp/ui/auth/logic/cubit/auth_cubit.dart';
 import 'package:touristapp/ui/auth/view/auth_wallet_create.dart';
-import 'package:touristapp/ui/widgets/animated_auth_background.dart';
 import 'package:touristapp/ui/widgets/animated_switcher.dart'
     show AppAnimatedSwitcher;
 import 'package:touristapp/utils/di/di.dart';

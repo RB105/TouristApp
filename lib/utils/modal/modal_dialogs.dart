@@ -2,8 +2,6 @@
 
 /* January 2026 , Baxrom Rajabov, Tashkent , Uzbekistan */
 
-import 'package:easy_localization/easy_localization.dart'
-    show StringTranslateExtension;
 import 'package:flutter/material.dart';
 import 'package:touristapp/ui/widgets/app_loader.dart';
 import 'package:touristapp/utils/extensions/context_extensions.dart'
@@ -61,16 +59,7 @@ class ModalDialogs {
                       style: ctx.mediumMd,
                     ),
                   context.szBoxHeight24,
-                  Center(
-                    child: Text(
-                      buttonText ?? 'monitoring.close'.tr(),
-                      style: const TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 16,
-                      ),
-                    ),
-                  ),
+                  Center(child: Text(buttonText ?? "", style: context.textMd)),
                 ],
               ),
             ),

@@ -15,7 +15,7 @@ Future<void> _registerNetwork() async {
   // _registerIfNotExists<DeviceInfoInterceptor>(() => DeviceInfoInterceptor(deviceInfo: getIt<DeviceInfoService>(),storage: getIt<GetStorage>()));
 
   _setupDio();
-  _registerIfNotExists<ApiClient>(() => ApiClient(dio: getIt<Dio>()));
+  _registerIfNotExists<ApiClient>(() => ApiClient(dio: getIt<Dio>(),storage: getIt<GetStorage>()));
 }
 
 void _setupDio() {

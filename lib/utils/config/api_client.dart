@@ -4,21 +4,28 @@ import 'package:dio/dio.dart'
     show Dio, DioException, DioExceptionType, Response;
 import 'package:easy_localization/easy_localization.dart'
     show StringTranslateExtension, Intl;
+import 'package:get_storage/get_storage.dart';
 import 'package:touristapp/utils/config/response_config.dart'
     show NetworkResponse;
 import 'package:touristapp/utils/enums/error_type.dart' show ErrorType;
 
 class ApiClient {
   final Dio dio;
+  final GetStorage storage;
 
-  ApiClient({required this.dio});
+  ApiClient({required this.dio, required this.storage});
 
   /// Makes RPC POST request
   Future<NetworkResponse> post<T>({
     required String endPoint,
     Map<String, dynamic>? params,
+    bool? bearToken,
   }) async {
     try {
+      if (bearToken ?? false) {
+        dio.options.headers['Authorization'] =
+            "Bearer ${storage.read("access_token")}";
+      }
       final response = await dio.post(endPoint, data: params);
       return _getResponse(response);
     } on DioException catch (e) {
@@ -35,8 +42,13 @@ class ApiClient {
   Future<NetworkResponse> get<T>({
     required String endPoint,
     Map<String, dynamic>? params,
+    bool? bearToken,
   }) async {
     try {
+      if (bearToken ?? false) {
+        dio.options.headers['Authorization'] =
+            "Bearer ${storage.read("access_token")}";
+      }
       final response = await dio.get(endPoint, data: params);
       return _getResponse(response);
     } on DioException catch (e) {
@@ -53,9 +65,9 @@ class ApiClient {
     switch (response.statusCode) {
       case 200:
       case 201:
-        if (response.data['success'] == true) {
-          return NetworkResponse.success(data: response.data);
-        }
+        return NetworkResponse.success(data: response.data);
+
+        // ignore: dead_code
         final lang = Intl.getCurrentLocale();
 
         // Defensive parsing
@@ -87,7 +99,7 @@ class ApiClient {
           errorType: ErrorType.badRequest_400,
           errorCode: response.data['code'] ?? 400,
         );
-        case 401:
+      case 401:
         return NetworkResponse.error(
           error: response.data['message'] ?? 'errors.error_401'.tr(),
           errorType: ErrorType.unAuthorized_401,

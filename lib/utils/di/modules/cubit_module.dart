@@ -4,4 +4,5 @@ part of '../di.dart';
 
 void _registerCubitModule() {
   getIt.registerFactory<AuthCubit>(() => AuthCubit(getIt<AuthService>()));
+  getIt.registerFactory<WalletCubit>(() => WalletCubit(getIt<WalletService>()));
 }

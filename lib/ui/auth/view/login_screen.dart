@@ -5,7 +5,6 @@ import 'package:flutter/services.dart' show HapticFeedback;
 import 'package:flutter_svg/flutter_svg.dart' show SvgPicture;
 import 'package:easy_localization/easy_localization.dart' show StringTranslateExtension;
 import 'package:touristapp/generated/assets.dart' show Assets;
-import 'package:touristapp/ui/home/home_screen.dart';
 import 'package:touristapp/ui/widgets/animated_auth_background.dart';
 import 'package:touristapp/ui/widgets/animated_switcher.dart'
     show AppAnimatedSwitcher;

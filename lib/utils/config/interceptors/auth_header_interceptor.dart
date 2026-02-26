@@ -10,10 +10,12 @@ class AuthHeaderInterceptor extends Interceptor {
 
   @override
   void onRequest(RequestOptions options, RequestInterceptorHandler handler) {
-    final token = storage.read<String>('access_token');
-    if (token != null && token.isNotEmpty) {
-      options.headers['Authorization'] = 'Bearer $token';
+    final accessToken = storage.read<String>('access_token');
+
+    if (accessToken != null) {
+      options.headers['Authorization'] = 'Bearer $accessToken';
     }
-    super.onRequest(options, handler);
+
+    handler.next(options);
   }
 }
