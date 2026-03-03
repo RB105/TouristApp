@@ -80,6 +80,9 @@ extension ContextExtensions on BuildContext {
   EdgeInsets get k16horizontalPadding => EdgeInsets.symmetric(horizontal: 16);
   EdgeInsets get k20horizontalPadding => EdgeInsets.symmetric(horizontal: 20);
   EdgeInsets get k32horizontalPadding => EdgeInsets.symmetric(horizontal: 32);
+  EdgeInsets get k32Padding => EdgeInsets.all(32);
+  EdgeInsets get k24Padding => EdgeInsets.all(24);
+  EdgeInsets get k20Padding => EdgeInsets.all(20);
   EdgeInsets get k16Padding => EdgeInsets.all(16);
   EdgeInsets get k12Padding => EdgeInsets.all(12);
   EdgeInsets get k8Padding => EdgeInsets.all(8);

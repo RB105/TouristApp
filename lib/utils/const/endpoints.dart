@@ -7,6 +7,8 @@ class Endpoints {
 
   static const String refreshToken = '/v1/auth/refresh/token/';
 
+  // QR code endpoints
+  static const String checkQr = '/v1/qr/check';
 
   // Wallet endpoints
   static const String createWallet = '/v1/wallet/create/';

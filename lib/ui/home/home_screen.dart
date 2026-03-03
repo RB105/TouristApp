@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:touristapp/generated/assets.dart';
 import 'package:touristapp/ui/home/chat/chat_screen.dart';
-import 'package:touristapp/ui/home/main/main_screen.dart';
+import 'package:touristapp/ui/home/main/ui/main_screen.dart';
 import 'package:touristapp/ui/home/monitoring/monitoring_screen.dart';
 import 'package:touristapp/ui/home/profile/profile_screen.dart';
 import 'package:touristapp/utils/extensions/color_extension.dart';

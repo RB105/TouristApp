@@ -9,13 +9,18 @@ Future<void> _registerNetwork() async {
 
   // Interceptors
   _registerIfNotExists<BaseHeadersInterceptor>(() => BaseHeadersInterceptor());
+  _registerIfNotExists<RefreshTokenInterceptor>(
+    () => RefreshTokenInterceptor(dio: dio, storage: getIt<GetStorage>()),
+  );
   _registerIfNotExists<AuthHeaderInterceptor>(
     () => AuthHeaderInterceptor(getIt<GetStorage>()),
   );
   // _registerIfNotExists<DeviceInfoInterceptor>(() => DeviceInfoInterceptor(deviceInfo: getIt<DeviceInfoService>(),storage: getIt<GetStorage>()));
 
   _setupDio();
-  _registerIfNotExists<ApiClient>(() => ApiClient(dio: getIt<Dio>(),storage: getIt<GetStorage>()));
+  _registerIfNotExists<ApiClient>(
+    () => ApiClient(dio: getIt<Dio>(), storage: getIt<GetStorage>()),
+  );
 }
 
 void _setupDio() {
@@ -24,6 +29,7 @@ void _setupDio() {
   dio.interceptors.addAll([
     getIt<BaseHeadersInterceptor>(),
     getIt<AuthHeaderInterceptor>(),
+    getIt<RefreshTokenInterceptor>(),
     // getIt<DeviceInfoInterceptor>(),
   ]);
 }

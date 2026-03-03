@@ -5,12 +5,14 @@ import 'package:flutter_svg/flutter_svg.dart' show SvgPicture;
 import 'package:touristapp/generated/assets.dart' show Assets;
 import 'package:touristapp/ui/widgets/primary_container.dart'
     show PrimaryContainer;
+import 'package:touristapp/ui/widgets/scale_widget_anim.dart';
 import 'package:touristapp/utils/extensions/color_extension.dart'
     show ColorExtension;
 import 'package:touristapp/utils/extensions/context_extensions.dart'
     show ContextExtensions;
 import 'package:touristapp/utils/extensions/text_styles_extension.dart'
     show TextStyles;
+import 'package:touristapp/utils/modal/modal_sheets.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
@@ -27,7 +29,17 @@ class _MainScreenState extends State<MainScreen> {
       title: Text("Main", style: context.semiboldMd),
       actions: [IconButton(onPressed: () {}, icon: Icon(Icons.notifications))],
     ),
-    floatingActionButton: CustomButton(onPressed: () {}),
+    floatingActionButton: ScaleWidgetAnim(
+      child: InkWell(
+        borderRadius: BorderRadius.circular(32),
+        onTap: () => ModalSheets.showQrScanner(context),
+        child: SizedBox(
+          width: 64,
+          height: 64,
+          child: SvgPicture.asset(Assets.iconsQrButton),
+        ),
+      ),
+    ),
     body: Padding(
       padding: context.k16Padding,
       child: Column(
@@ -114,76 +126,4 @@ class _MainScreenState extends State<MainScreen> {
       ),
     );
   }
-}
-
-class CustomButton extends StatefulWidget {
-  final Color? bgColor;
-  final BorderRadius? borderRadius;
-  final VoidCallback onPressed;
-  final String? text;
-  final Widget? child;
-
-  final TextStyle? textStyle;
-
-  final BorderSide? borderSide;
-
-  const CustomButton({
-    super.key,
-    this.bgColor,
-    this.borderRadius,
-    required this.onPressed,
-    this.text,
-    this.child,
-    this.textStyle,
-    this.borderSide,
-  });
-
-  @override
-  State<CustomButton> createState() => _CustomButtonState();
-}
-
-class _CustomButtonState extends State<CustomButton>
-    with SingleTickerProviderStateMixin {
-  late AnimationController _animationController;
-  late Animation<double> _scaleAnimation;
-
-  @override
-  void initState() {
-    super.initState();
-    _animationController = AnimationController(
-      duration: const Duration(milliseconds: 150),
-      vsync: this,
-    );
-
-    _scaleAnimation = Tween<double>(begin: 1.0, end: 0.95).animate(
-      CurvedAnimation(parent: _animationController, curve: Curves.bounceIn),
-    );
-  }
-
-  @override
-  void dispose() {
-    _animationController.dispose();
-    super.dispose();
-  }
-
-  void _handlePressed() {
-    _animationController.forward().then((_) {
-      _animationController.reverse();
-    });
-    widget.onPressed();
-  }
-
-  @override
-  Widget build(BuildContext context) => ScaleTransition(
-    scale: _scaleAnimation,
-    child: InkWell(
-      borderRadius: BorderRadius.circular(32),
-      onTap: _handlePressed,
-      child: SizedBox(
-        width: 64,
-        height: 64,
-        child: SvgPicture.asset(Assets.iconsQrButton),
-      ),
-    ),
-  );
 }

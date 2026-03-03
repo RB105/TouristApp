@@ -1,6 +1,7 @@
 /* January 2026 , Baxrom Rajabov, Tashkent , Uzbekistan */
 
 import 'package:flutter/material.dart';
+import 'package:touristapp/utils/extensions/color_extension.dart';
 
 extension TextStyles on BuildContext {
   // Regular (400)
@@ -86,7 +87,7 @@ extension TextStyles on BuildContext {
     final baseColor = color ?? (isLight ? Colors.black : Colors.white);
 
     // Muted color (simple + readable)
-    final mutedColor = isLight ? Colors.black54 : Colors.white70;
+    final mutedColor = textDisabled;
 
     return TextStyle(
 
