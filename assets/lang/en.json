@@ -15,7 +15,9 @@
     "verification_message": "We've sent you a 6-digit code to\n+{phone} via Telegram.\nPlease check out \"Verification Codes\" chat",
     "resend_in": "Resend in {seconds} sec",
     "enter_phone": "Enter your phone number to \nget confirmation code.",
-    "enter_phone_placeholder": "Enter phone number"
+    "enter_phone_placeholder": "Enter phone number",
+    "login_password": "Enter your password",
+    "login_password_desc": "Enter your password to access your account."
   },
   "onboarding": {
     "tagline": "One wallet. No limits.",

@@ -23,6 +23,7 @@ extension ContextExtensions on BuildContext {
   SizedBox get szBoxHeight20 => SizedBox(height: v20);
   SizedBox get szBoxHeight24 => SizedBox(height: v24);
   SizedBox get szBoxHeight32 => SizedBox(height: v32);
+  SizedBox get szBoxHeight36 => SizedBox(height: v36);
   SizedBox get szNavbarHeight => SizedBox(height: navBarHeight);
 
   SizedBox get szBoxWidth2 => SizedBox(width: h2);
@@ -45,6 +46,7 @@ extension ContextExtensions on BuildContext {
   double get v20 => SizeConfig.h(20);
   double get v24 => SizeConfig.h(24);
   double get v32 => SizeConfig.h(32);
+  double get v36 => SizeConfig.h(36);
   double get v40 => SizeConfig.h(40);
 
 
@@ -63,6 +65,7 @@ extension ContextExtensions on BuildContext {
   double get h20 => SizeConfig.w(20);
   double get h24 => SizeConfig.w(24);
   double get h32 => SizeConfig.w(32);
+  double get h36 => SizeConfig.w(36);
 
   /// decoration for container
 

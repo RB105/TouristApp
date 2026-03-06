@@ -7,6 +7,7 @@ import 'package:flutter_svg/svg.dart' show SvgPicture;
 import 'package:easy_localization/easy_localization.dart';
 import 'package:touristapp/generated/assets.dart' show Assets;
 import 'package:touristapp/ui/auth/logic/cubit/auth_cubit.dart';
+import 'package:touristapp/ui/auth/view/login_screen.dart';
 import 'package:touristapp/ui/auth/view/otp_screen.dart' show OtpScreen;
 
 import 'package:touristapp/ui/widgets/animated_auth_background.dart';
@@ -102,6 +103,14 @@ class _AuthScreenState extends State<AuthScreen> {
               ),
             );
           } else if (state.registerStatus == ApiStatus.success) {
+            if (state.isRegistered ?? false) {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) => LoginScreen(phoneNumber: _getPhoneNumber()),
+                ),
+              );
+              return;
+            }
             Navigator.of(context).push(
               MaterialPageRoute(
                 builder: (context) => OtpScreen(phoneNumber: _getPhoneNumber()),

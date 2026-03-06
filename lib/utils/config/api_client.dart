@@ -66,33 +66,66 @@ class ApiClient {
       case 200:
       case 201:
         return NetworkResponse.success(data: response.data);
+      default:
+        return _getErrorMessage(response);
+    }
+  }
 
-        // ignore: dead_code
-        final lang = Intl.getCurrentLocale();
+  NetworkResponse _getErrorMessage(Response response) {
+    final lang = Intl.getCurrentLocale();
 
-        // Defensive parsing
-        final error = response.data['error'];
-        if (error != null) {
-          final message = error['message'];
-          if (message is Map && message[lang] != null) {
-            return NetworkResponse.error(
-              error: message[lang],
-              errorCode: error['code'] ?? 0,
-            );
-          } else if (message is String) {
-            return NetworkResponse.error(error: message);
-          }
-        }
+    // Defensive parsing
+    final error = response.data['error'];
+    if (error != null) {
+      if (error is Map && error[lang] != null) {
+        return NetworkResponse.error(
+          error: error[lang],
+          errorCode: response.data['code'] ?? response.statusCode,
+        );
+      } else if (error is String) {
+        return NetworkResponse.error(error: error);
+      }
+    }
 
-        // If the API doesn't use "error" key but returns "message" instead
-        if (response.data['message'] != null) {
-          return NetworkResponse.error(
-            error: response.data['message'],
-            errorCode: response.data['code'] ?? 0,
-          );
-        }
+    // If the API doesn't use "error" key but returns "message" instead
+    if (response.data['message'] != null) {
+      return NetworkResponse.error(
+        error: response.data['message'],
+        errorCode: response.data['code'] ?? 0,
+      );
+    }
+    return _getErrorByResponse(response);
+  }
 
-        return NetworkResponse.error(error: 'errors.error_unknown'.tr());
+  NetworkResponse _catchException(DioException e) {
+    switch (e.type) {
+      case DioExceptionType.connectionTimeout:
+      case DioExceptionType.receiveTimeout:
+      case DioExceptionType.sendTimeout:
+        return NetworkResponse.error(
+          error: 'errors.error_timeout'.tr(),
+          errorType: ErrorType.timeout,
+        );
+      case DioExceptionType.connectionError:
+        return NetworkResponse.error(
+          error: 'errors.error_connection'.tr(),
+          errorType: ErrorType.connectionError,
+        );
+      case DioExceptionType.unknown:
+        return NetworkResponse.error(
+          error: 'errors.error_connection'.tr(),
+          errorType: ErrorType.connectionError,
+        );
+      default:
+        return NetworkResponse.error(
+          error: 'errors.error_other'.tr(),
+          errorType: ErrorType.other,
+        );
+    }
+  }
+
+  NetworkResponse _getErrorByResponse(Response response) {
+    switch (response.statusCode) {
       case 400:
         return NetworkResponse.error(
           error: response.data['message'] ?? 'errors.error_400'.tr(),
@@ -125,33 +158,6 @@ class ApiClient {
         );
       default:
         return NetworkResponse.error(error: 'errors.error_unknown'.tr());
-    }
-  }
-
-  NetworkResponse _catchException(DioException e) {
-    switch (e.type) {
-      case DioExceptionType.connectionTimeout:
-      case DioExceptionType.receiveTimeout:
-      case DioExceptionType.sendTimeout:
-        return NetworkResponse.error(
-          error: 'errors.error_timeout'.tr(),
-          errorType: ErrorType.timeout,
-        );
-      case DioExceptionType.connectionError:
-        return NetworkResponse.error(
-          error: 'errors.error_connection'.tr(),
-          errorType: ErrorType.connectionError,
-        );
-      case DioExceptionType.unknown:
-        return NetworkResponse.error(
-          error: 'errors.error_connection'.tr(),
-          errorType: ErrorType.connectionError,
-        );
-      default:
-        return NetworkResponse.error(
-          error: 'errors.error_other'.tr(),
-          errorType: ErrorType.other,
-        );
     }
   }
 }

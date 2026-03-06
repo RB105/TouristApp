@@ -34,7 +34,7 @@ class ModalDialogs {
     String? buttonText,
     VoidCallback? onConfirm,
   }) async {
-    showDialog(
+   await showDialog(
       context: context,
       barrierDismissible: isDismissible ?? true,
       barrierColor: Colors.black.withOpacity(0.3),
@@ -73,7 +73,7 @@ class ModalDialogs {
     _dialogContext = context;
   }
 
-  static Future<void> _afterComplete() async {
+  static void _afterComplete()  {
     _dialogContext = null;
   }
 

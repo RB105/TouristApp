@@ -104,4 +104,28 @@ class AuthCubit extends Cubit<AuthState> {
       );
     }
   }
+
+  void login(String phone, password) async {
+    emit(state.copyWith(loginStatus: .loading));
+    try {
+      final response = await authService.login(phone: phone, password: password);
+      if (response.isSuccess) {
+        emit(state.copyWith(loginStatus: .success));
+      } else {
+        emit(
+          state.copyWith(
+            loginStatus: .error,
+            loginErrorMessage: response.error.toString(),
+          ),
+        );
+      }
+    } catch (e) {
+      emit(
+        state.copyWith(
+          loginStatus: .error,
+          loginErrorMessage: e.toString(),
+        ),
+      );
+    }
+  }
 }

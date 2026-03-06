@@ -6,6 +6,7 @@ import 'package:flutter_svg/flutter_svg.dart' show SvgPicture;
 import 'package:mobile_scanner/mobile_scanner.dart';
 import 'package:touristapp/generated/assets.dart' show Assets;
 import 'package:touristapp/ui/home/main/logic/cubit/qr_cubit.dart';
+import 'package:touristapp/ui/home/main/ui/qr_amoun_screen.dart';
 import 'package:touristapp/ui/widgets/custom_button.dart';
 import 'package:touristapp/utils/di/di.dart';
 import 'package:touristapp/utils/extensions/context_extensions.dart';
@@ -23,11 +24,20 @@ class _QrScannerWidgetState extends State<QrScannerWidget> {
 
   final QrCubit _qrCubit = getIt<QrCubit>();
 
+  bool _isProcessing = false;
+
+  @override
+  void dispose() {
+    controller.dispose();
+    _qrCubit.close();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) => BlocProvider.value(
     value: _qrCubit,
     child: Scaffold(
-      body: BlocListener<QrCubit, QrState>(
+      body: BlocConsumer<QrCubit, QrState>(
         listener: (context, state) {
           if (state.qrCheckStatus == .loading) {
             ModalDialogs.showLoader(context);
@@ -37,13 +47,19 @@ class _QrScannerWidgetState extends State<QrScannerWidget> {
               context,
               title: state.qrCheckError ?? "",
             );
+            debugPrint("QR Check Error: ${state.qrCheckError}");
           } else if (state.qrCheckStatus == .success) {
             ModalDialogs.dismissCurrentDialog();
-            // navigation to result screen with state.qrCheckResult
             debugPrint(state.qrCheckResult?.amount.toString());
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) =>
+                    QrAmounScreen(qrCheckResult: state.qrCheckResult!),
+              ),
+            );
           }
         },
-        child: Stack(
+        builder: (context, state) => Stack(
           children: [
             Positioned.fill(
               child: SvgPicture.asset(Assets.imagesHomeBg, fit: .cover),
@@ -63,17 +79,12 @@ class _QrScannerWidgetState extends State<QrScannerWidget> {
                               MobileScanner(
                                 controller: controller,
                                 onDetect: (capture) {
-                                  final List<Barcode> barcodes =
-                                      capture.barcodes;
+                                  if (_isProcessing) return;
 
-                                  for (final barcode in barcodes) {
-                                    final String? value = barcode.rawValue;
-
-                                    if (value != null) {
-                                      debugPrint("QR ID: $value");
-                                      _qrCubit.checkQr(value);
-                                      return;
-                                    }
+                                  final value = capture.barcodes.first.rawValue;
+                                  if (value != null) {
+                                    _isProcessing = true;
+                                    _qrCubit.checkQr(value);
                                   }
                                 },
                               ),
@@ -134,8 +145,6 @@ class _ScannerOverlay extends StatelessWidget {
                 ],
               ),
             ),
-
-            /// White border frame
             Center(
               child: Container(
                 width: scanSize,

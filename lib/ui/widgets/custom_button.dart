@@ -67,7 +67,7 @@ class _CustomButtonState extends State<CustomButton>
   @override
   Widget build(BuildContext context) => SizedBox(
     width: double.infinity,
-    height: 48,
+    height: 56,
     child: ScaleTransition(
       scale: _scaleAnimation,
       child: ElevatedButton(

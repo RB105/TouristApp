@@ -10,8 +10,16 @@ class PrimaryContainer extends StatefulWidget {
   final double? radius;
   final Widget? child;
   final EdgeInsetsGeometry? padding;
+  final Color? bgColor;
 
-  const PrimaryContainer({super.key, this.children, this.radius, this.child, this.padding});
+  const PrimaryContainer({
+    super.key,
+    this.children,
+    this.radius,
+    this.child,
+    this.padding,
+    this.bgColor,
+  });
 
   @override
   State<PrimaryContainer> createState() => _PrimaryContainerState();
@@ -25,7 +33,7 @@ class _PrimaryContainerState extends State<PrimaryContainer> {
       child: DecoratedBox(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(widget.radius ?? 16),
-          color: context.bgElevated,
+          color: widget.bgColor ?? context.bgElevated,
         ),
         child: Padding(
           padding: widget.padding ?? context.k16Padding,

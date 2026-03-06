@@ -8,7 +8,7 @@ typedef KeyboardTapCallback = void Function(String text);
 class CustomKeyboard extends StatefulWidget {
   final TextStyle? textStyle;
 
-  final Icon? rightIcon;
+  final Widget? rightIcon;
 
   final void Function()? rightButtonFn;
 
@@ -56,7 +56,7 @@ class _CustomKeyboardState extends State<CustomKeyboard> {
             _calcButton('3'),
           ],
         ),
-        context.szBoxHeight20,
+        context.szBoxHeight8,
         OverflowBar(
           alignment: widget.mainAxisAlignment,
           children: <Widget>[
@@ -65,7 +65,7 @@ class _CustomKeyboardState extends State<CustomKeyboard> {
             _calcButton('6'),
           ],
         ),
-        context.szBoxHeight20,
+        context.szBoxHeight8,
         OverflowBar(
           alignment: widget.mainAxisAlignment,
           children: <Widget>[
@@ -74,7 +74,7 @@ class _CustomKeyboardState extends State<CustomKeyboard> {
             _calcButton('9'),
           ],
         ),
-        context.szBoxHeight20,
+        context.szBoxHeight8,
         OverflowBar(
           alignment: widget.mainAxisAlignment,
           children: <Widget>[
@@ -83,8 +83,8 @@ class _CustomKeyboardState extends State<CustomKeyboard> {
               onTap: widget.leftButtonFn,
               child: Container(
                 alignment: Alignment.center,
-                width: 50,
-                height: 50,
+                width: widget.width ?? 50,
+                height: widget.height ?? 50,
                 child: widget.leftIcon,
               ),
             ),
@@ -94,8 +94,8 @@ class _CustomKeyboardState extends State<CustomKeyboard> {
               onTap: widget.rightButtonFn,
               child: Container(
                 alignment: Alignment.center,
-                width: 50,
-                height: 50,
+                width: widget.width ?? 50,
+                height: widget.height ?? 50,
                 child: widget.rightIcon,
               ),
             ),

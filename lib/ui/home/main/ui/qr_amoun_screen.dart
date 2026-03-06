@@ -1,46 +1,181 @@
 /* March 2026 , Baxrom Rajabov, Tashkent , Uzbekistan */
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:touristapp/generated/assets.dart';
+import 'package:touristapp/ui/home/main/logic/cubit/qr_cubit.dart';
+import 'package:touristapp/ui/home/main/logic/model/qr_check_result.dart';
+import 'package:touristapp/ui/home/main/ui/qr_otp_screen.dart';
+import 'package:touristapp/ui/widgets/custom_button.dart';
 import 'package:touristapp/ui/widgets/custom_keyboard.dart';
+import 'package:touristapp/utils/di/di.dart';
+import 'package:touristapp/utils/enums/api_status.dart';
 import 'package:touristapp/utils/extensions/color_extension.dart';
 import 'package:touristapp/utils/extensions/context_extensions.dart';
 import 'package:touristapp/utils/extensions/text_styles_extension.dart';
+import 'package:touristapp/utils/modal/modal_dialogs.dart' show ModalDialogs;
 
 class QrAmounScreen extends StatefulWidget {
-  const QrAmounScreen({super.key});
+  final QrCheckResult qrCheckResult;
+
+  const QrAmounScreen({super.key, required this.qrCheckResult});
 
   @override
   State<QrAmounScreen> createState() => _QrAmounScreenState();
 }
 
 class _QrAmounScreenState extends State<QrAmounScreen> {
+  String _amount = "0";
+
+  final double minAmount = 1;
+  final double maxAmount = 10000;
+
+  final double minFontSize = 28;
+  final double maxFontSize = 48;
+
+  final QrCubit _qrCubit = getIt<QrCubit>();
+
+  double get _parsedAmount =>
+      double.tryParse(_amount.isEmpty ? "0" : _amount) ?? 0;
+
+  double get _calculatedFontSize {
+    final value = _parsedAmount.clamp(minAmount, maxAmount);
+
+    final percent = (value - minAmount) / (maxAmount - minAmount);
+
+    return maxFontSize - (maxFontSize - minFontSize) * percent;
+  }
+
+  void _onKeyboardTap(String text) {
+    setState(() {
+      _amount += text;
+    });
+  }
+
+  void _onBackspace() {
+    if (_amount.isEmpty) return;
+
+    setState(() {
+      _amount = _amount.substring(0, _amount.length - 1);
+    });
+  }
+
+  @override
+  void initState() {
+    if (widget.qrCheckResult.amount != 0) {
+      _amount = widget.qrCheckResult.amount.toStringAsFixed(2);
+    }
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) => Scaffold(
-    appBar: AppBar(title: Text("Pay")),
-    body: Column(
-      children: [
-        Text(
-          "Enter amount",
-          style: context.mediumMd.copyWith(color: context.textSecondary),
+    appBar: AppBar(title: const Text("Pay")),
+    body: BlocProvider.value(
+      value: _qrCubit,
+      child: BlocConsumer<QrCubit, QrState>(
+        listener: (context, state) {
+          if (state.paymentCreateStatus == .loading) {
+            ModalDialogs.showLoader(context);
+          } else if (state.paymentCreateStatus == .error) {
+            ModalDialogs.dismissCurrentDialog();
+            ModalDialogs.showErrorDialog(
+              context,
+              title: state.paymentCreateError,
+            );
+            debugPrint("Payment Create Error: ${state.paymentCreateError}");
+          } else if (state.paymentCreateStatus == .success) {
+            ModalDialogs.dismissCurrentDialog();
+            Navigator.of(context).push(MaterialPageRoute(builder: (context) => QrOtpScreen(extId: widget.qrCheckResult.extId),));
+          }
+        },
+        builder: (context, state) => Padding(
+          padding: context.k16Padding,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Text(
+                "Enter amount",
+                style: context.mediumMd.copyWith(color: context.textSecondary),
+              ),
+              context.szBoxHeight32,
+
+              ///
+              AnimatedDefaultTextStyle(
+                duration: const Duration(milliseconds: 200),
+                curve: Curves.easeInOut,
+                style: context.boldDisplayXl.copyWith(
+                  fontSize: _calculatedFontSize,
+                ),
+                child: Text("${_amount.isEmpty ? "0" : _amount} uzs"),
+              ),
+
+              context.szBoxHeight36,
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Text("Wallet balance: "),
+                  Text(
+                    "100.00",
+                    style: context.semiboldSm.copyWith(color: context.primary),
+                  ),
+                ],
+              ),
+              context.szBoxHeight16,
+              const Divider(),
+              context.szBoxHeight16,
+              const Text("Commission (1.5%)"),
+              context.szBoxHeight16,
+              const Text("0.00 USD"),
+              context.szBoxHeight8,
+              const Divider(),
+              Spacer(),
+              Visibility(
+                visible: widget.qrCheckResult.amount == 0,
+                child: CustomKeyboard(
+                  onKeyboardTap: _onKeyboardTap,
+                  height: 60,
+                  width: 60,
+                  leftButtonFn: () {
+                    if (!_amount.contains(".")) {
+                      setState(() => _amount += ".");
+                    }
+                  },
+                  leftIcon: SizedBox(
+                    width: 7,
+                    height: 34,
+                    child: SvgPicture.asset(Assets.iconsDot),
+                  ),
+                  rightButtonFn: _onBackspace,
+                  rightIcon: SizedBox(
+                    height: 33,
+                    width: 24,
+                    child: SvgPicture.asset(Assets.iconsArrowBack),
+                  ),
+                  textStyle: context.semiboldDisplaySm.copyWith(
+                    color: context.textSecondary,
+                  ),
+                ),
+              ),
+              const Spacer(),
+              CustomButton(
+                onPressed: () {
+                  if (state.paymentCreateStatus != ApiStatus.loading) {
+                    _qrCubit.createPayment(
+                      extId: widget.qrCheckResult.extId,
+                      qrId: widget.qrCheckResult.qrId,
+                      amount: double.parse(_amount),
+                    );
+                  }
+                },
+                text: "Continue",
+              ),
+              context.szBoxHeight20,
+            ],
+          ),
         ),
-        context.szBoxHeight32,
-        Text("\$ 100.00", style: context.boldDisplayXl),
-        Row(
-          children: [
-            Text("Wallet balance:"),
-            Text(
-              "100.00",
-              style: context.semiboldSm.copyWith(color: context.primary),
-            ),
-          ],
-        ),
-        Divider(),
-        Text("Commission (1.5%)"),
-        context.szBoxHeight8,
-        Text("0.00 USD", style: context.semiboldSm),
-        Divider(),
-        CustomKeyboard(onKeyboardTap: (text) {}),
-      ],
+      ),
     ),
   );
 }

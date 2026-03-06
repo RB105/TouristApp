@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:easy_localization/easy_localization.dart' show BuildContextEasyLocalizationExtension, EasyLocalization;
 import 'package:size_config/size_config.dart' show SizeConfigInit;
-import 'package:touristapp/ui/splash/on_boarding_screen.dart';
+import 'package:touristapp/ui/auth/view/auth_screen.dart';
 import 'package:touristapp/utils/config/size_config.dart' show SizeConfig;
 import 'package:touristapp/utils/di/di.dart' show setUpDI;
 
@@ -46,7 +46,7 @@ class TouristApp extends StatelessWidget {
             themeAnimationDuration: const Duration(milliseconds: 650),
             title: 'Tourist App',
             debugShowCheckedModeBanner: false,
-            home: OnBoardingScreen(),
+            home: AuthScreen(),
           );
         },
       ),

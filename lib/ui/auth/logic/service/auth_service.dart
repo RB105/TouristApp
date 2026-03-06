@@ -19,7 +19,10 @@ class AuthService {
     );
 
     if (response.isSuccess) {
-      return NetworkResponse.success(data: true);
+      if (response.data['is_register'] == true) {
+        return NetworkResponse.success(data: true);
+      }
+      return NetworkResponse.success(data: false);
     }
 
     return response;
@@ -31,7 +34,7 @@ class AuthService {
   }) async {
     final response = await apiClient.post(
       endPoint: Endpoints.confirmOtp,
-      params: {"imprement": phone, "otp_code": otp,"social_type": 1},
+      params: {"imprement": phone, "otp_code": otp, "social_type": 1},
     );
 
     if (response.isSuccess) {
@@ -74,13 +77,13 @@ class AuthService {
     required String password,
   }) async {
     final response = await apiClient.post(
-      endPoint: Endpoints.setPassword,
-      params: {"phone_number": phone, "password": password},
+      endPoint: Endpoints.login,
+      params: {"imprement": phone, "password": password},
     );
 
     if (response.isSuccess) {
-      _getStorage.write("refresh_token", response.data['refresh']);
-      _getStorage.write("access_token", response.data['access']);
+      _getStorage.write("refresh_token", response.data['result']['refresh']);
+      _getStorage.write("access_token", response.data['result']['access']);
       return NetworkResponse.success(data: true);
     }
 

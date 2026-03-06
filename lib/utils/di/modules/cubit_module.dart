@@ -6,4 +6,5 @@ void _registerCubitModule() {
   getIt.registerFactory<AuthCubit>(() => AuthCubit(getIt<AuthService>()));
   getIt.registerFactory<WalletCubit>(() => WalletCubit(getIt<WalletService>()));
   getIt.registerFactory<QrCubit>(() => QrCubit(getIt<QrService>()));
+  getIt.registerFactory<HomeCubit>(() => HomeCubit(getIt<HomeService>()));
 }

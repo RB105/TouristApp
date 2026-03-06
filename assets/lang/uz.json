@@ -15,7 +15,9 @@
     "verification_message": "Sizga 6 xonali kod\n+{phone} raqamiga Telegram orqali yuborildi.\n\"Tasdiqlash kodlari\" chatini tekshiring",
     "resend_in": "Qayta yuborish {seconds} soniyada",
     "enter_phone": "Tasdiqlash kodini olish uchun \ntelefon raqamingizni kiriting.",
-    "enter_phone_placeholder": "Telefon raqamini kiriting"
+    "enter_phone_placeholder": "Telefon raqamini kiriting",
+    "login_password": "Parolingizni kiriting",
+    "login_password_desc": "Hisobingizga kirish uchun parolingizni kiriting."
   },
   "onboarding": {
     "tagline": "Bitta hamyon. Chegarasiz.",

@@ -3,13 +3,14 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:touristapp/ui/home/main/logic/model/qr_check_result.dart';
+import 'package:touristapp/ui/home/main/logic/model/transaction_result.dart';
 import 'package:touristapp/ui/home/main/logic/service/qr_service.dart';
 import 'package:touristapp/utils/enums/api_status.dart';
 
 part 'qr_state.dart';
 
 class QrCubit extends Cubit<QrState> {
-  QrCubit(this.qrService): super(const QrState());
+  QrCubit(this.qrService) : super(const QrState());
 
   final QrService qrService;
 
@@ -17,13 +18,55 @@ class QrCubit extends Cubit<QrState> {
     emit(state.copyWith(qrCheckStatus: ApiStatus.loading));
     final response = await qrService.check(qrId);
     if (response.isSuccess) {
-      final data = response.data as QrCheckResult;
-      emit(state.copyWith(qrCheckStatus: .success, qrCheckResult: data));
+      emit(
+        state.copyWith(qrCheckStatus: .success, qrCheckResult: response.data),
+      );
     } else {
       emit(
         state.copyWith(
           qrCheckStatus: .error,
           qrCheckError: response.error ?? "Unknown error",
+        ),
+      );
+    }
+  }
+
+  void createPayment({
+    required String extId,
+    required String qrId,
+    required double amount,
+  }) async {
+    emit(state.copyWith(paymentCreateStatus: ApiStatus.loading));
+    final response = await qrService.paymentCreate(
+      extId: extId,
+      qrId: qrId,
+      amount: amount,
+    );
+    if (response.isSuccess) {
+      emit(state.copyWith(paymentCreateStatus: .success));
+    } else {
+      emit(
+        state.copyWith(
+          paymentCreateStatus: .error,
+          paymentCreateError: response.error ?? "Unknown error",
+        ),
+      );
+    }
+  }
+
+  void confirmPayment({required String extId, required String otpCode}) async {
+    emit(state.copyWith(paymentConfirmStatus: ApiStatus.loading));
+    final response = await qrService.paymentConfirm(
+      extId: extId,
+      otpCode: otpCode,
+    );
+    if (response.isSuccess) {
+      emit(state.copyWith(paymentConfirmStatus: .success , transaction: response.data));
+    } else {
+      emit(
+        state.copyWith(
+          paymentConfirmStatus: .error,
+          paymentConfirmError: response.error ?? "Unknown error",
         ),
       );
     }

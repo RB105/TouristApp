@@ -1,6 +1,8 @@
 /* January 2026 , Baxrom Rajabov, Tashkent , Uzbekistan */
 
 import 'package:flutter/cupertino.dart';
+import 'package:touristapp/ui/home/main/logic/model/transaction_result.dart';
+import 'package:touristapp/ui/home/main/ui/qr_cheque_screen.dart';
 import 'package:touristapp/ui/home/main/ui/qr_scanner_widget.dart' show QrScannerWidget;
 
 class ModalSheets {
@@ -11,6 +13,16 @@ class ModalSheets {
       builder: (ctx) {
         _updateDialogContext(ctx);
         return QrScannerWidget();
+      },
+    ).whenComplete(_afterComplete);
+  }
+
+  static void showQrCheque(BuildContext context, {required TransactionResult transaction}) {
+    showCupertinoSheet(
+      context: context,
+      builder: (ctx) {
+        _updateDialogContext(ctx);
+        return QrChequeScreen(transaction: transaction);
       },
     ).whenComplete(_afterComplete);
   }

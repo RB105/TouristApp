@@ -5,9 +5,13 @@ class Assets {
   static const String iconsAppLogo100X32Black = 'assets/icons/app_logo_100_x_32_black.svg';
   static const String iconsAppLogo100X32Blue = 'assets/icons/app_logo_100_x_32_blue.svg';
   static const String iconsAppLogos = 'assets/icons/app_logos.svg';
+  static const String iconsArrowBack = 'assets/icons/arrow_back.svg';
   static const String iconsArrowForward = 'assets/icons/arrow_forward.svg';
   static const String iconsAuthPhone = 'assets/icons/auth_phone.svg';
   static const String iconsCheck = 'assets/icons/check.svg';
+  static const String iconsChequeLogo = 'assets/icons/cheque_logo.svg';
+  static const String iconsCopy = 'assets/icons/copy.svg';
+  static const String iconsDot = 'assets/icons/dot.svg';
   static const String iconsEmptyBox = 'assets/icons/empty_box.png';
   static const String iconsEyeOff = 'assets/icons/eye_off.svg';
   static const String iconsEyeOn = 'assets/icons/eye_on.svg';
@@ -19,6 +23,7 @@ class Assets {
   static const String iconsP2p = 'assets/icons/p2p.svg';
   static const String iconsPassword = 'assets/icons/password.svg';
   static const String iconsPhoneDisabled = 'assets/icons/phone_disabled.svg';
+  static const String iconsProcessing = 'assets/icons/processing.svg';
   static const String iconsQrButton = 'assets/icons/qr_button.svg';
   static const String iconsRightTrailing = 'assets/icons/right_trailing.svg';
   static const String iconsRuCard = 'assets/icons/ru_card.svg';
@@ -29,6 +34,7 @@ class Assets {
   static const String iconsTextQr = 'assets/icons/text_qr.svg';
   static const String iconsTextSafe = 'assets/icons/text_safe.svg';
   static const String iconsTextWallet = 'assets/icons/text_wallet.svg';
+  static const String iconsTgLogo = 'assets/icons/tg_logo.svg';
   static const String iconsUsCard = 'assets/icons/us_card.svg';
   static const String iconsUzCard = 'assets/icons/uz_card.svg';
   static const String iconsVerification = 'assets/icons/verification.svg';

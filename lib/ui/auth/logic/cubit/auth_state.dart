@@ -14,6 +14,9 @@ class AuthState {
   final ApiStatus registerPasswordStatus;
   final String? registerErrorMessage;
 
+  final ApiStatus loginStatus;
+  final String loginErrorMessage;
+
   AuthState({
     this.errorMessage,
     this.registerStatus,
@@ -25,6 +28,9 @@ class AuthState {
     //
     this.registerPasswordStatus = ApiStatus.initial,
     this.registerErrorMessage,
+    //
+    this.loginStatus = .initial,
+    this.loginErrorMessage = '',
   });
 
   AuthState copyWith({
@@ -39,6 +45,9 @@ class AuthState {
     ApiStatus? registerPasswordStatus,
     String? registerErrorMessage,
     bool? registerSuccess,
+    //
+    ApiStatus? loginStatus,
+    String? loginErrorMessage,
   }) {
     return AuthState(
       registerStatus: registerStatus ?? this.registerStatus,
@@ -49,8 +58,12 @@ class AuthState {
       confirmErrorMessage: confirmErrorMessage ?? this.confirmErrorMessage,
       isRegistered: isRegistered ?? this.isRegistered,
       //
-      registerPasswordStatus: registerPasswordStatus ?? this.registerPasswordStatus,
+      registerPasswordStatus:
+          registerPasswordStatus ?? this.registerPasswordStatus,
       registerErrorMessage: registerErrorMessage ?? this.registerErrorMessage,
+      //
+      loginStatus: loginStatus ?? this.loginStatus,
+      loginErrorMessage: loginErrorMessage ?? this.loginErrorMessage,
     );
   }
 }

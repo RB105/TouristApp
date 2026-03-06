@@ -6,8 +6,10 @@ import 'package:get_storage/get_storage.dart' show GetStorage;
 import 'package:touristapp/ui/auth/logic/cubit/auth_cubit.dart';
 import 'package:touristapp/ui/auth/logic/service/auth_service.dart'
     show AuthService;
+import 'package:touristapp/ui/home/main/logic/cubit/home/home_cubit.dart';
 import 'package:touristapp/ui/home/main/logic/cubit/qr_cubit.dart';
 import 'package:touristapp/ui/home/main/logic/cubit/wallet_cubit.dart';
+import 'package:touristapp/ui/home/main/logic/service/home_service.dart';
 import 'package:touristapp/ui/home/main/logic/service/qr_service.dart';
 import 'package:touristapp/ui/home/main/logic/service/wallet_service.dart';
 import 'package:touristapp/utils/config/api_client.dart' show ApiClient;
