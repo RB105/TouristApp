@@ -6,9 +6,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart' show SvgPicture;
 import 'package:easy_localization/easy_localization.dart'
     show StringTranslateExtension;
+import 'package:go_router/go_router.dart';
 import 'package:touristapp/generated/assets.dart' show Assets;
 import 'package:touristapp/ui/auth/logic/cubit/auth_cubit.dart';
-import 'package:touristapp/ui/home/home_screen.dart';
 import 'package:touristapp/ui/widgets/animated_auth_background.dart';
 import 'package:touristapp/ui/widgets/animated_switcher.dart'
     show AppAnimatedSwitcher;
@@ -56,9 +56,7 @@ class _RegisterScreenState extends State<LoginScreen> {
             debugPrint("Login Error: ${state.loginErrorMessage}");
           } else if (state.loginStatus == .success) {
             ModalDialogs.dismissCurrentDialog();
-            Navigator.of(
-              context,
-            ).push(MaterialPageRoute(builder: (context) => HomeScreen()));
+            context.go('/main');
           }
         },
         builder: (context, state) => Stack(

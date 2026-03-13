@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart' show SvgPicture;
+import 'package:go_router/go_router.dart';
 import 'package:touristapp/generated/assets.dart' show Assets;
 import 'package:touristapp/ui/home/main/logic/cubit/home/home_cubit.dart';
 import 'package:touristapp/ui/home/main/logic/model/transaction_result.dart';
@@ -29,6 +30,12 @@ class _MainScreenState extends State<MainScreen> {
   final HomeCubit _homeCubit = getIt<HomeCubit>();
 
   @override
+  void initState() {
+    _homeCubit.getHomeDetails();
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) => BlocProvider.value(
     value: _homeCubit,
     child: BlocConsumer<HomeCubit, HomeState>(
@@ -50,14 +57,11 @@ class _MainScreenState extends State<MainScreen> {
           ],
         ),
         floatingActionButton: ScaleWidgetAnim(
-          child: InkWell(
-            borderRadius: BorderRadius.circular(32),
-            onTap: () => ModalSheets.showQrScanner(context),
-            child: SizedBox(
-              width: 64,
-              height: 64,
-              child: SvgPicture.asset(Assets.iconsQrButton),
-            ),
+          onPressed: () => Future.delayed(Duration(milliseconds: 500), () => ModalSheets.showQrScanner(context)),
+          child: SizedBox(
+            width: 64,
+            height: 64,
+            child: SvgPicture.asset(Assets.iconsQrButton),
           ),
         ),
         body: Padding(
@@ -105,7 +109,9 @@ class _MainScreenState extends State<MainScreen> {
                   context.szBoxWidth16,
                   _buildBox(Assets.iconsP2p, "Send money", () {}),
                   context.szBoxWidth16,
-                  _buildBox(Assets.iconsWallet, "Payments", () {}),
+                  _buildBox(Assets.iconsWallet, "Payments", () {
+                    context.push('/main/payments');
+                  }),
                 ],
               ),
               context.szBoxHeight20,

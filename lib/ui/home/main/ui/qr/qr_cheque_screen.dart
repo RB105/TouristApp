@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart' show SvgPicture;
 import 'package:touristapp/generated/assets.dart' show Assets;
-import 'package:touristapp/ui/home/home_screen.dart';
 import 'package:touristapp/ui/home/main/logic/model/transaction_result.dart'
     show TransactionResult;
 import 'package:touristapp/ui/widgets/custom_button.dart';
@@ -120,10 +119,10 @@ class _QrChequeScreenState extends State<QrChequeScreen> {
             Spacer(),
             CustomButton(
               onPressed: () {
-                Navigator.of(context).pushAndRemoveUntil(
-                  MaterialPageRoute(builder: (context) => HomeScreen()),
-                  (route) => false,
-                );
+                // Navigator.of(context).pushAndRemoveUntil(
+                //   MaterialPageRoute(builder: (context) => HomeScreen()),
+                //   (route) => false,
+                // );
               },
               text: "Go to Home",
             ),

@@ -2,10 +2,11 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get_storage/get_storage.dart';
+import 'package:go_router/go_router.dart';
 import 'package:lottie/lottie.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:touristapp/generated/assets.dart';
-import 'package:touristapp/ui/auth/view/auth_screen.dart';
 import 'package:touristapp/ui/splash/widgets/tourist_ticker.dart' show TouristTicker;
 
 class OnBoardingScreen extends StatefulWidget {
@@ -84,11 +85,8 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                                         backgroundColor: const Color(0xff401CE2),
                                       ),
                                       onPressed: () {
-                                        Navigator.of(context).push(
-                                          MaterialPageRoute(
-                                            builder: (context) => AuthScreen(),
-                                          ),
-                                        );
+                                        GetStorage().write('first_launch', false);
+                                        context.go('/auth');
                                       },
                                       child: Text(
                                         "onboarding.get_started".tr(),

@@ -2,41 +2,33 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:go_router/go_router.dart' show StatefulNavigationShell;
 import 'package:touristapp/generated/assets.dart';
-import 'package:touristapp/ui/home/chat/chat_screen.dart';
-import 'package:touristapp/ui/home/main/ui/main_screen.dart';
-import 'package:touristapp/ui/home/monitoring/monitoring_screen.dart';
-import 'package:touristapp/ui/home/profile/profile_screen.dart';
 import 'package:touristapp/utils/extensions/color_extension.dart';
 import 'package:touristapp/utils/extensions/text_styles_extension.dart';
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
+  final StatefulNavigationShell shell;
+
+  const HomeScreen({super.key, required this.shell});
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  int currentIndex = 0;
-  final _pages = [
-    MainScreen(),
-    ChatScreen(),
-    MonitoringScreen(),
-    ProfileScreen(),
-  ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: _pages[currentIndex],
+      body: widget.shell,
       bottomNavigationBar: BottomNavigationBar(
         unselectedLabelStyle: context.mediumMutedMd,
         selectedItemColor: context.primary,
         unselectedItemColor: const Color(0xFF9CA3AF),
-        currentIndex: currentIndex,
+        currentIndex: widget.shell.currentIndex,
         type: .fixed,
-        onTap: (value) => setState(() => currentIndex = value),
+        onTap: (index) => widget.shell.goBranch(index),
         items: [
           BottomNavigationBarItem(
             icon: _buildNavbar(Assets.iconsNavbarMain, 0),
@@ -66,7 +58,7 @@ class _HomeScreenState extends State<HomeScreen> {
       child: SvgPicture.asset(
         img,
         colorFilter: ColorFilter.mode(
-          currentIndex == index ? context.primary : context.iconDisabled,
+          widget.shell.currentIndex == index ? context.primary : context.iconDisabled,
           .srcIn,
         ),
       ),

@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart' show SvgPicture;
 import 'package:touristapp/generated/assets.dart' show Assets;
-import 'package:touristapp/ui/home/home_screen.dart';
 import 'package:touristapp/ui/home/main/logic/cubit/wallet_cubit.dart';
 import 'package:touristapp/ui/widgets/animated_switcher.dart';
 import 'package:touristapp/ui/widgets/app_loader.dart';
@@ -45,10 +44,10 @@ class _AuthWalletCreateState extends State<AuthWalletCreate> {
             if (state.walletCreateStatus == .success) {
               Future.delayed(const Duration(milliseconds: 1500), () {
                 // ignore: use_build_context_synchronously
-                Navigator.of(context).pushAndRemoveUntil(
-                  MaterialPageRoute(builder: (context) => HomeScreen()),
-                  (route) => false,
-                );
+                // Navigator.of(context).pushAndRemoveUntil(
+                //   MaterialPageRoute(builder: (context) => HomeScreen()),
+                //   (route) => false,
+                // );
               });
             } else if (state.walletCreateStatus == .error) {
               // Show error dialog
