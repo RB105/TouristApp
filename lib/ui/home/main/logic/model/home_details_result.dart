@@ -4,16 +4,11 @@ class HomeDetailsResult {
   final List<Wallet> wallet;
   final List<HistoryGroup> history;
 
-  HomeDetailsResult({
-    required this.wallet,
-    required this.history,
-  });
+  HomeDetailsResult({required this.wallet, required this.history});
 
   factory HomeDetailsResult.fromJson(Map<String, dynamic> json) {
     return HomeDetailsResult(
-      wallet: (json['wallet'] as List)
-          .map((e) => Wallet.fromJson(e))
-          .toList(),
+      wallet: (json['wallet'] as List).map((e) => Wallet.fromJson(e)).toList(),
       history: (json['history'] as List)
           .map((e) => HistoryGroup.fromJson(e))
           .toList(),
@@ -67,10 +62,7 @@ class HistoryGroup {
   final String date;
   final List<TransactionItem> items;
 
-  HistoryGroup({
-    required this.date,
-    required this.items,
-  });
+  HistoryGroup({required this.date, required this.items});
 
   factory HistoryGroup.fromJson(Map<String, dynamic> json) {
     return HistoryGroup(
@@ -83,52 +75,68 @@ class HistoryGroup {
 }
 
 class TransactionItem {
-  final int id;
-  final String time;
-  final String direction;
-  final String amount;
-  final String sign;
-  final String currency;
+  final String walletId;
+  final double walletNewBalance;
+  final String sender;
+  final DateTime createdAt;
+  final DateTime updatedAt;
+  final String extId;
+  final String refNum;
   final String status;
-  final String title;
+  final String description;
+  final String receiver;
+  final double commissionAmount;
+  final String commissionCurrency;
+  final String integrationType;
+  final String flowType;
   final String provider;
-  final String flow;
-  final String counterpartyName;
-  final String counterpartyMask;
+  final int amount;
+  final String currency;
+  final String transactionDirection;
 
   TransactionItem({
-    required this.id,
-    required this.time,
-    required this.direction,
-    required this.amount,
-    required this.sign,
-    required this.currency,
+    required this.walletId,
+    required this.walletNewBalance,
+    required this.sender,
+    required this.createdAt,
+    required this.updatedAt,
+    required this.extId,
+    required this.refNum,
     required this.status,
-    required this.title,
+    required this.description,
+    required this.receiver,
+    required this.commissionAmount,
+    required this.commissionCurrency,
+    required this.integrationType,
+    required this.flowType,
     required this.provider,
-    required this.flow,
-    required this.counterpartyName,
-    required this.counterpartyMask,
+    required this.amount,
+    required this.currency,
+    required this.transactionDirection,
   });
 
   factory TransactionItem.fromJson(Map<String, dynamic> json) {
     return TransactionItem(
-      id: json['id'],
-      time: json['time'],
-      direction: json['direction'],
-      amount: json['amount'],
-      sign: json['sign'],
-      currency: json['currency'],
-      status: json['status'].toString(),
-      title: json['title'],
+      walletId: json['wallet_id'],
+      walletNewBalance: json['wallet_new_balance'] ?? 0.0,
+      sender: json['sender'],
+      createdAt: DateTime.parse(json['created_at']),
+      updatedAt: DateTime.parse(json['updated_at']),
+      extId: json['ext_id'],
+      refNum: json['ref_num'],
+      status: json['status'],
+      description: json['description'],
+      receiver: json['receiver'],
+      commissionAmount: json['commission_amount'],
+      commissionCurrency: json['commission_currency'],
+      integrationType: json['integration_type'],
+      flowType: json['flow_type'],
       provider: json['provider'],
-      flow: json['flow'],
-      counterpartyName: json['counterparty_name'],
-      counterpartyMask: json['counterparty_mask'],
+      amount: json['amount'],
+      currency: json['currency'],
+      transactionDirection: json['transaction_direction'],
     );
   }
 
-  double get parsedAmount => double.tryParse(amount) ?? 0;
-
-  bool get isSuccess => status == "SUCCESS" || status == "4";
+  bool get isSuccess => status == "SUCCESS";
 }

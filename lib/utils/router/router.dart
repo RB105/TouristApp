@@ -3,16 +3,8 @@
 // ignore_for_file: deprecated_member_use
 
 import 'package:flutter/material.dart';
-import 'package:get_storage/get_storage.dart';
 import 'package:go_router/go_router.dart';
-import 'package:touristapp/ui/auth/view/auth_screen.dart';
-import 'package:touristapp/ui/home/chat/chat_screen.dart';
-import 'package:touristapp/ui/home/home_screen.dart';
-import 'package:touristapp/ui/home/main/ui/main_screen.dart';
-import 'package:touristapp/ui/home/main/ui/payments_screen.dart';
-import 'package:touristapp/ui/home/monitoring/monitoring_screen.dart';
-import 'package:touristapp/ui/home/profile/profile_screen.dart';
-import 'package:touristapp/ui/splash/on_boarding_screen.dart';
+import 'package:touristapp/utils/router/app_router.dart';
 
 final navigatorKey = GlobalKey<NavigatorState>();
 
@@ -43,83 +35,5 @@ final navigatorKey = GlobalKey<NavigatorState>();
 final router = GoRouter(
   navigatorKey: navigatorKey,
   initialLocation: '/',
-  routes: [
-    GoRoute(
-      path: '/',
-      redirect: (context, state) {
-        final firstLaunch = GetStorage().read<bool?>('first_launch');
-        if (firstLaunch ?? true) {
-          debugPrint(firstLaunch.toString());
-          return '/onboarding';
-        }
-        final access = GetStorage().read<String?>('access_token');
-        if (access == null) {
-          return '/auth';
-        }
-
-        return '/main';
-      },
-    ),
-
-    GoRoute(
-      path: '/auth',
-      builder: (context, state) {
-        return const AuthScreen();
-      },
-    ),
-    GoRoute(
-      path: '/onboarding',
-      builder: (context, state) {
-        return const OnBoardingScreen();
-      },
-    ),
-    StatefulShellRoute.indexedStack(
-      parentNavigatorKey: navigatorKey,
-      builder: (context, state, navigationShell) =>
-          HomeScreen(shell: navigationShell),
-      branches: [
-        StatefulShellBranch(
-          routes: [
-            GoRoute(
-              path: '/main',
-              builder: (context, state) => const MainScreen(),
-              routes: [
-                GoRoute(
-                  path: 'payments',
-                  builder: (context, state) => PaymentsScreen(),
-                ),
-              ],
-            ),
-          ],
-        ),
-
-        StatefulShellBranch(
-          routes: [
-            GoRoute(
-              path: '/chat',
-              builder: (context, state) => const ChatScreen(),
-            ),
-          ],
-        ),
-
-        StatefulShellBranch(
-          routes: [
-            GoRoute(
-              path: '/monitoring',
-              builder: (context, state) => const MonitoringScreen(),
-            ),
-          ],
-        ),
-
-        StatefulShellBranch(
-          routes: [
-            GoRoute(
-              path: '/profile',
-              builder: (context, state) => const ProfileScreen(),
-            ),
-          ],
-        ),
-      ],
-    ),
-  ],
+  routes: $appRoutes,
 );

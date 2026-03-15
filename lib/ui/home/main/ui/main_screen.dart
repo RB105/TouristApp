@@ -3,7 +3,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart' show SvgPicture;
-import 'package:go_router/go_router.dart';
 import 'package:touristapp/generated/assets.dart' show Assets;
 import 'package:touristapp/ui/home/main/logic/cubit/home/home_cubit.dart';
 import 'package:touristapp/ui/home/main/logic/model/transaction_result.dart';
@@ -18,6 +17,7 @@ import 'package:touristapp/utils/extensions/context_extensions.dart'
 import 'package:touristapp/utils/extensions/text_styles_extension.dart'
     show TextStyles;
 import 'package:touristapp/utils/modal/modal_sheets.dart';
+import 'package:touristapp/utils/router/app_router.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
@@ -57,6 +57,7 @@ class _MainScreenState extends State<MainScreen> {
           ],
         ),
         floatingActionButton: ScaleWidgetAnim(
+          // ignore: use_build_context_synchronously
           onPressed: () => Future.delayed(Duration(milliseconds: 500), () => ModalSheets.showQrScanner(context)),
           child: SizedBox(
             width: 64,
@@ -110,7 +111,8 @@ class _MainScreenState extends State<MainScreen> {
                   _buildBox(Assets.iconsP2p, "Send money", () {}),
                   context.szBoxWidth16,
                   _buildBox(Assets.iconsWallet, "Payments", () {
-                    context.push('/main/payments');
+                    // context.push('/main/payments');
+                    PaymentsRoute().push(context);
                   }),
                 ],
               ),

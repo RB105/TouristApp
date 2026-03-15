@@ -40,6 +40,19 @@ class _RegisterScreenState extends State<LoginScreen> {
   final _authCubit = getIt<AuthCubit>();
 
   @override
+  void initState() {
+    _focusNode1.requestFocus();
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _password1Controller.dispose();
+    _focusNode1.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) => BlocProvider.value(
     value: _authCubit,
     child: Scaffold(

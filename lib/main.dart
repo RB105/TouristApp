@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:easy_localization/easy_localization.dart' show BuildContextEasyLocalizationExtension, EasyLocalization;
+import 'package:get_storage/get_storage.dart' show GetStorage;
 import 'package:size_config/size_config.dart' show SizeConfigInit;
 import 'package:touristapp/utils/config/size_config.dart' show SizeConfig;
 import 'package:touristapp/utils/di/di.dart' show setUpDI;
@@ -7,6 +8,7 @@ import 'package:touristapp/utils/router/router.dart' show router;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await GetStorage.init();
   setUpDI();
   runApp(
     EasyLocalization(
