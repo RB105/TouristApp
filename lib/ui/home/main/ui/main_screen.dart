@@ -5,7 +5,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart' show SvgPicture;
 import 'package:touristapp/generated/assets.dart' show Assets;
 import 'package:touristapp/ui/home/main/logic/cubit/home/home_cubit.dart';
-import 'package:touristapp/ui/home/main/logic/model/transaction_result.dart';
 import 'package:touristapp/ui/widgets/primary_container.dart'
     show PrimaryContainer;
 import 'package:touristapp/ui/widgets/scale_widget_anim.dart';
@@ -18,6 +17,8 @@ import 'package:touristapp/utils/extensions/text_styles_extension.dart'
     show TextStyles;
 import 'package:touristapp/utils/modal/modal_sheets.dart';
 import 'package:touristapp/utils/router/app_router.dart';
+
+import '../logic/model/transaction_result.dart' show TransactionResult;
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
@@ -45,20 +46,20 @@ class _MainScreenState extends State<MainScreen> {
           centerTitle: false,
           title: Text("Main", style: context.semiboldMd),
           actions: [
-            IconButton(
-              onPressed: () {
-                ModalSheets.showQrCheque(
-                  context,
-                  transaction: TransactionResult.sample(),
-                );
-              },
-              icon: Icon(Icons.notifications),
-            ),
+            IconButton(onPressed: () {
+              ModalSheets.showQrCheque(
+                context,
+                transaction: TransactionResult.sample(),
+              );
+            }, icon: Icon(Icons.notifications)),
           ],
         ),
         floatingActionButton: ScaleWidgetAnim(
           // ignore: use_build_context_synchronously
-          onPressed: () => Future.delayed(Duration(milliseconds: 500), () => ModalSheets.showQrScanner(context)),
+          onPressed: () => Future.delayed(
+            Duration(milliseconds: 500),
+            () => ModalSheets.showQrScanner(context),
+          ),
           child: SizedBox(
             width: 64,
             height: 64,

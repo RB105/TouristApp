@@ -16,7 +16,7 @@ class TransactionResult {
   final String integrationType;
   final String flowType;
   final String provider;
-  final double amount;
+  final num amount;
   final String currency;
   final String transactionDirection;
 
@@ -93,6 +93,18 @@ class TransactionResult {
         '${d.month.toString().padLeft(2, '0')}.'
         '${d.year} '
         '${d.hour}:${d.minute.toString().padLeft(2, '0')}';
+  }
+
+  String getBalance() {
+    String getCurrency() {
+      if (currency == '860') {
+        return "UZS";
+      }
+      return "";
+    }
+
+    final balanceInDouble = amount / 100; // Assuming balance is in cents
+    return "${balanceInDouble.toStringAsFixed(1)} ${getCurrency()}";
   }
 
   factory TransactionResult.sample() {

@@ -24,6 +24,7 @@ class _HomeScreenState extends State<HomeScreen> {
       body: widget.shell,
       bottomNavigationBar: BottomNavigationBar(
         unselectedLabelStyle: context.mediumMutedMd,
+        selectedLabelStyle: context.mediumMd,
         selectedItemColor: context.primary,
         unselectedItemColor: const Color(0xFF9CA3AF),
         currentIndex: widget.shell.currentIndex,

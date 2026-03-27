@@ -1,0 +1,67 @@
+{
+  "project_info": {
+    "project_number": "1051144882385",
+    "project_id": "touristapp-cfa0e",
+    "storage_bucket": "touristapp-cfa0e.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1051144882385:android:4ab4aafbb35ad6d8aa9df0",
+        "android_client_info": {
+          "package_name": "com.example.touristapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC8gvOQz_SYFS_155mH-eizQWu2D2l_bMk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1051144882385:android:722aac447ce3629baa9df0",
+        "android_client_info": {
+          "package_name": "mobile.touristapp.com"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC8gvOQz_SYFS_155mH-eizQWu2D2l_bMk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1051144882385:android:eccbb28bbd1ef55eaa9df0",
+        "android_client_info": {
+          "package_name": "mobile.touristapp.org"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC8gvOQz_SYFS_155mH-eizQWu2D2l_bMk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

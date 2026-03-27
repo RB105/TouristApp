@@ -21,9 +21,9 @@ class Wallet {
   final String phone;
   final String firstName;
   final String lastName;
-  final int balance;
+  final num balance;
   final String currency;
-  final int status;
+  final num status;
   final String description;
 
   Wallet({
@@ -53,8 +53,15 @@ class Wallet {
   String get fullName => "$firstName $lastName";
 
   String getBalance() {
+    String getCurrency() {
+      if (currency == '860') {
+        return "UZS";
+      }
+      return "";
+    }
+
     final balanceInDouble = balance / 100; // Assuming balance is in cents
-    return "$balanceInDouble $currency";
+    return "${balanceInDouble.toStringAsFixed(1)} ${getCurrency()}";
   }
 }
 
@@ -76,7 +83,7 @@ class HistoryGroup {
 
 class TransactionItem {
   final String walletId;
-  final double walletNewBalance;
+  final num walletNewBalance;
   final String sender;
   final DateTime createdAt;
   final DateTime updatedAt;
@@ -85,12 +92,12 @@ class TransactionItem {
   final String status;
   final String description;
   final String receiver;
-  final double commissionAmount;
+  final num commissionAmount;
   final String commissionCurrency;
   final String integrationType;
   final String flowType;
   final String provider;
-  final int amount;
+  final num amount;
   final String currency;
   final String transactionDirection;
 

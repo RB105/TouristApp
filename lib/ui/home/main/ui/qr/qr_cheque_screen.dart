@@ -53,7 +53,9 @@ class _QrChequeScreenState extends State<QrChequeScreen> {
             context.szBoxHeight12,
             Row(
               mainAxisAlignment: .center,
-              children: [Text("100"), context.szBoxWidth4, Text("uzs")],
+              children: [
+                Text(widget.transaction.getBalance()),
+              ],
             ),
             context.szBoxHeight12,
             Row(
@@ -126,7 +128,7 @@ class _QrChequeScreenState extends State<QrChequeScreen> {
               },
               text: "Go to Home",
             ),
-            context.szBoxHeight16
+            context.szBoxHeight16,
           ],
         ),
       ),
