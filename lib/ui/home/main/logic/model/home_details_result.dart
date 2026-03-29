@@ -8,10 +8,14 @@ class HomeDetailsResult {
 
   factory HomeDetailsResult.fromJson(Map<String, dynamic> json) {
     return HomeDetailsResult(
-      wallet: (json['wallet'] as List).map((e) => Wallet.fromJson(e)).toList(),
-      history: (json['history'] as List)
-          .map((e) => HistoryGroup.fromJson(e))
-          .toList(),
+      wallet:
+          (json['wallet'] as List?)?.map((e) => Wallet.fromJson(e)).toList() ??
+          [],
+      history:
+          (json['history'] as List?)
+              ?.map((e) => HistoryGroup.fromJson(e))
+              .toList() ??
+          [],
     );
   }
 }

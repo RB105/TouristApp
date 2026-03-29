@@ -12,7 +12,7 @@
     "create_password": "Create a password to secure your account.",
     "create_new_password": "Create new password",
     "confirm_new_password": "Confirm new password",
-    "verification_message": "We've sent you a 6-digit code to\n+{phone} via Telegram.\nPlease check out \"Verification Codes\" chat",
+    "verification_message": "We've sent you a 6-digit code to\n+{phone} via Telegram.\nPlease check out \"[bold]Verification Codes[/bold]\" chat",
     "resend_in": "Resend in {seconds} sec",
     "enter_phone": "Enter your phone number to \nget confirmation code.",
     "enter_phone_placeholder": "Enter phone number",
@@ -31,6 +31,28 @@
     "fast_transfers": "Fast money transfers",
     "all_in_one": "All in one wallet",
     "fast_qr": "Fast QR payments"
+  },
+
+  "home": {
+    "main_title": "Home",
+    "profile_title": "Profile",
+    "chat_title": "Chat",
+    "monitoring_title": "Monitoring",
+    "main_nav_title": "Home",
+    "profile_nav_title": "Profile",
+    "chat_nav_title": "Chat",
+    "monitoring_nav_title": "Monitoring"
+  },
+
+  "main": {
+    "total_balance": "Total balance",
+    "top_up": "Top up balance",
+    "send_money": "Send money",
+    "payments": "Payments",
+    "send": "Send",
+    "receive": "Receive",
+    "transactions": "Transactions",
+    "last_transactions": "Recent transactions"
   },
   "errors": {
     "error_other": "An unexpected error occurred",

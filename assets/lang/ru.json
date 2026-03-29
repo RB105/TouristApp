@@ -12,7 +12,7 @@
     "create_password": "Создайте пароль для защиты вашей учетной записи.",
     "create_new_password": "Создать новый пароль",
     "confirm_new_password": "Подтвердите новый пароль",
-    "verification_message": "Мы отправили вам 6-значный код на\n+{phone} через Telegram.\nПроверьте чат \"Коды подтверждения\"",
+    "verification_message": "Мы отправили вам 6-значный код на\n+{phone} через Telegram.\nПроверьте чат \"[bold]Коды подтверждения[/bold]\"",
     "resend_in": "Отправить повторно через {seconds} сек",
     "enter_phone": "Введите номер телефона, чтобы \nполучить код подтверждения.",
     "enter_phone_placeholder": "Введите номер телефона",
@@ -35,6 +35,28 @@
     "fast_transfers": "Быстрые денежные переводы",
     "all_in_one": "Всё в одном кошельке",
     "fast_qr": "Быстрые QR-платежи"
+  },
+
+  "home": {
+    "main_title": "Главная",
+    "profile_title": "Профиль",
+    "chat_title": "Чат",
+    "monitoring_title": "Мониторинг",
+    "main_nav_title": "Главная",
+    "profile_nav_title": "Профиль",
+    "chat_nav_title": "Чат",
+    "monitoring_nav_title": "Мониторинг"
+  },
+
+  "main": {
+    "total_balance": "Общий баланс",
+    "top_up": "Пополнить баланс",
+    "send_money": "Отправить деньги",
+    "payments": "Платежи",
+    "send": "Отправить",
+    "receive": "Получить",
+    "transactions": "Транзакции",
+    "last_transactions": "Последние транзакции"
   },
   "errors": {
     "error_other": "Произошла непредвиденная ошибка",

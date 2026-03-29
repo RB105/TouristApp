@@ -1,16 +1,17 @@
 /* February 2026 , Baxrom Rajabov, Tashkent , Uzbekistan */
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart' show SvgPicture;
 import 'package:touristapp/generated/assets.dart' show Assets;
 import 'package:touristapp/ui/home/main/logic/cubit/home/home_cubit.dart';
+import 'package:touristapp/ui/home/main/ui/widgets/main_last_tr_widget.dart';
+import 'package:touristapp/ui/home/main/ui/widgets/main_total_balance_widget.dart';
 import 'package:touristapp/ui/widgets/primary_container.dart'
     show PrimaryContainer;
 import 'package:touristapp/ui/widgets/scale_widget_anim.dart';
 import 'package:touristapp/utils/di/di.dart';
-import 'package:touristapp/utils/extensions/color_extension.dart'
-    show ColorExtension;
 import 'package:touristapp/utils/extensions/context_extensions.dart'
     show ContextExtensions;
 import 'package:touristapp/utils/extensions/text_styles_extension.dart'
@@ -44,20 +45,24 @@ class _MainScreenState extends State<MainScreen> {
       builder: (context, state) => Scaffold(
         appBar: AppBar(
           centerTitle: false,
-          title: Text("Main", style: context.semiboldMd),
+          title: Text("home.main_title".tr(), style: context.semiboldMd),
           actions: [
-            IconButton(onPressed: () {
-              ModalSheets.showQrCheque(
-                context,
-                transaction: TransactionResult.sample(),
-              );
-            }, icon: Icon(Icons.notifications)),
+            IconButton(
+              onPressed: () {
+                // ModalSheets.showQrCheque(
+                //   context,
+                //   transaction: TransactionResult.sample(),
+                // );
+                // StatefulNavigationShell.of(context).goBranch(2);
+              },
+              icon: Icon(Icons.notifications),
+            ),
           ],
         ),
         floatingActionButton: ScaleWidgetAnim(
-          // ignore: use_build_context_synchronously
           onPressed: () => Future.delayed(
             Duration(milliseconds: 500),
+            // ignore: use_build_context_synchronously
             () => ModalSheets.showQrScanner(context),
           ),
           child: SizedBox(
@@ -70,70 +75,24 @@ class _MainScreenState extends State<MainScreen> {
           padding: context.k16Padding,
           child: Column(
             children: [
-              SizedBox(
-                width: double.infinity,
-                height: 150,
-                child: DecoratedBox(
-                  decoration: BoxDecoration(
-                    borderRadius: context.borderRadius24,
-                    image: DecorationImage(
-                      image: AssetImage(Assets.iconsWalletBg),
-                      fit: .cover,
-                    ),
-                  ),
-                  child: Padding(
-                    padding: context.k16Padding,
-                    child: Column(
-                      crossAxisAlignment: .start,
-                      mainAxisAlignment: .end,
-                      children: [
-                        Text(
-                          "Total balance",
-                          style: context.semiboldMutedXs.copyWith(
-                            color: context.textDisabled,
-                          ),
-                        ),
-                        Text(
-                          state.details?.wallet.first.getBalance() ?? "",
-                          style: context.semiboldDisplaySm.copyWith(
-                            color: Colors.white,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
+              MainTotalBalanceWidget(
+                balance: state.details?.wallet.first.getBalance() ?? "",
               ),
               context.szBoxHeight20,
               Row(
                 children: [
-                  _buildBox(Assets.iconsRightTrailing, "Top Up", () {}),
+                  _buildBox(Assets.iconsRightTrailing, "main.top_up".tr(), () {}),
                   context.szBoxWidth16,
-                  _buildBox(Assets.iconsP2p, "Send money", () {}),
+                  _buildBox(Assets.iconsP2p, "main.send_money".tr(), () {}),
                   context.szBoxWidth16,
-                  _buildBox(Assets.iconsWallet, "Payments", () {
+                  _buildBox(Assets.iconsWallet, "main.payments".tr(), () {
                     // context.push('/main/payments');
                     PaymentsRoute().push(context);
                   }),
                 ],
               ),
               context.szBoxHeight20,
-              Row(
-                crossAxisAlignment: .center,
-                children: [
-                  Text("History", style: context.semiboldMd),
-                  Spacer(),
-                  Icon(Icons.arrow_forward_ios, size: 16),
-                ],
-              ),
-              context.szBoxHeight12,
-              Center(
-                child: SizedBox(
-                  width: 200,
-                  height: 200,
-                  child: Image.asset(Assets.iconsEmptyBox),
-                ),
-              ),
+              MainLastTrWidget(historyGroups: state.details?.history ?? []),
             ],
           ),
         ),

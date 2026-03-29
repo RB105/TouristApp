@@ -17,6 +17,7 @@ import 'package:touristapp/utils/extensions/context_extensions.dart'
 import 'package:touristapp/utils/extensions/text_styles_extension.dart'
     show TextStyles;
 import 'package:touristapp/utils/modal/modal_dialogs.dart';
+import 'package:touristapp/utils/styled_text_parser.dart' show StyledTextParser;
 
 class OtpScreen extends StatefulWidget {
   final String phoneNumber;
@@ -123,12 +124,14 @@ class _OtpScreenState extends State<OtpScreen> {
                           style: context.boldDisplayXs,
                         ),
                         context.szBoxHeight20,
-                        Text(
-                          "auth.verification_message".tr(
-                            namedArgs: {'phone': widget.phoneNumber},
-                          ),
-                          style: context.textMd.copyWith(
-                            color: context.textSecondary,
+                        RichText(
+                          text: StyledTextParser.parse(
+                            'auth.verification_message'.tr(),
+                            placeholders: {'phone': widget.phoneNumber},
+                            tagStyles: {
+                              'bold': (style) => style.copyWith(fontWeight: FontWeight.bold),
+                              // Add more tags here, e.g., 'italic': (style) => style.copyWith(fontStyle: FontStyle.italic),
+                            }, defaultStyle: context.textSm,
                           ),
                         ),
                         context.szBoxHeight20,

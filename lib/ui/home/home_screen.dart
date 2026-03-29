@@ -1,5 +1,6 @@
 /* February 2026 , Baxrom Rajabov, Tashkent , Uzbekistan */
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart' show StatefulNavigationShell;
@@ -33,19 +34,19 @@ class _HomeScreenState extends State<HomeScreen> {
         items: [
           BottomNavigationBarItem(
             icon: _buildNavbar(Assets.iconsNavbarMain, 0),
-            label: "Home",
+            label: "home.main_nav_title".tr(),
           ),
           BottomNavigationBarItem(
             icon: _buildNavbar(Assets.iconsNavbarChat, 1),
-            label: "Chat",
+            label: "home.chat_nav_title".tr(),
           ),
           BottomNavigationBarItem(
             icon: _buildNavbar(Assets.iconsNavbarMonitoring, 2),
-            label: "Monitoring",
+            label: "home.monitoring_nav_title".tr(),
           ),
           BottomNavigationBarItem(
             icon: _buildNavbar(Assets.iconsNavbarProfile, 3),
-            label: "Profile",
+            label: "home.profile_nav_title".tr(),
           ),
         ],
       ),

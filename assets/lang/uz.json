@@ -12,7 +12,7 @@
     "create_password": "Hisobingizni himoya qilish uchun parol yarating.",
     "create_new_password": "Yangi parol yarating",
     "confirm_new_password": "Yangi parolni tasdiqlang",
-    "verification_message": "Sizga 6 xonali kod\n+{phone} raqamiga Telegram orqali yuborildi.\n\"Tasdiqlash kodlari\" chatini tekshiring",
+    "verification_message": "Sizga 6 xonali kod\n+{phone} raqamiga Telegram orqali yuborildi.\n\"[bold]Tasdiqlash kodlari[/bold]\" chatini tekshiring",
     "resend_in": "Qayta yuborish {seconds} soniyada",
     "enter_phone": "Tasdiqlash kodini olish uchun \ntelefon raqamingizni kiriting.",
     "enter_phone_placeholder": "Telefon raqamini kiriting",
@@ -36,6 +36,30 @@
     "all_in_one": "Hammasi bitta hamyonda",
     "fast_qr": "Tez QR to'lovlar"
   },
+
+  "home" : {
+    "main_title": "Asosiy",
+    "profile_title": "Profil",
+    "chat_title": "Chat",
+    "monitoring_title": "Monitoring",
+    "main_nav_title": "Asosiy",
+    "profile_nav_title": "Profil",
+    "chat_nav_title": "Chat",
+    "monitoring_nav_title": "Monitoring"
+  },
+
+  "main" : {
+    "total_balance": "Umumiy balans",
+    "top_up": "To'ldirish",
+    "send_money": "Pul yuborish",
+    "payments": "To'lovlar",
+    "send": "Yuborish",
+    "receive": "Qabul qilish",
+    "transactions": "Tranzaksiyalar",
+    "last_transactions": "So'ngi tranzaksiyalar"
+  },
+
+
   "errors": {
     "error_other": "Kutilmagan xatolik yuz berdi",
     "error_unknown": "Noma'lum xatolik yuz berdi",

@@ -17,6 +17,7 @@ import 'package:touristapp/utils/extensions/context_extensions.dart'
 import 'package:touristapp/utils/extensions/text_styles_extension.dart'
     show TextStyles;
 import 'package:touristapp/utils/modal/modal_dialogs.dart';
+import 'package:touristapp/utils/router/app_router.dart';
 
 class AuthWalletCreate extends StatefulWidget {
   const AuthWalletCreate({super.key});
@@ -44,17 +45,15 @@ class _AuthWalletCreateState extends State<AuthWalletCreate> {
             if (state.walletCreateStatus == .success) {
               Future.delayed(const Duration(milliseconds: 1500), () {
                 // ignore: use_build_context_synchronously
-                // Navigator.of(context).pushAndRemoveUntil(
-                //   MaterialPageRoute(builder: (context) => HomeScreen()),
-                //   (route) => false,
-                // );
+                MainRoute().go(context);
               });
             } else if (state.walletCreateStatus == .error) {
               // Show error dialog
               ModalDialogs.showErrorDialog(
                 context,
                 title: state.walletCreateError,
-              );
+                // ignore: use_build_context_synchronously
+              ).then((value) => MainRoute().go(context),);
             }
           },
           child: Stack(

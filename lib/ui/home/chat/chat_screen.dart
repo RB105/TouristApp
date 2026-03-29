@@ -1,5 +1,6 @@
 /* February 2026 , Baxrom Rajabov, Tashkent , Uzbekistan */
 
+import 'package:easy_localization/easy_localization.dart' show StringTranslateExtension;
 import 'package:flutter/material.dart';
 
 class ChatScreen extends StatefulWidget {
@@ -12,5 +13,5 @@ class ChatScreen extends StatefulWidget {
 class _ChatScreenState extends State<ChatScreen> {
   @override
   Widget build(BuildContext context) =>
-      Scaffold(appBar: AppBar(title: Text("Chat")));
+      Scaffold(appBar: AppBar(title: Text("home.chat_title".tr()),));
 }
