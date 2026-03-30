@@ -75,10 +75,10 @@ class _CustomButtonState extends State<CustomButton>
           surfaceTintColor: Colors.transparent,
           backgroundColor: widget.bgColor ?? context.primary,
           foregroundColor: widget.fgColor ?? Colors.white,
-          shape: RoundedRectangleBorder(
+          shape: widget.borderRadius != null ?  RoundedRectangleBorder(
             side: widget.borderSide ?? BorderSide.none,
             borderRadius: widget.borderRadius ?? context.borderRadius16,
-          ),
+          ) : StadiumBorder(),
         ),
         onPressed: _handlePressed,
         child: widget.child ?? Text(widget.text ?? "", style: widget.textStyle),

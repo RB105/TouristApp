@@ -10,7 +10,10 @@ List<RouteBase> get $appRoutes => [
   $rootRoute,
   $authRoute,
   $onBoardingRoute,
+  $authWalletCreateRoute,
   $homeShellRoute,
+  $qrAmountScreenRoute,
+  $qrOtpScreenRoute,
 ];
 
 RouteBase get $rootRoute =>
@@ -70,6 +73,32 @@ mixin $OnBoardingRoute on GoRouteData {
 
   @override
   String get location => GoRouteData.$location('/onboarding');
+
+  @override
+  void go(BuildContext context) => context.go(location);
+
+  @override
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  @override
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  @override
+  void replace(BuildContext context) => context.replace(location);
+}
+
+RouteBase get $authWalletCreateRoute => GoRouteData.$route(
+  path: '/auth-wallet-create',
+  factory: $AuthWalletCreateRoute._fromState,
+);
+
+mixin $AuthWalletCreateRoute on GoRouteData {
+  static AuthWalletCreateRoute _fromState(GoRouterState state) =>
+      const AuthWalletCreateRoute();
+
+  @override
+  String get location => GoRouteData.$location('/auth-wallet-create');
 
   @override
   void go(BuildContext context) => context.go(location);
@@ -214,6 +243,81 @@ mixin $ProfileRoute on GoRouteData {
 
   @override
   String get location => GoRouteData.$location('/profile');
+
+  @override
+  void go(BuildContext context) => context.go(location);
+
+  @override
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  @override
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  @override
+  void replace(BuildContext context) => context.replace(location);
+}
+
+RouteBase get $qrAmountScreenRoute => GoRouteData.$route(
+  path: '/qr-amount-screen',
+  factory: $QrAmountScreenRoute._fromState,
+);
+
+mixin $QrAmountScreenRoute on GoRouteData {
+  static QrAmountScreenRoute _fromState(GoRouterState state) =>
+      QrAmountScreenRoute(
+        qrCheckResult: (String json0) {
+          return QrCheckResult.fromJson(
+            jsonDecode(json0) as Map<String, dynamic>,
+          );
+        }(state.uri.queryParameters['qr-check-result']!),
+      );
+
+  QrAmountScreenRoute get _self => this as QrAmountScreenRoute;
+
+  @override
+  String get location => GoRouteData.$location(
+    '/qr-amount-screen',
+    queryParams: {'qr-check-result': jsonEncode(_self.qrCheckResult.toJson())},
+  );
+
+  @override
+  void go(BuildContext context) => context.go(location);
+
+  @override
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  @override
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  @override
+  void replace(BuildContext context) => context.replace(location);
+}
+
+RouteBase get $qrOtpScreenRoute => GoRouteData.$route(
+  path: '/qr-otp-screen',
+  factory: $QrOtpScreenRoute._fromState,
+);
+
+mixin $QrOtpScreenRoute on GoRouteData {
+  static QrOtpScreenRoute _fromState(GoRouterState state) => QrOtpScreenRoute(
+    paymentCreateResult: (String json0) {
+      return PaymentCreateResult.fromJson(
+        jsonDecode(json0) as Map<String, dynamic>,
+      );
+    }(state.uri.queryParameters['payment-create-result']!),
+  );
+
+  QrOtpScreenRoute get _self => this as QrOtpScreenRoute;
+
+  @override
+  String get location => GoRouteData.$location(
+    '/qr-otp-screen',
+    queryParams: {
+      'payment-create-result': jsonEncode(_self.paymentCreateResult.toJson()),
+    },
+  );
 
   @override
   void go(BuildContext context) => context.go(location);

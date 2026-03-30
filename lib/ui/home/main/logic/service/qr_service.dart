@@ -1,5 +1,6 @@
 /* March 2026 , Baxrom Rajabov, Tashkent , Uzbekistan */
 
+import 'package:touristapp/ui/home/main/logic/model/payment_create_result.dart';
 import 'package:touristapp/ui/home/main/logic/model/qr_check_result.dart';
 import 'package:touristapp/ui/home/main/logic/model/transaction_result.dart';
 import 'package:touristapp/utils/config/api_client.dart';
@@ -27,18 +28,19 @@ class QrService {
 
   Future<NetworkResponse> paymentCreate({
     required String extId,
-    required String qrId,
     required double amount,
   }) async {
     final response = await api.post(
       endPoint: Endpoints.createPayment,
       bearToken: true,
-      params: {
-        "amount": amount * 100,
-        "qr_id": qrId,
-        "ext_id": extId,
-      },
+      params: {"amount": amount * 100, "ext_id": extId},
     );
+
+    if (response.isSuccess) {
+      return NetworkResponse.success(
+        data: PaymentCreateResult.fromJson(response.data),
+      );
+    }
 
     return response;
   }
@@ -54,7 +56,9 @@ class QrService {
     );
 
     if (response.isSuccess) {
-      return NetworkResponse.success(data: TransactionResult.fromJson(response.data));
+      return NetworkResponse.success(
+        data: TransactionResult.fromJson(response.data),
+      );
     }
 
     return response;

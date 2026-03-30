@@ -2,6 +2,8 @@
 
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:touristapp/ui/home/main/logic/model/payment_create_result.dart'
+    show PaymentCreateResult;
 import 'package:touristapp/ui/home/main/logic/model/qr_check_result.dart';
 import 'package:touristapp/ui/home/main/logic/model/transaction_result.dart';
 import 'package:touristapp/ui/home/main/logic/service/qr_service.dart';
@@ -33,17 +35,20 @@ class QrCubit extends Cubit<QrState> {
 
   void createPayment({
     required String extId,
-    required String qrId,
     required double amount,
   }) async {
     emit(state.copyWith(paymentCreateStatus: ApiStatus.loading));
     final response = await qrService.paymentCreate(
       extId: extId,
-      qrId: qrId,
       amount: amount,
     );
     if (response.isSuccess) {
-      emit(state.copyWith(paymentCreateStatus: .success));
+      emit(
+        state.copyWith(
+          paymentCreateStatus: .success,
+          paymentCreateResult: response.data,
+        ),
+      );
     } else {
       emit(
         state.copyWith(
@@ -61,7 +66,12 @@ class QrCubit extends Cubit<QrState> {
       otpCode: otpCode,
     );
     if (response.isSuccess) {
-      emit(state.copyWith(paymentConfirmStatus: .success , transaction: response.data));
+      emit(
+        state.copyWith(
+          paymentConfirmStatus: .success,
+          transaction: response.data,
+        ),
+      );
     } else {
       emit(
         state.copyWith(

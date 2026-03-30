@@ -51,6 +51,7 @@ dependencies:
   shimmer: ^3.0.0
   go_router: ^17.1.0
   firebase_core: ^4.6.0
+  fluttertoast: ^9.0.0
 
 dev_dependencies:
   flutter_test:
@@ -68,6 +69,7 @@ dev_dependencies:
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 flutter_assets_generator:
+  style: legacy
   path_ignore:
     [ ".dart_tool/" , ".idea/" , "android/" , "lib/" , "ios/" , "build/", "test/" ]
 
@@ -84,10 +86,10 @@ flutter:
     - assets/
     - assets/images/
     - assets/icons/
-#    - assets/fonts/
     - assets/lotties/
     - assets/lang/
     - lib/generated/
+    - assets/fonts/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images

@@ -51,6 +51,7 @@ class _QrScannerWidgetState extends State<QrScannerWidget> {
           } else if (state.qrCheckStatus == .success) {
             ModalDialogs.dismissCurrentDialog();
             debugPrint(state.qrCheckResult?.amount.toString());
+            Navigator.of(context).pop();
             Navigator.of(context).push(
               MaterialPageRoute(
                 builder: (context) =>

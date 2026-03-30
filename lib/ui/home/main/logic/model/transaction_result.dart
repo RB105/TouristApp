@@ -1,24 +1,24 @@
 /* March 2026 , Baxrom Rajabov, Tashkent , Uzbekistan */
 
 class TransactionResult {
-  final String walletId;
+  final String? walletId;
   final double walletNewBalance;
-  final String sender;
-  final DateTime createdAt;
-  final DateTime updatedAt;
-  final String extId;
-  final String refNum;
-  final String status;
-  final String description;
-  final String receiver;
+  final String? sender;
+  final DateTime? createdAt;
+  final DateTime? updatedAt;
+  final String? extId;
+  final String? refNum;
+  final String? status;
+  final String? description;
+  final String? receiver;
   final double commissionAmount;
-  final String commissionCurrency;
-  final String integrationType;
-  final String flowType;
-  final String provider;
-  final num amount;
-  final String currency;
-  final String transactionDirection;
+  final String? commissionCurrency;
+  final String? integrationType;
+  final String? flowType;
+  final String? provider;
+  final double amount;
+  final String? currency;
+  final String? transactionDirection;
 
   TransactionResult({
     required this.walletId,
@@ -42,25 +42,40 @@ class TransactionResult {
   });
 
   factory TransactionResult.fromJson(Map<String, dynamic> json) {
+    DateTime? parseDate(String? value) {
+      if (value == null) return null;
+      try {
+        return DateTime.parse(value);
+      } catch (_) {
+        return null;
+      }
+    }
+
+    double toDouble(dynamic value) {
+      if (value == null) return 0.0;
+      if (value is num) return value.toDouble();
+      return double.tryParse(value.toString()) ?? 0.0;
+    }
+
     return TransactionResult(
-      walletId: json['wallet_id'],
-      walletNewBalance: (json['wallet_new_balance'] as num).toDouble(),
-      sender: json['sender'],
-      createdAt: DateTime.parse(json['created_at']),
-      updatedAt: DateTime.parse(json['updated_at']),
-      extId: json['ext_id'],
-      refNum: json['ref_num'],
-      status: json['status'],
-      description: json['description'],
-      receiver: json['receiver'],
-      commissionAmount: (json['commission_amount'] as num).toDouble(),
-      commissionCurrency: json['commission_currency'],
-      integrationType: json['integration_type'],
-      flowType: json['flow_type'],
-      provider: json['provider'],
-      amount: (json['amount'] as num).toDouble(),
-      currency: json['currency'],
-      transactionDirection: json['transaction_direction'],
+      walletId: json['wallet_id'] as String?,
+      walletNewBalance: toDouble(json['wallet_new_balance']),
+      sender: json['sender'] as String?,
+      createdAt: parseDate(json['created_at']),
+      updatedAt: parseDate(json['updated_at']),
+      extId: json['ext_id'] as String?,
+      refNum: json['ref_num'] as String?,
+      status: json['status'] as String?,
+      description: json['description'] as String?,
+      receiver: json['receiver'] as String?,
+      commissionAmount: toDouble(json['commission_amount']),
+      commissionCurrency: json['commission_currency'] as String?,
+      integrationType: json['integration_type'] as String?,
+      flowType: json['flow_type'] as String?,
+      provider: json['provider'] as String?,
+      amount: toDouble(json['amount']),
+      currency: json['currency'] as String?,
+      transactionDirection: json['transaction_direction'] as String?,
     );
   }
 
@@ -69,8 +84,8 @@ class TransactionResult {
       'wallet_id': walletId,
       'wallet_new_balance': walletNewBalance,
       'sender': sender,
-      'created_at': createdAt.toIso8601String(),
-      'updated_at': updatedAt.toIso8601String(),
+      'created_at': createdAt?.toIso8601String(),
+      'updated_at': updatedAt?.toIso8601String(),
       'ext_id': extId,
       'ref_num': refNum,
       'status': status,
@@ -88,7 +103,8 @@ class TransactionResult {
   }
 
   String get formattedCreatedAt {
-    final d = createdAt;
+    if (createdAt == null) return '';
+    final d = createdAt!;
     return '${d.day.toString().padLeft(2, '0')}.'
         '${d.month.toString().padLeft(2, '0')}.'
         '${d.year} '
@@ -97,13 +113,11 @@ class TransactionResult {
 
   String getBalance() {
     String getCurrency() {
-      if (currency == '860') {
-        return "UZS";
-      }
+      if (currency == '860') return "UZS";
       return "";
     }
 
-    final balanceInDouble = amount / 100; // Assuming balance is in cents
+    final balanceInDouble = amount / 100;
     return "${balanceInDouble.toStringAsFixed(1)} ${getCurrency()}";
   }
 

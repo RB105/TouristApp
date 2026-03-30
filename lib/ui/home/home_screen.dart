@@ -18,7 +18,6 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -45,7 +44,15 @@ class _HomeScreenState extends State<HomeScreen> {
             label: "home.monitoring_nav_title".tr(),
           ),
           BottomNavigationBarItem(
-            icon: _buildNavbar(Assets.iconsNavbarProfile, 3),
+            icon: SizedBox(
+              width: 24,
+              height: 24,
+              child: SvgPicture.asset(
+                widget.shell.currentIndex == 3
+                    ? Assets.iconsAvatarEnabled
+                    : Assets.iconsAvatarDisabled,
+              ),
+            ),
             label: "home.profile_nav_title".tr(),
           ),
         ],
@@ -53,17 +60,17 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  SizedBox _buildNavbar(String img, int index) {
-    return SizedBox(
-      width: 24,
-      height: 24,
-      child: SvgPicture.asset(
-        img,
-        colorFilter: ColorFilter.mode(
-          widget.shell.currentIndex == index ? context.primary : context.iconDisabled,
-          .srcIn,
-        ),
+  SizedBox _buildNavbar(String img, int index) => SizedBox(
+    width: 24,
+    height: 24,
+    child: SvgPicture.asset(
+      img,
+      colorFilter: ColorFilter.mode(
+        widget.shell.currentIndex == index
+            ? context.primary
+            : context.iconDisabled,
+        .srcIn,
       ),
-    );
-  }
+    ),
+  );
 }

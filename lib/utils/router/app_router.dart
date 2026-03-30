@@ -1,15 +1,21 @@
 /* March 2026 , Baxrom Rajabov, Tashkent , Uzbekistan */
 
 import 'dart:async';
+import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart' show GetStorage;
 import 'package:go_router/go_router.dart';
 import 'package:touristapp/ui/auth/view/auth_screen.dart';
+import 'package:touristapp/ui/auth/view/auth_wallet_create.dart';
 import 'package:touristapp/ui/home/chat/chat_screen.dart';
 import 'package:touristapp/ui/home/home_screen.dart';
+import 'package:touristapp/ui/home/main/logic/model/payment_create_result.dart';
+import 'package:touristapp/ui/home/main/logic/model/qr_check_result.dart' show QrCheckResult;
 import 'package:touristapp/ui/home/main/ui/main_screen.dart';
 import 'package:touristapp/ui/home/main/ui/payments_screen.dart';
+import 'package:touristapp/ui/home/main/ui/qr/qr_amoun_screen.dart' show QrAmounScreen;
+import 'package:touristapp/ui/home/main/ui/qr/qr_otp_screen.dart';
 import 'package:touristapp/ui/home/monitoring/monitoring_screen.dart';
 import 'package:touristapp/ui/home/profile/profile_screen.dart';
 import 'package:touristapp/ui/splash/on_boarding_screen.dart';
@@ -33,6 +39,7 @@ class RootRoute extends GoRouteData with $RootRoute {
 
     if (access == null) {
       debugPrint(access);
+      // return const AuthWalletCreateRoute().location;
       return const AuthRoute().location;
     }
     debugPrint('/main');
@@ -66,6 +73,17 @@ class OnBoardingRoute extends GoRouteData with $OnBoardingRoute {
     return const OnBoardingScreen();
   }
 }
+
+@TypedGoRoute<AuthWalletCreateRoute>(path: '/auth-wallet-create')
+class AuthWalletCreateRoute extends GoRouteData with $AuthWalletCreateRoute {
+  const AuthWalletCreateRoute();
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) {
+    return const AuthWalletCreate();
+  }
+}
+
 
 /// MAIN SHELL
 @TypedStatefulShellRoute<HomeShellRoute>(
@@ -147,5 +165,29 @@ class ProfileRoute extends GoRouteData with $ProfileRoute {
   @override
   Widget build(BuildContext context, GoRouterState state) {
     return const ProfileScreen();
+  }
+}
+
+@TypedGoRoute<QrAmountScreenRoute>(path: '/qr-amount-screen')
+class QrAmountScreenRoute extends GoRouteData with $QrAmountScreenRoute {
+  final QrCheckResult qrCheckResult;
+
+  const QrAmountScreenRoute({required this.qrCheckResult});
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) {
+    return QrAmounScreen(qrCheckResult: qrCheckResult);
+  }
+}
+
+@TypedGoRoute<QrOtpScreenRoute>(path: '/qr-otp-screen')
+class QrOtpScreenRoute extends GoRouteData with $QrOtpScreenRoute {
+  final PaymentCreateResult paymentCreateResult;
+
+  const QrOtpScreenRoute({required this.paymentCreateResult});
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) {
+    return QrOtpScreen(paymentCreateResult: paymentCreateResult);
   }
 }

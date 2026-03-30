@@ -134,7 +134,7 @@ class TransactionItem {
       createdAt: DateTime.parse(json['created_at']),
       updatedAt: DateTime.parse(json['updated_at']),
       extId: json['ext_id'],
-      refNum: json['ref_num'],
+      refNum: json['ref_num'] ?? "",
       status: json['status'],
       description: json['description'],
       receiver: json['receiver'],
@@ -147,6 +147,22 @@ class TransactionItem {
       currency: json['currency'],
       transactionDirection: json['transaction_direction'],
     );
+  }
+
+  String getBalance() {
+    String getCurrency() {
+      if (currency == '860') {
+        return "UZS";
+      }
+      return "";
+    }
+
+    final balanceInDouble = amount / 100; // Assuming amount is in cents
+    return "${balanceInDouble.toStringAsFixed(1)} ${getCurrency()}";
+  }
+
+  String getDate() {
+    return "${createdAt.day}/${createdAt.month}/${createdAt.year}";
   }
 
   bool get isSuccess => status == "SUCCESS";

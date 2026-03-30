@@ -10,6 +10,7 @@ class QrState extends Equatable {
   //
   final ApiStatus paymentCreateStatus;
   final String paymentCreateError;
+  final PaymentCreateResult? paymentCreateResult;
 
   //
   final ApiStatus paymentConfirmStatus;
@@ -23,6 +24,7 @@ class QrState extends Equatable {
     //
     this.paymentCreateStatus = .initial,
     this.paymentCreateError = '',
+    this.paymentCreateResult,
     //
     this.paymentConfirmStatus = .initial,
     this.paymentConfirmError = '',
@@ -36,6 +38,7 @@ class QrState extends Equatable {
     //
     ApiStatus? paymentCreateStatus,
     String? paymentCreateError,
+    PaymentCreateResult? paymentCreateResult,
     //
     ApiStatus? paymentConfirmStatus,
     String? paymentConfirmError,
@@ -48,6 +51,7 @@ class QrState extends Equatable {
       //
       paymentCreateStatus: paymentCreateStatus ?? this.paymentCreateStatus,
       paymentCreateError: paymentCreateError ?? this.paymentCreateError,
+      paymentCreateResult: paymentCreateResult ?? this.paymentCreateResult,
       //
       paymentConfirmStatus: paymentConfirmStatus ?? this.paymentConfirmStatus,
       paymentConfirmError: paymentConfirmError ?? this.paymentConfirmError,
@@ -63,6 +67,7 @@ class QrState extends Equatable {
     //
     paymentCreateStatus,
     paymentCreateError,
+    paymentCreateResult,
     //
     paymentConfirmStatus,
     paymentConfirmError,

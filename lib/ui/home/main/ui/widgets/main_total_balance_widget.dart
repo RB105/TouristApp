@@ -16,34 +16,37 @@ class MainTotalBalanceWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: double.infinity,
-      height: 150,
-      child: DecoratedBox(
-        decoration: BoxDecoration(
-          borderRadius: context.borderRadius24,
-          image: DecorationImage(
-            image: AssetImage(Assets.iconsWalletBg),
-            fit: .cover,
+    return Padding(
+      padding: context.k16horizontalPadding,
+      child: SizedBox(
+        width: double.infinity,
+        height: 150,
+        child: DecoratedBox(
+          decoration: BoxDecoration(
+            borderRadius: context.borderRadius24,
+            image: DecorationImage(
+              image: AssetImage(Assets.iconsWalletBg),
+              fit: .cover,
+            ),
           ),
-        ),
-        child: Padding(
-          padding: context.k16Padding,
-          child: Column(
-            crossAxisAlignment: .start,
-            mainAxisAlignment: .end,
-            children: [
-              Text(
-                "main.total_balance".tr(),
-                style: context.semiboldMutedXs.copyWith(
-                  color: context.textDisabled,
+          child: Padding(
+            padding: context.k16Padding,
+            child: Column(
+              crossAxisAlignment: .start,
+              mainAxisAlignment: .end,
+              children: [
+                Text(
+                  "main.total_balance".tr(),
+                  style: context.semiboldMutedXs.copyWith(
+                    color: context.textDisabled,
+                  ),
                 ),
-              ),
-              Text(
-                balance,
-                style: context.semiboldDisplaySm.copyWith(color: Colors.white),
-              ),
-            ],
+                Text(
+                  balance,
+                  style: context.semiboldDisplaySm.copyWith(color: Colors.white),
+                ),
+              ],
+            ),
           ),
         ),
       ),

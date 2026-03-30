@@ -19,7 +19,6 @@ import 'package:touristapp/utils/extensions/text_styles_extension.dart'
 import 'package:touristapp/utils/modal/modal_sheets.dart';
 import 'package:touristapp/utils/router/app_router.dart';
 
-import '../logic/model/transaction_result.dart' show TransactionResult;
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
@@ -71,28 +70,35 @@ class _MainScreenState extends State<MainScreen> {
             child: SvgPicture.asset(Assets.iconsQrButton),
           ),
         ),
-        body: Padding(
-          padding: context.k16Padding,
-          child: Column(
+        body: RefreshIndicator.adaptive(
+          onRefresh: () => _homeCubit.getHomeDetails(),
+          child: ListView(
             children: [
-              MainTotalBalanceWidget(
-                balance: state.details?.wallet.first.getBalance() ?? "",
-              ),
-              context.szBoxHeight20,
-              Row(
+              Column(
                 children: [
-                  _buildBox(Assets.iconsRightTrailing, "main.top_up".tr(), () {}),
-                  context.szBoxWidth16,
-                  _buildBox(Assets.iconsP2p, "main.send_money".tr(), () {}),
-                  context.szBoxWidth16,
-                  _buildBox(Assets.iconsWallet, "main.payments".tr(), () {
-                    // context.push('/main/payments');
-                    PaymentsRoute().push(context);
-                  }),
+                  MainTotalBalanceWidget(
+                    balance: state.details?.wallet.first.getBalance() ?? "",
+                  ),
+                  context.szBoxHeight20,
+                  Padding(
+                    padding: context.k16horizontalPadding,
+                    child: Row(
+                      children: [
+                        _buildBox(Assets.iconsRightTrailing, "main.top_up".tr(), () {}),
+                        context.szBoxWidth16,
+                        _buildBox(Assets.iconsP2p, "main.send_money".tr(), () {}),
+                        context.szBoxWidth16,
+                        _buildBox(Assets.iconsWallet, "main.payments".tr(), () {
+                          // context.push('/main/payments');
+                          PaymentsRoute().push(context);
+                        }),
+                      ],
+                    ),
+                  ),
+                  context.szBoxHeight20,
+                  MainLastTrWidget(historyGroups: state.details?.history ?? []),
                 ],
               ),
-              context.szBoxHeight20,
-              MainLastTrWidget(historyGroups: state.details?.history ?? []),
             ],
           ),
         ),

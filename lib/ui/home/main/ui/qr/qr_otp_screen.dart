@@ -1,22 +1,24 @@
 /* March 2026 , Baxrom Rajabov, Tashkent , Uzbekistan */
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:pinput/pinput.dart';
 import 'package:touristapp/generated/assets.dart';
 import 'package:touristapp/ui/home/main/logic/cubit/qr_cubit.dart';
+import 'package:touristapp/ui/home/main/logic/model/payment_create_result.dart';
 import 'package:touristapp/utils/di/di.dart';
-import 'package:touristapp/utils/extensions/color_extension.dart';
 import 'package:touristapp/utils/extensions/context_extensions.dart';
 import 'package:touristapp/utils/extensions/text_styles_extension.dart';
 import 'package:touristapp/utils/modal/modal_dialogs.dart';
 import 'package:touristapp/utils/modal/modal_sheets.dart';
+import 'package:touristapp/utils/styled_text_parser.dart' show StyledTextParser;
 
 class QrOtpScreen extends StatefulWidget {
-  final String extId;
+  final PaymentCreateResult paymentCreateResult;
 
-  const QrOtpScreen({super.key, required this.extId});
+  const QrOtpScreen({super.key, required this.paymentCreateResult});
 
   @override
   State<QrOtpScreen> createState() => _QrOtpScreenState();
@@ -61,13 +63,18 @@ class _QrOtpScreenState extends State<QrOtpScreen> {
                 ),
                 context.szBoxHeight24,
                 Text(
-                  "Verification code",
-                  style: context.boldDisplayXs.copyWith(color: context.primary),
+                  "auth.verification_code".tr(),
+                  style: context.boldDisplayXs,
                 ),
                 context.szBoxHeight24,
-                Text(
-                  "We have sent you a 6-digit code to your phone\n number +7 (923) 566 74 94 via Telegram. Please\n check out “Verification Codes” chat",
-                  style: context.semiboldMutedSm,
+                RichText(
+                  text: StyledTextParser.parse(
+                    'auth.verification_message'.tr(),
+                    placeholders: {'phone': widget.paymentCreateResult.phoneNumber},
+                    tagStyles: {
+                      'bold': (style) => style.copyWith(fontWeight: FontWeight.bold),
+                    }, defaultStyle: context.textSm,
+                  ),
                 ),
                 context.szBoxHeight24,
                 Pinput(
@@ -75,7 +82,7 @@ class _QrOtpScreenState extends State<QrOtpScreen> {
                   focusNode: _focusNode,
                   length: 6,
                   onCompleted: (value) => _qrCubit.confirmPayment(
-                      extId: widget.extId,
+                      extId: widget.paymentCreateResult.extId,
                       otpCode: _otpController.text,
                     ),
                   separatorBuilder: (index) {

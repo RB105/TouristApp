@@ -6,7 +6,6 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:touristapp/generated/assets.dart';
 import 'package:touristapp/ui/home/main/logic/cubit/qr_cubit.dart';
 import 'package:touristapp/ui/home/main/logic/model/qr_check_result.dart';
-import 'package:touristapp/ui/home/main/ui/qr/qr_otp_screen.dart';
 import 'package:touristapp/ui/widgets/custom_button.dart';
 import 'package:touristapp/ui/widgets/custom_keyboard.dart';
 import 'package:touristapp/utils/di/di.dart';
@@ -15,6 +14,7 @@ import 'package:touristapp/utils/extensions/color_extension.dart';
 import 'package:touristapp/utils/extensions/context_extensions.dart';
 import 'package:touristapp/utils/extensions/text_styles_extension.dart';
 import 'package:touristapp/utils/modal/modal_dialogs.dart' show ModalDialogs;
+import 'package:touristapp/utils/router/app_router.dart';
 
 class QrAmounScreen extends StatefulWidget {
   final QrCheckResult qrCheckResult;
@@ -87,7 +87,9 @@ class _QrAmounScreenState extends State<QrAmounScreen> {
             debugPrint("Payment Create Error: ${state.paymentCreateError}");
           } else if (state.paymentCreateStatus == .success) {
             ModalDialogs.dismissCurrentDialog();
-            Navigator.of(context).push(MaterialPageRoute(builder: (context) => QrOtpScreen(extId: widget.qrCheckResult.extId),));
+            QrOtpScreenRoute(
+              paymentCreateResult: state.paymentCreateResult!,
+            ).push(context);
           }
         },
         builder: (context, state) => Padding(
@@ -164,7 +166,6 @@ class _QrAmounScreenState extends State<QrAmounScreen> {
                   if (state.paymentCreateStatus != ApiStatus.loading) {
                     _qrCubit.createPayment(
                       extId: widget.qrCheckResult.extId,
-                      qrId: widget.qrCheckResult.qrId,
                       amount: double.parse(_amount),
                     );
                   }

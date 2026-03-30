@@ -3,6 +3,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart' show SvgPicture;
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:go_router/go_router.dart';
 import 'package:touristapp/generated/assets.dart' show Assets;
 import 'package:touristapp/ui/home/main/logic/model/transaction_result.dart'
     show TransactionResult;
@@ -53,9 +55,7 @@ class _QrChequeScreenState extends State<QrChequeScreen> {
             context.szBoxHeight12,
             Row(
               mainAxisAlignment: .center,
-              children: [
-                Text(widget.transaction.getBalance()),
-              ],
+              children: [Text(widget.transaction.getBalance())],
             ),
             context.szBoxHeight12,
             Row(
@@ -67,7 +67,10 @@ class _QrChequeScreenState extends State<QrChequeScreen> {
                   child: SvgPicture.asset(_getStateIcon),
                 ),
                 context.szBoxWidth12,
-                Text(widget.transaction.description, style: context.semiboldSm),
+                Text(
+                  widget.transaction.description ?? "",
+                  style: context.semiboldSm,
+                ),
               ],
             ),
             context.szBoxHeight16,
@@ -86,28 +89,28 @@ class _QrChequeScreenState extends State<QrChequeScreen> {
                   children: [
                     Text("Wallet owner", style: context.mediumMutedSm),
                     Spacer(),
-                    Text(widget.transaction.receiver),
+                    Text(widget.transaction.receiver ?? ""),
                   ],
                 ),
                 Row(
                   children: [
                     Text("Transaction ID", style: context.mediumMutedSm),
                     context.szBoxWidth16,
-
                     Expanded(
                       child: Text(
-                        widget.transaction.extId,
+                        widget.transaction.extId ?? "",
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                       ),
                     ),
-
                     context.szBoxWidth8,
-
                     InkWell(
-                      onTap: () => Clipboard.setData(
-                        ClipboardData(text: widget.transaction.extId),
-                      ),
+                      onTap: () {
+                        Clipboard.setData(
+                          ClipboardData(text: widget.transaction.extId ?? ""),
+                        );
+                        Fluttertoast.showToast(msg: 'Copied to clipboard');
+                      },
                       child: SizedBox(
                         width: 24,
                         height: 24,
@@ -118,15 +121,56 @@ class _QrChequeScreenState extends State<QrChequeScreen> {
                 ),
               ],
             ),
+            context.szBoxHeight16,
+            PrimaryContainer(
+              bgColor: context.bgTertiary,
+              padding: context.k12Padding,
+              children: [
+                Row(
+                  children: [
+                    Text("Amount", style: context.mediumMutedSm),
+                    Spacer(),
+                    Text(widget.transaction.getBalance()),
+                  ],
+                ),
+                Row(
+                  children: [
+                    Text("Comission", style: context.mediumMutedSm),
+                    Spacer(),
+                    Text("Free"),
+                  ],
+                ),
+              ],
+            ),
+            context.szBoxHeight16,
+            PrimaryContainer(
+              bgColor: context.bgTertiary,
+              padding: context.k12Padding,
+              children: [
+                Row(
+                  children: [
+                    Text("Comission", style: context.mediumMutedSm),
+                    Spacer(),
+                    SizedBox(
+                      width: 24,
+                      height: 24,
+                      child: SvgPicture.asset(Assets.iconsDownload),
+                    ),
+                    context.szBoxWidth8,
+                    Text(
+                      "Download",
+                      style: context.semiboldSm.copyWith(color: context.info),
+                    ),
+                  ],
+                ),
+              ],
+            ),
             Spacer(),
             CustomButton(
               onPressed: () {
-                // Navigator.of(context).pushAndRemoveUntil(
-                //   MaterialPageRoute(builder: (context) => HomeScreen()),
-                //   (route) => false,
-                // );
+                context.pop();
               },
-              text: "Go to Home",
+              text: "Go Back",
             ),
             context.szBoxHeight16,
           ],
