@@ -1,8 +1,9 @@
 /* February 2026 , Baxrom Rajabov, Tashkent , Uzbekistan */
 
 import 'package:dio/dio.dart';
+import 'package:flutter/foundation.dart' show debugPrint;
 import 'package:get_storage/get_storage.dart' show GetStorage;
-import 'package:touristapp/utils/const/endpoints.dart';
+import 'package:touristapp/utils/const/endpoints.dart' show Endpoints;
 
 class RefreshTokenInterceptor extends Interceptor {
   final Dio dio;
@@ -73,6 +74,13 @@ class RefreshTokenInterceptor extends Interceptor {
       data: {'refresh_token': refreshToken},
     );
 
-    return (response.data['result']);
+    if (response.statusCode == 200) {
+      debugPrint("Token refreshed successfully");
+      debugPrint(response.data.toString());
+    } else {
+      debugPrint("Failed to refresh token: ${response.statusCode}");
+    }
+
+    return response.data;
   }
 }

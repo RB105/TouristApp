@@ -18,6 +18,13 @@ class HomeDetailsResult {
           [],
     );
   }
+
+  String getBalance() {
+    if(wallet.isEmpty) {
+      return "0 UZS";
+    }
+    return wallet.first.getBalance();
+  }
 }
 
 class Wallet {
@@ -140,7 +147,7 @@ class TransactionItem {
       receiver: json['receiver'],
       commissionAmount: json['commission_amount'],
       commissionCurrency: json['commission_currency'],
-      integrationType: json['integration_type'],
+      integrationType: json['integration_type'] ?? "",
       flowType: json['flow_type'],
       provider: json['provider'],
       amount: json['amount'],

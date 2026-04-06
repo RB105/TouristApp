@@ -6,11 +6,13 @@ import 'package:get_storage/get_storage.dart' show GetStorage;
 import 'package:touristapp/ui/auth/logic/cubit/auth_cubit.dart';
 import 'package:touristapp/ui/auth/logic/service/auth_service.dart'
     show AuthService;
+import 'package:touristapp/ui/home/main/logic/cubit/carusel/carusel_cubit.dart' show CaruselCubit;
 import 'package:touristapp/ui/home/main/logic/cubit/home/home_cubit.dart';
 import 'package:touristapp/ui/home/main/logic/cubit/qr_cubit.dart';
 import 'package:touristapp/ui/home/main/logic/cubit/wallet_cubit.dart';
 import 'package:touristapp/ui/home/main/logic/service/home_service.dart';
 import 'package:touristapp/ui/home/main/logic/service/qr_service.dart';
+import 'package:touristapp/ui/home/main/logic/service/transfer_service.dart' show TransferService;
 import 'package:touristapp/ui/home/main/logic/service/wallet_service.dart';
 import 'package:touristapp/utils/config/api_client.dart' show ApiClient;
 import 'package:touristapp/utils/config/dio_client.dart' show createDio;
@@ -19,6 +21,9 @@ import 'package:touristapp/utils/config/interceptors/auth_header_interceptor.dar
 import 'package:touristapp/utils/config/interceptors/base_headers_interceptor.dart'
     show BaseHeadersInterceptor;
 import 'package:touristapp/utils/config/interceptors/refresh_token_interceptor.dart';
+
+import '../../ui/home/monitoring/logic/cubit/monitoring_cubit.dart' show MonitoringCubit;
+import '../../ui/home/monitoring/logic/service/monitoring_service.dart' show MonitoringService;
 
 part 'modules/services_module.dart';
 

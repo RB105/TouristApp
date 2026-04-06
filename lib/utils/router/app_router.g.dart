@@ -14,6 +14,8 @@ List<RouteBase> get $appRoutes => [
   $homeShellRoute,
   $qrAmountScreenRoute,
   $qrOtpScreenRoute,
+  $chequesScreenRoute,
+  $bankLauncherScreenRoute,
 ];
 
 RouteBase get $rootRoute =>
@@ -317,6 +319,72 @@ mixin $QrOtpScreenRoute on GoRouteData {
     queryParams: {
       'payment-create-result': jsonEncode(_self.paymentCreateResult.toJson()),
     },
+  );
+
+  @override
+  void go(BuildContext context) => context.go(location);
+
+  @override
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  @override
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  @override
+  void replace(BuildContext context) => context.replace(location);
+}
+
+RouteBase get $chequesScreenRoute => GoRouteData.$route(
+  path: '/cheque',
+  factory: $ChequesScreenRoute._fromState,
+);
+
+mixin $ChequesScreenRoute on GoRouteData {
+  static ChequesScreenRoute _fromState(GoRouterState state) =>
+      ChequesScreenRoute(extId: state.uri.queryParameters['ext-id']!);
+
+  ChequesScreenRoute get _self => this as ChequesScreenRoute;
+
+  @override
+  String get location =>
+      GoRouteData.$location('/cheque', queryParams: {'ext-id': _self.extId});
+
+  @override
+  void go(BuildContext context) => context.go(location);
+
+  @override
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  @override
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  @override
+  void replace(BuildContext context) => context.replace(location);
+}
+
+RouteBase get $bankLauncherScreenRoute => GoRouteData.$route(
+  path: '/bankLauncher',
+  factory: $BankLauncherScreenRoute._fromState,
+);
+
+mixin $BankLauncherScreenRoute on GoRouteData {
+  static BankLauncherScreenRoute _fromState(GoRouterState state) =>
+      BankLauncherScreenRoute(
+        sbpQrResult: (String json0) {
+          return TransferCreateSbpResult.fromJson(
+            jsonDecode(json0) as Map<String, dynamic>,
+          );
+        }(state.uri.queryParameters['sbp-qr-result']!),
+      );
+
+  BankLauncherScreenRoute get _self => this as BankLauncherScreenRoute;
+
+  @override
+  String get location => GoRouteData.$location(
+    '/bankLauncher',
+    queryParams: {'sbp-qr-result': jsonEncode(_self.sbpQrResult.toJson())},
   );
 
   @override

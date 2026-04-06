@@ -6,4 +6,6 @@ void _registerServicesModule() {
   _registerIfNotExists<WalletService>(() => WalletService(getIt<ApiClient>()));
   _registerIfNotExists<QrService>(() => QrService(getIt<ApiClient>()));
   _registerIfNotExists<HomeService>(() => HomeService(getIt<ApiClient>()));
+  _registerIfNotExists<TransferService>(() => TransferService(getIt<ApiClient>()));
+  _registerIfNotExists<MonitoringService>(() => MonitoringService(getIt<ApiClient>()));
 }

@@ -10,7 +10,8 @@ class Endpoints {
 
   // QR code endpoints
   static const String checkQr = '/v1/qr/check';
-  static const String createPayment = '/v1/qr/wallet/pay-out/create/transaction/';
+  static const String createPayment =
+      '/v1/qr/wallet/pay-out/create/transaction/';
   static const String checkConfirm = '/v1/qr/confirm/';
 
   // Wallet endpoints
@@ -19,5 +20,10 @@ class Endpoints {
   // Home details endpoint
   static const String homeDetails = '/v1/user/index/';
 
-}
+  // Transfer services endpoint
+  static const String transferServices = '/v1/mts-sbp/transfer-service/';
+  static const String transferCreate = '/v1/mts-sbp/transfer-create/';
 
+  // Monitoring endpoint
+  static const String monitoring = '/v1/monitoring/';
+}

@@ -12,6 +12,8 @@ class CustomButton extends StatefulWidget {
   final VoidCallback onPressed;
   final String? text;
   final Widget? child;
+  final double? width;
+  final double? height;
 
   final TextStyle? textStyle;
 
@@ -26,7 +28,7 @@ class CustomButton extends StatefulWidget {
     this.child,
     this.textStyle,
     this.borderSide,
-    this.fgColor,
+    this.fgColor, this.width, this.height,
   });
 
   @override
@@ -65,9 +67,8 @@ class _CustomButtonState extends State<CustomButton>
   }
 
   @override
-  Widget build(BuildContext context) => SizedBox(
-    width: double.infinity,
-    height: 56,
+  Widget build(BuildContext context) => SizedBox.fromSize(
+    size: Size(widget.width ?? double.infinity, widget.height ?? 56),
     child: ScaleTransition(
       scale: _scaleAnimation,
       child: ElevatedButton(

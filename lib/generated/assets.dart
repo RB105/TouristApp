@@ -8,13 +8,17 @@ class Assets {
   static const String imagesHomeBg = 'assets/images/home_bg.svg';
   static const String imagesWalletBg = 'assets/images/wallet_bg.svg';
   static const String imagesPasswordBg = 'assets/images/password_bg.svg';
+  static const String imagesAppNotInstalled =
+      'assets/images/app_not_installed.png';
   static const String iconsDot = 'assets/icons/dot.svg';
   static const String iconsKey = 'assets/icons/key.svg';
   static const String iconsP2p = 'assets/icons/p2p.svg';
   static const String iconsCopy = 'assets/icons/copy.svg';
   static const String iconsCheck = 'assets/icons/check.svg';
+  static const String iconsMedia = 'assets/icons/media.svg';
   static const String iconsEyeOn = 'assets/icons/eye_on.svg';
   static const String iconsFilter = 'assets/icons/filter.svg';
+  static const String iconsLaunch = 'assets/icons/launch.svg';
   static const String iconsWallet = 'assets/icons/wallet.svg';
   static const String iconsEyeOff = 'assets/icons/eye_off.svg';
   static const String iconsRuCard = 'assets/icons/ru_card.svg';
@@ -25,6 +29,7 @@ class Assets {
   static const String iconsDownload = 'assets/icons/download.svg';
   static const String iconsPassword = 'assets/icons/password.svg';
   static const String iconsAppLogos = 'assets/icons/app_logos.svg';
+  static const String iconsBankLogo = 'assets/icons/bank_logo.svg';
   static const String iconsEmptyBox = 'assets/icons/empty_box.png';
   static const String iconsQrButton = 'assets/icons/qr_button.svg';
   static const String iconsTextCard = 'assets/icons/text_card.svg';
@@ -38,6 +43,7 @@ class Assets {
   static const String iconsChequeLogo = 'assets/icons/cheque_logo.svg';
   static const String iconsNavbarChat = 'assets/icons/navbar_chat.svg';
   static const String iconsNavbarMain = 'assets/icons/navbar_main.svg';
+  static const String iconsPreferences = 'assets/icons/preferences.svg';
   static const String iconsSplashLogo = 'assets/icons/splash_logo.png';
   static const String iconsTextWallet = 'assets/icons/text_wallet.svg';
   static const String iconsLogOutIcon = 'assets/icons/log_out_icon.svg';
@@ -50,6 +56,8 @@ class Assets {
   static const String iconsRightTrailing = 'assets/icons/right_trailing.svg';
   static const String iconsTrOutSuccess = 'assets/icons/tr_out_success.svg';
   static const String iconsAvatarDisabled = 'assets/icons/avatar_disabled.svg';
+  static const String iconsMonitoringVector =
+      'assets/icons/monitoring_vector.svg';
   static const String iconsNavbarMonitoring =
       'assets/icons/navbar_monitoring.svg';
   static const String iconsVerificationActive =

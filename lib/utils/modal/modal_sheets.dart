@@ -2,8 +2,8 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:touristapp/ui/home/main/logic/model/transaction_result.dart';
-import 'package:touristapp/ui/home/main/ui/qr/qr_cheque_screen.dart';
-import 'package:touristapp/ui/home/main/ui/qr/qr_scanner_widget.dart' show QrScannerWidget;
+import 'package:touristapp/ui/home/main/ui/screens/qr/qr_cheque_screen.dart' show QrChequeScreen;
+import 'package:touristapp/ui/home/main/ui/screens/qr/qr_scanner_widget.dart' show QrScannerWidget;
 
 class ModalSheets {
   static BuildContext? _dialogContext;

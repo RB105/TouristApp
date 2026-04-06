@@ -14,11 +14,15 @@ import 'package:touristapp/ui/home/main/logic/model/payment_create_result.dart';
 import 'package:touristapp/ui/home/main/logic/model/qr_check_result.dart' show QrCheckResult;
 import 'package:touristapp/ui/home/main/ui/main_screen.dart';
 import 'package:touristapp/ui/home/main/ui/payments_screen.dart';
-import 'package:touristapp/ui/home/main/ui/qr/qr_amoun_screen.dart' show QrAmounScreen;
-import 'package:touristapp/ui/home/main/ui/qr/qr_otp_screen.dart';
-import 'package:touristapp/ui/home/monitoring/monitoring_screen.dart';
+import 'package:touristapp/ui/home/main/ui/screens/top_up/bank_launcher_screen.dart';
+import 'package:touristapp/ui/home/main/ui/screens/top_up/cheque_screen.dart';
+import 'package:touristapp/ui/home/monitoring/ui/monitoring_screen.dart';
 import 'package:touristapp/ui/home/profile/profile_screen.dart';
 import 'package:touristapp/ui/splash/on_boarding_screen.dart';
+
+import '../../ui/home/main/logic/model/transfer_create_sbp_result.dart' show TransferCreateSbpResult;
+import '../../ui/home/main/ui/screens/qr/qr_amoun_screen.dart' show QrAmounScreen;
+import '../../ui/home/main/ui/screens/qr/qr_otp_screen.dart' show QrOtpScreen;
 
 part 'app_router.g.dart';
 
@@ -189,5 +193,29 @@ class QrOtpScreenRoute extends GoRouteData with $QrOtpScreenRoute {
   @override
   Widget build(BuildContext context, GoRouterState state) {
     return QrOtpScreen(paymentCreateResult: paymentCreateResult);
+  }
+}
+
+@TypedGoRoute<ChequesScreenRoute>(path: ChequeScreen.routeName)
+class ChequesScreenRoute extends GoRouteData with $ChequesScreenRoute {
+  final String extId;
+
+  const ChequesScreenRoute({required this.extId});
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) {
+    return ChequeScreen(extId: extId,);
+  }
+}
+
+@TypedGoRoute<BankLauncherScreenRoute>(path: BankLauncherScreen.routeName)
+class BankLauncherScreenRoute extends GoRouteData with $BankLauncherScreenRoute {
+  final TransferCreateSbpResult sbpQrResult;
+
+  const BankLauncherScreenRoute({required this.sbpQrResult});
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) {
+    return BankLauncherScreen(sbpQrResult: sbpQrResult,);
   }
 }

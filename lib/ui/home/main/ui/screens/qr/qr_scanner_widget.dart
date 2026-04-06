@@ -6,7 +6,7 @@ import 'package:flutter_svg/flutter_svg.dart' show SvgPicture;
 import 'package:mobile_scanner/mobile_scanner.dart';
 import 'package:touristapp/generated/assets.dart' show Assets;
 import 'package:touristapp/ui/home/main/logic/cubit/qr_cubit.dart';
-import 'package:touristapp/ui/home/main/ui/qr/qr_amoun_screen.dart';
+import 'package:touristapp/ui/home/main/ui/screens/qr/qr_amoun_screen.dart';
 import 'package:touristapp/ui/widgets/custom_button.dart';
 import 'package:touristapp/utils/di/di.dart';
 import 'package:touristapp/utils/extensions/context_extensions.dart';
