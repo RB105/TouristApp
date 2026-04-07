@@ -8,4 +8,5 @@ void _registerServicesModule() {
   _registerIfNotExists<HomeService>(() => HomeService(getIt<ApiClient>()));
   _registerIfNotExists<TransferService>(() => TransferService(getIt<ApiClient>()));
   _registerIfNotExists<MonitoringService>(() => MonitoringService(getIt<ApiClient>()));
+  _registerIfNotExists<BiometricAuthService>(() => BiometricAuthService());
 }

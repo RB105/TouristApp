@@ -8,7 +8,6 @@ import 'package:easy_localization/easy_localization.dart'
     show StringTranslateExtension;
 import 'package:touristapp/generated/assets.dart' show Assets;
 import 'package:touristapp/ui/auth/logic/cubit/auth_cubit.dart';
-import 'package:touristapp/ui/auth/view/auth_wallet_create.dart';
 import 'package:touristapp/ui/widgets/animated_switcher.dart'
     show AppAnimatedSwitcher;
 import 'package:touristapp/utils/di/di.dart';
@@ -20,6 +19,8 @@ import 'package:touristapp/utils/extensions/context_extensions.dart'
 import 'package:touristapp/utils/extensions/text_styles_extension.dart'
     show TextStyles;
 import 'package:touristapp/utils/modal/modal_dialogs.dart';
+
+import 'auth_wallet_create.dart' show AuthWalletCreate;
 
 class RegisterScreen extends StatefulWidget {
   final String phoneNumber;

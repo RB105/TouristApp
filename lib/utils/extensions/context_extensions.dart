@@ -25,6 +25,7 @@ extension ContextExtensions on BuildContext {
   SizedBox get szBoxHeight32 => SizedBox(height: v32);
   SizedBox get szBoxHeight36 => SizedBox(height: v36);
   SizedBox get szNavbarHeight => SizedBox(height: navBarHeight);
+  SizedBox szBoxFromHeight (double height) => SizedBox(height: SizeConfig.h(height));
 
   SizedBox get szBoxWidth2 => SizedBox(width: h2);
   SizedBox get szBoxWidth4 => SizedBox(width: h4);
@@ -32,6 +33,7 @@ extension ContextExtensions on BuildContext {
   SizedBox get szBoxWidth12 => SizedBox(width: h12);
   SizedBox get szBoxWidth16 => SizedBox(width: h16);
   SizedBox get szBoxWidth24 => SizedBox(width: h24);
+  SizedBox szBoxFromWidtht (double width) => SizedBox(height: SizeConfig.w(width));
 
   /// Padding for standard spacing vertically
   double get v2 => SizeConfig.h(2);

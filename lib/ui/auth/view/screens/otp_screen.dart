@@ -8,7 +8,7 @@ import 'package:easy_localization/easy_localization.dart'
 import 'package:pinput/pinput.dart';
 import 'package:touristapp/generated/assets.dart' show Assets;
 import 'package:touristapp/ui/auth/logic/cubit/auth_cubit.dart';
-import 'package:touristapp/ui/auth/view/register_screen.dart';
+import 'package:touristapp/ui/auth/view/screens/register_screen.dart' show RegisterScreen;
 import 'package:touristapp/utils/di/di.dart';
 import 'package:touristapp/utils/extensions/color_extension.dart'
     show ColorExtension;

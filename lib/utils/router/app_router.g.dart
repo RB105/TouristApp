@@ -8,6 +8,7 @@ part of 'app_router.dart';
 
 List<RouteBase> get $appRoutes => [
   $rootRoute,
+  $pinCodeScreenRoute,
   $authRoute,
   $onBoardingRoute,
   $authWalletCreateRoute,
@@ -39,6 +40,53 @@ mixin $RootRoute on GoRouteData {
 
   @override
   void replace(BuildContext context) => context.replace(location);
+}
+
+RouteBase get $pinCodeScreenRoute => GoRouteData.$route(
+  path: '/pin_code',
+  factory: $PinCodeScreenRoute._fromState,
+);
+
+mixin $PinCodeScreenRoute on GoRouteData {
+  static PinCodeScreenRoute _fromState(GoRouterState state) =>
+      PinCodeScreenRoute(
+        initialStep: _$PinStepEnumMap._$fromName(
+          state.uri.queryParameters['initial-step']!,
+        )!,
+      );
+
+  PinCodeScreenRoute get _self => this as PinCodeScreenRoute;
+
+  @override
+  String get location => GoRouteData.$location(
+    '/pin_code',
+    queryParams: {'initial-step': _$PinStepEnumMap[_self.initialStep]},
+  );
+
+  @override
+  void go(BuildContext context) => context.go(location);
+
+  @override
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  @override
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  @override
+  void replace(BuildContext context) => context.replace(location);
+}
+
+const _$PinStepEnumMap = {
+  PinStep.set: 'set',
+  PinStep.confirm: 'confirm',
+  PinStep.unlock: 'unlock',
+  PinStep.signIn: 'sign-in',
+};
+
+extension<T extends Enum> on Map<T, String> {
+  T? _$fromName(String? value) =>
+      entries.where((element) => element.value == value).firstOrNull?.key;
 }
 
 RouteBase get $authRoute =>

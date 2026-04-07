@@ -6,8 +6,8 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart' show GetStorage;
 import 'package:go_router/go_router.dart';
-import 'package:touristapp/ui/auth/view/auth_screen.dart';
-import 'package:touristapp/ui/auth/view/auth_wallet_create.dart';
+import 'package:touristapp/ui/auth/view/screens/auth_screen.dart';
+import 'package:touristapp/ui/auth/view/screens/pin_code_screen.dart';
 import 'package:touristapp/ui/home/chat/chat_screen.dart';
 import 'package:touristapp/ui/home/home_screen.dart';
 import 'package:touristapp/ui/home/main/logic/model/payment_create_result.dart';
@@ -20,9 +20,11 @@ import 'package:touristapp/ui/home/monitoring/ui/monitoring_screen.dart';
 import 'package:touristapp/ui/home/profile/profile_screen.dart';
 import 'package:touristapp/ui/splash/on_boarding_screen.dart';
 
+import '../../ui/auth/view/screens/auth_wallet_create.dart' show AuthWalletCreate;
 import '../../ui/home/main/logic/model/transfer_create_sbp_result.dart' show TransferCreateSbpResult;
 import '../../ui/home/main/ui/screens/qr/qr_amoun_screen.dart' show QrAmounScreen;
 import '../../ui/home/main/ui/screens/qr/qr_otp_screen.dart' show QrOtpScreen;
+import '../di/di.dart' show getIt;
 
 part 'app_router.g.dart';
 
@@ -33,8 +35,11 @@ class RootRoute extends GoRouteData with $RootRoute {
 
   @override
   FutureOr<String?> redirect(BuildContext context, GoRouterState state) {
-    final firstLaunch = GetStorage().read<bool?>('first_launch');
-    final access = GetStorage().read<String?>('access_token');
+    final box = getIt<GetStorage>();
+    final firstLaunch = box.read<bool?>('first_launch');
+    final access = box.read<String?>('access_token');
+    final savedPin = box.read(PinCodeScreen.pinKey);
+
 
     if (firstLaunch ?? true) {
       debugPrint(firstLaunch.toString());
@@ -46,14 +51,29 @@ class RootRoute extends GoRouteData with $RootRoute {
       // return const AuthWalletCreateRoute().location;
       return const AuthRoute().location;
     }
-    debugPrint('/main');
 
-    return const MainRoute().location;
+    if (savedPin == null) {
+      // First time PIN setup
+      return const PinCodeScreenRoute(initialStep: PinStep.set).location;
+    }
+
+    return const PinCodeScreenRoute(initialStep: PinStep.signIn).location;
   }
 
   @override
   Widget build(BuildContext context, GoRouterState state) {
     return const SizedBox(); // never shown
+  }
+}
+
+@TypedGoRoute<PinCodeScreenRoute>(path: PinCodeScreen.routeName)
+class PinCodeScreenRoute extends GoRouteData with $PinCodeScreenRoute {
+  final PinStep initialStep;
+  const PinCodeScreenRoute({required this.initialStep});
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) {
+    return PinCodeScreen(initialStep: initialStep);
   }
 }
 

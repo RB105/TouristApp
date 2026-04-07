@@ -5,11 +5,13 @@ import 'package:size_config/size_config.dart' show SizeConfigInit;
 import 'package:touristapp/utils/config/size_config.dart' show SizeConfig;
 import 'package:touristapp/utils/di/di.dart' show setUpDI;
 import 'package:touristapp/utils/router/router.dart' show router;
+import 'package:touristapp/utils/service/app_lock_service.dart' show AppLockService;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await GetStorage.init();
   setUpDI();
+  AppLockService.instance.init(); // 🔒 app lock
   runApp(
     EasyLocalization(
       startLocale: const Locale('uz'),

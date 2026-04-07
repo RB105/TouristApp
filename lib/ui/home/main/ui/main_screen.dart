@@ -2,18 +2,18 @@
 
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+import 'package:flutter/services.dart' show HapticFeedback;
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart' show SvgPicture;
 import 'package:touristapp/generated/assets.dart' show Assets;
 import 'package:touristapp/ui/home/main/logic/cubit/carusel/carusel_cubit.dart';
 import 'package:touristapp/ui/home/main/logic/cubit/home/home_cubit.dart';
-import 'package:touristapp/ui/home/main/ui/widgets/main_last_tr_widget.dart';
-import 'package:touristapp/ui/home/main/ui/widgets/main_total_balance_widget.dart';
+import 'package:touristapp/ui/home/main/ui/widgets/main_last_tr_widget.dart' show MainLastTrWidget;
+import 'package:touristapp/ui/home/main/ui/widgets/main_total_balance_widget.dart' show MainTotalBalanceWidget;
 import 'package:touristapp/ui/widgets/primary_container.dart'
     show PrimaryContainer;
-import 'package:touristapp/ui/widgets/scale_widget_anim.dart';
-import 'package:touristapp/utils/di/di.dart';
+import 'package:touristapp/ui/widgets/scale_widget_anim.dart' show ScaleWidgetAnim;
+import 'package:touristapp/utils/di/di.dart' show getIt;
 import 'package:touristapp/utils/extensions/context_extensions.dart'
     show ContextExtensions;
 import 'package:touristapp/utils/extensions/dialog_ext.dart';
@@ -61,10 +61,6 @@ class _MainScreenState extends State<MainScreen> {
                 // );
                 // StatefulNavigationShell.of(context).goBranch(2);
                 context.showLoading();
-                Future.delayed(
-                  Duration(seconds: 3),
-                  () => context.showErrorDialog(title: "Title"),
-                );
               },
               icon: Icon(Icons.notifications),
             ),

@@ -17,7 +17,13 @@
     "enter_phone": "Tasdiqlash kodini olish uchun \ntelefon raqamingizni kiriting.",
     "enter_phone_placeholder": "Telefon raqamini kiriting",
     "login_password": "Parolingizni kiriting",
-    "login_password_desc": "Hisobingizga kirish uchun parolingizni kiriting."
+    "login_password_desc": "Hisobingizga kirish uchun parolingizni kiriting.",
+    "pins_do_not_match": "PIN kodlar mos kelmaydi",
+    "incorrect_pin": "Noto'g'ri PIN kod",
+    "cant_login": "Kirib bo'lmadi",
+    "set_pin": "PIN kodni o'rnating",
+    "confirm_pin": "PIN kodni tasdiqlang",
+    "enter_pin": "PIN kodni kiriting"
   },
   "onboarding": {
     "tagline": "Bitta hamyon. Chegarasiz.",

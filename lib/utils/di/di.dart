@@ -22,6 +22,7 @@ import 'package:touristapp/utils/config/interceptors/base_headers_interceptor.da
     show BaseHeadersInterceptor;
 import 'package:touristapp/utils/config/interceptors/refresh_token_interceptor.dart';
 
+import '../../ui/auth/logic/service/biometric_auth_service.dart' show BiometricAuthService;
 import '../../ui/home/monitoring/logic/cubit/monitoring_cubit.dart' show MonitoringCubit;
 import '../../ui/home/monitoring/logic/service/monitoring_service.dart' show MonitoringService;
 

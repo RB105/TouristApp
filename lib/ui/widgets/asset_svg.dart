@@ -23,10 +23,9 @@ class AssetSvg extends StatelessWidget {
   Widget build(BuildContext context) {
     return SvgPicture.asset(
       url,
-      colorFilter: ColorFilter.mode(
-        color ?? Color(0xff585858),
-        BlendMode.srcIn,
-      ),
+      colorFilter: color != null
+          ? ColorFilter.mode(color!, BlendMode.srcIn)
+          : null,
       width: width,
       height: height,
     );

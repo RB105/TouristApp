@@ -7,8 +7,7 @@ import 'package:flutter_svg/svg.dart' show SvgPicture;
 import 'package:easy_localization/easy_localization.dart';
 import 'package:touristapp/generated/assets.dart' show Assets;
 import 'package:touristapp/ui/auth/logic/cubit/auth_cubit.dart';
-import 'package:touristapp/ui/auth/view/login_screen.dart';
-import 'package:touristapp/ui/auth/view/otp_screen.dart' show OtpScreen;
+import 'package:touristapp/ui/auth/view/screens/otp_screen.dart' show OtpScreen;
 
 import 'package:touristapp/ui/widgets/animated_auth_background.dart';
 import 'package:touristapp/ui/widgets/animated_switcher.dart';
@@ -17,6 +16,8 @@ import 'package:touristapp/utils/enums/api_status.dart' show ApiStatus;
 import 'package:touristapp/utils/extensions/color_extension.dart';
 import 'package:touristapp/utils/extensions/context_extensions.dart';
 import 'package:touristapp/utils/extensions/text_styles_extension.dart';
+
+import 'login_screen.dart' show LoginScreen;
 
 class AuthScreen extends StatefulWidget {
   const AuthScreen({super.key});

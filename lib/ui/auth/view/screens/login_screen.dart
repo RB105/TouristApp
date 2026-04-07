@@ -8,6 +8,7 @@ import 'package:easy_localization/easy_localization.dart'
     show StringTranslateExtension;
 import 'package:touristapp/generated/assets.dart' show Assets;
 import 'package:touristapp/ui/auth/logic/cubit/auth_cubit.dart';
+import 'package:touristapp/ui/auth/view/screens/pin_code_screen.dart';
 import 'package:touristapp/ui/widgets/animated_auth_background.dart';
 import 'package:touristapp/ui/widgets/animated_switcher.dart'
     show AppAnimatedSwitcher;
@@ -19,7 +20,7 @@ import 'package:touristapp/utils/extensions/context_extensions.dart'
 import 'package:touristapp/utils/extensions/text_styles_extension.dart'
     show TextStyles;
 import 'package:touristapp/utils/modal/modal_dialogs.dart' show ModalDialogs;
-import 'package:touristapp/utils/router/app_router.dart' show MainRoute;
+import 'package:touristapp/utils/router/app_router.dart' show PinCodeScreenRoute;
 
 class LoginScreen extends StatefulWidget {
   final String phoneNumber;
@@ -27,10 +28,10 @@ class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key, required this.phoneNumber});
 
   @override
-  State<LoginScreen> createState() => _RegisterScreenState();
+  State<LoginScreen> createState() => _LoginScreen();
 }
 
-class _RegisterScreenState extends State<LoginScreen> {
+class _LoginScreen extends State<LoginScreen> {
   final _password1Controller = TextEditingController();
 
   final _focusNode1 = FocusNode();
@@ -69,7 +70,7 @@ class _RegisterScreenState extends State<LoginScreen> {
             debugPrint("Login Error: ${state.loginErrorMessage}");
           } else if (state.loginStatus == .success) {
             ModalDialogs.dismissCurrentDialog();
-            MainRoute().go(context);
+            PinCodeScreenRoute(initialStep:PinStep.set).go(context);
           }
         },
         builder: (context, state) => Stack(

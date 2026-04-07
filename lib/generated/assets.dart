@@ -8,12 +8,13 @@ class Assets {
   static const String imagesHomeBg = 'assets/images/home_bg.svg';
   static const String imagesWalletBg = 'assets/images/wallet_bg.svg';
   static const String imagesPasswordBg = 'assets/images/password_bg.svg';
-  static const String imagesAppNotInstalled =
-      'assets/images/app_not_installed.png';
+  static const String imagesPinCodeBg = 'assets/images/pin_code_bg.svg';
+  static const String imagesAppNotInstalled = 'assets/images/app_not_installed.png';
   static const String iconsDot = 'assets/icons/dot.svg';
   static const String iconsKey = 'assets/icons/key.svg';
   static const String iconsP2p = 'assets/icons/p2p.svg';
   static const String iconsCopy = 'assets/icons/copy.svg';
+  static const String iconsLock = 'assets/icons/lock.svg';
   static const String iconsCheck = 'assets/icons/check.svg';
   static const String iconsMedia = 'assets/icons/media.svg';
   static const String iconsEyeOn = 'assets/icons/eye_on.svg';
@@ -41,6 +42,7 @@ class Assets {
   static const String iconsTextBonus = 'assets/icons/text_bonus.svg';
   static const String iconsTextGlobe = 'assets/icons/text_globe.svg';
   static const String iconsChequeLogo = 'assets/icons/cheque_logo.svg';
+  static const String iconsFaceIdIos = 'assets/icons/face_id_ios.svg';
   static const String iconsNavbarChat = 'assets/icons/navbar_chat.svg';
   static const String iconsNavbarMain = 'assets/icons/navbar_main.svg';
   static const String iconsPreferences = 'assets/icons/preferences.svg';
@@ -52,20 +54,17 @@ class Assets {
   static const String iconsAvatarEnabled = 'assets/icons/avatar_enabled.svg';
   static const String iconsNavbarProfile = 'assets/icons/navbar_profile.svg';
   static const String iconsPhoneDisabled = 'assets/icons/phone_disabled.svg';
+  static const String iconsPinDotActive = 'assets/icons/pin_dot_active.svg';
   static const String iconsProfileOption = 'assets/icons/profile_option.svg';
   static const String iconsRightTrailing = 'assets/icons/right_trailing.svg';
   static const String iconsTrOutSuccess = 'assets/icons/tr_out_success.svg';
   static const String iconsAvatarDisabled = 'assets/icons/avatar_disabled.svg';
-  static const String iconsMonitoringVector =
-      'assets/icons/monitoring_vector.svg';
-  static const String iconsNavbarMonitoring =
-      'assets/icons/navbar_monitoring.svg';
-  static const String iconsVerificationActive =
-      'assets/icons/verification_active.svg';
-  static const String iconsAppLogo100X32Blue =
-      'assets/icons/app_logo_100_x_32_blue.svg';
-  static const String iconsAppLogo100X32Black =
-      'assets/icons/app_logo_100_x_32_black.svg';
+  static const String iconsPinDotDisabled = 'assets/icons/pin_dot_disabled.svg';
+  static const String iconsMonitoringVector = 'assets/icons/monitoring_vector.svg';
+  static const String iconsNavbarMonitoring = 'assets/icons/navbar_monitoring.svg';
+  static const String iconsVerificationActive = 'assets/icons/verification_active.svg';
+  static const String iconsAppLogo100X32Blue = 'assets/icons/app_logo_100_x_32_blue.svg';
+  static const String iconsAppLogo100X32Black = 'assets/icons/app_logo_100_x_32_black.svg';
   static const String lottiesGlobe = 'assets/lotties/globe.json';
   static const String langEn = 'assets/lang/en.json';
   static const String langRu = 'assets/lang/ru.json';

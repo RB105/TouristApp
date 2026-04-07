@@ -17,7 +17,13 @@
     "enter_phone": "Enter your phone number to \nget confirmation code.",
     "enter_phone_placeholder": "Enter phone number",
     "login_password": "Enter your password",
-    "login_password_desc": "Enter your password to access your account."
+    "login_password_desc": "Enter your password to access your account.",
+    "pins_do_not_match": "PIN-коды не совпадают",
+    "incorrect_pin": "Неверный PIN",
+    "cant_login": "Не удается войти",
+    "set_pin": "Установить PIN",
+    "confirm_pin": "Подтвердить PIN",
+    "enter_pin": "Введите PIN"
   },
   "onboarding": {
     "tagline": "One wallet. No limits.",
