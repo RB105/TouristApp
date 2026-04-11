@@ -2,17 +2,18 @@
 
 import 'package:touristapp/ui/home/main/logic/model/carusel_transfer_service.dart';
 import 'package:touristapp/ui/home/main/logic/model/transfer_create_sbp_result.dart';
+import 'package:touristapp/ui/home/monitoring/logic/model/monitoring_result.dart';
 import 'package:touristapp/utils/config/api_client.dart';
 import 'package:touristapp/utils/config/response_config.dart';
 import 'package:touristapp/utils/const/endpoints.dart';
 
 class TransferService {
-  final ApiClient api;
+  final ApiClient _api;
 
-  TransferService(this.api);
+  TransferService(this._api);
 
   Future<NetworkResponse> getTransferServices() async {
-    final response = await api.post(
+    final response = await _api.post(
       endPoint: Endpoints.transferServices,
       bearToken: true,
       params: {
@@ -37,8 +38,9 @@ class TransferService {
     required String creditCode,
     required String debitCode,
   }) async {
-    final response = await api.post(
+    final response = await _api.post(
       endPoint: Endpoints.transferCreate,
+      bearToken: true,
       params: {
         "amount": amount * 100,
         "currency": currency,
@@ -52,6 +54,22 @@ class TransferService {
         data: TransferCreateSbpResult.fromJson(response.data),
       );
     }
+    return response;
+  }
+
+  Future<NetworkResponse> transferState({required String extId}) async {
+    final response = await _api.post(
+      endPoint: Endpoints.transferState,
+      bearToken: true,
+      params: {"ext_id": extId},
+    );
+
+    if (response.isSuccess) {
+      return NetworkResponse.success(
+        data: MonitoringHistory.fromJson(response.data),
+      );
+    }
+
     return response;
   }
 }

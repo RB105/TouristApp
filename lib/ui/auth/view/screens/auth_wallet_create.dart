@@ -18,8 +18,9 @@ import 'package:touristapp/utils/extensions/context_extensions.dart'
     show ContextExtensions;
 import 'package:touristapp/utils/extensions/text_styles_extension.dart'
     show TextStyles;
-import 'package:touristapp/utils/modal/modal_dialogs.dart';
 import 'package:touristapp/utils/router/app_router.dart';
+
+import '../../../../utils/extensions/dialog_ext.dart' show DialogExt;
 
 class AuthWalletCreate extends StatefulWidget {
   const AuthWalletCreate({super.key});
@@ -51,8 +52,7 @@ class _AuthWalletCreateState extends State<AuthWalletCreate> {
               });
             } else if (state.walletCreateStatus == .error) {
               // Show error dialog
-              ModalDialogs.showErrorDialog(
-                context,
+              context.showErrorDialog(
                 title: state.walletCreateError,
                 // ignore: use_build_context_synchronously
               ).then((value) => PinCodeScreenRoute(initialStep:PinStep.set).go(context));

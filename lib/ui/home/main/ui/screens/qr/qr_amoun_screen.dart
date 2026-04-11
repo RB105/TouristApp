@@ -12,8 +12,8 @@ import 'package:touristapp/utils/di/di.dart';
 import 'package:touristapp/utils/enums/api_status.dart';
 import 'package:touristapp/utils/extensions/color_extension.dart';
 import 'package:touristapp/utils/extensions/context_extensions.dart';
+import 'package:touristapp/utils/extensions/dialog_ext.dart';
 import 'package:touristapp/utils/extensions/text_styles_extension.dart';
-import 'package:touristapp/utils/modal/modal_dialogs.dart' show ModalDialogs;
 import 'package:touristapp/utils/router/app_router.dart';
 
 class QrAmounScreen extends StatefulWidget {
@@ -77,16 +77,12 @@ class _QrAmounScreenState extends State<QrAmounScreen> {
       child: BlocConsumer<QrCubit, QrState>(
         listener: (context, state) {
           if (state.paymentCreateStatus == .loading) {
-            ModalDialogs.showLoader(context);
+            context.showLoading();
           } else if (state.paymentCreateStatus == .error) {
-            ModalDialogs.dismissCurrentDialog();
-            ModalDialogs.showErrorDialog(
-              context,
-              title: state.paymentCreateError,
-            );
+            context.showErrorDialog(title: state.paymentCreateError);
             debugPrint("Payment Create Error: ${state.paymentCreateError}");
           } else if (state.paymentCreateStatus == .success) {
-            ModalDialogs.dismissCurrentDialog();
+            context.hideDialog();
             QrOtpScreenRoute(
               paymentCreateResult: state.paymentCreateResult!,
             ).push(context);

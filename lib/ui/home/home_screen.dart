@@ -2,6 +2,7 @@
 
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart' show StatefulNavigationShell;
 import 'package:touristapp/generated/assets.dart';
@@ -29,7 +30,10 @@ class _HomeScreenState extends State<HomeScreen> {
         unselectedItemColor: const Color(0xFF9CA3AF),
         currentIndex: widget.shell.currentIndex,
         type: .fixed,
-        onTap: (index) => widget.shell.goBranch(index),
+        onTap: (index) {
+          widget.shell.goBranch(index);
+          HapticFeedback.mediumImpact();
+        },
         items: [
           BottomNavigationBarItem(
             icon: _buildNavbar(Assets.iconsNavbarMain, 0),

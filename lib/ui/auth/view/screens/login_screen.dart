@@ -17,15 +17,18 @@ import 'package:touristapp/utils/extensions/color_extension.dart'
     show ColorExtension;
 import 'package:touristapp/utils/extensions/context_extensions.dart'
     show ContextExtensions;
+import 'package:touristapp/utils/extensions/dialog_ext.dart';
 import 'package:touristapp/utils/extensions/text_styles_extension.dart'
     show TextStyles;
-import 'package:touristapp/utils/modal/modal_dialogs.dart' show ModalDialogs;
-import 'package:touristapp/utils/router/app_router.dart' show PinCodeScreenRoute;
+import 'package:touristapp/utils/router/app_router.dart'
+    show PinCodeScreenRoute;
 
 class LoginScreen extends StatefulWidget {
   final String phoneNumber;
 
   const LoginScreen({super.key, required this.phoneNumber});
+
+  static const routeName = '/login';
 
   @override
   State<LoginScreen> createState() => _LoginScreen();
@@ -60,17 +63,13 @@ class _LoginScreen extends State<LoginScreen> {
       body: BlocConsumer<AuthCubit, AuthState>(
         listener: (context, state) {
           if (state.loginStatus == .loading) {
-            ModalDialogs.showLoader(context);
+            context.showLoading();
           } else if (state.loginStatus == .error) {
-            ModalDialogs.dismissCurrentDialog();
-            ModalDialogs.showErrorDialog(
-              context,
-              title: state.loginErrorMessage,
-            );
+            context.showErrorDialog(title: state.loginErrorMessage);
             debugPrint("Login Error: ${state.loginErrorMessage}");
           } else if (state.loginStatus == .success) {
-            ModalDialogs.dismissCurrentDialog();
-            PinCodeScreenRoute(initialStep:PinStep.set).go(context);
+            context.hideDialog();
+            PinCodeScreenRoute(initialStep: PinStep.set).go(context);
           }
         },
         builder: (context, state) => Stack(

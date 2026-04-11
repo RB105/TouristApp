@@ -7,27 +7,31 @@ import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart' show GetStorage;
 import 'package:go_router/go_router.dart';
 import 'package:touristapp/ui/auth/view/screens/auth_screen.dart';
+import 'package:touristapp/ui/auth/view/screens/login_screen.dart';
 import 'package:touristapp/ui/auth/view/screens/pin_code_screen.dart';
 import 'package:touristapp/ui/home/chat/chat_screen.dart';
 import 'package:touristapp/ui/home/home_screen.dart';
 import 'package:touristapp/ui/home/main/logic/model/payment_create_result.dart';
-import 'package:touristapp/ui/home/main/logic/model/qr_check_result.dart' show QrCheckResult;
+import 'package:touristapp/ui/home/main/logic/model/qr_check_result.dart'
+    show QrCheckResult;
 import 'package:touristapp/ui/home/main/ui/main_screen.dart';
 import 'package:touristapp/ui/home/main/ui/payments_screen.dart';
 import 'package:touristapp/ui/home/main/ui/screens/top_up/bank_launcher_screen.dart';
-import 'package:touristapp/ui/home/main/ui/screens/top_up/cheque_screen.dart';
+import 'package:touristapp/ui/home/main/ui/screens/top_up/sbp_cheque_screen.dart';
 import 'package:touristapp/ui/home/monitoring/ui/monitoring_screen.dart';
 import 'package:touristapp/ui/home/profile/profile_screen.dart';
 import 'package:touristapp/ui/splash/on_boarding_screen.dart';
 
-import '../../ui/auth/view/screens/auth_wallet_create.dart' show AuthWalletCreate;
-import '../../ui/home/main/logic/model/transfer_create_sbp_result.dart' show TransferCreateSbpResult;
-import '../../ui/home/main/ui/screens/qr/qr_amoun_screen.dart' show QrAmounScreen;
+import '../../ui/auth/view/screens/auth_wallet_create.dart'
+    show AuthWalletCreate;
+import '../../ui/home/main/logic/model/transfer_create_sbp_result.dart'
+    show TransferCreateSbpResult;
+import '../../ui/home/main/ui/screens/qr/qr_amoun_screen.dart'
+    show QrAmounScreen;
 import '../../ui/home/main/ui/screens/qr/qr_otp_screen.dart' show QrOtpScreen;
 import '../di/di.dart' show getIt;
 
 part 'app_router.g.dart';
-
 
 @TypedGoRoute<RootRoute>(path: '/')
 class RootRoute extends GoRouteData with $RootRoute {
@@ -39,7 +43,6 @@ class RootRoute extends GoRouteData with $RootRoute {
     final firstLaunch = box.read<bool?>('first_launch');
     final access = box.read<String?>('access_token');
     final savedPin = box.read(PinCodeScreen.pinKey);
-
 
     if (firstLaunch ?? true) {
       debugPrint(firstLaunch.toString());
@@ -66,14 +69,53 @@ class RootRoute extends GoRouteData with $RootRoute {
   }
 }
 
-@TypedGoRoute<PinCodeScreenRoute>(path: PinCodeScreen.routeName)
-class PinCodeScreenRoute extends GoRouteData with $PinCodeScreenRoute {
-  final PinStep initialStep;
-  const PinCodeScreenRoute({required this.initialStep});
+@TypedGoRoute<LoginScreenRoute>(path: LoginScreen.routeName)
+class LoginScreenRoute extends GoRouteData with $LoginScreenRoute {
+  final String phoneNumber;
+
+  const LoginScreenRoute({required this.phoneNumber});
 
   @override
   Widget build(BuildContext context, GoRouterState state) {
-    return PinCodeScreen(initialStep: initialStep);
+    return LoginScreen(phoneNumber: phoneNumber);
+  }
+}
+
+@TypedGoRoute<PinCodeScreenRoute>(path: PinCodeScreen.routeName)
+class PinCodeScreenRoute extends GoRouteData with $PinCodeScreenRoute {
+  final PinStep initialStep;
+
+  const PinCodeScreenRoute({required this.initialStep});
+
+  @override
+  Page<void> buildPage(BuildContext context, GoRouterState state) {
+    final child = PinCodeScreen(initialStep: initialStep);
+
+    if (initialStep == .unlock) {
+      // 🔥 bottom-up animation
+      return CustomTransitionPage(
+        key: state.pageKey,
+        fullscreenDialog: true,
+        child: child,
+        transitionsBuilder: (context, animation, secondaryAnimation, child) {
+          final curved = CurvedAnimation(
+            parent: animation,
+            curve: Curves.easeOutCubic,
+          );
+
+          return SlideTransition(
+            position: Tween<Offset>(
+              begin: const Offset(0, 1),
+              end: Offset.zero,
+            ).animate(curved),
+            child: child,
+          );
+        },
+      );
+    }
+
+    // 👇 default navigation (material / cupertino)
+    return MaterialPage(key: state.pageKey, child: child);
   }
 }
 
@@ -107,7 +149,6 @@ class AuthWalletCreateRoute extends GoRouteData with $AuthWalletCreateRoute {
     return const AuthWalletCreate();
   }
 }
-
 
 /// MAIN SHELL
 @TypedStatefulShellRoute<HomeShellRoute>(
@@ -216,26 +257,39 @@ class QrOtpScreenRoute extends GoRouteData with $QrOtpScreenRoute {
   }
 }
 
-@TypedGoRoute<ChequesScreenRoute>(path: ChequeScreen.routeName)
-class ChequesScreenRoute extends GoRouteData with $ChequesScreenRoute {
+@TypedGoRoute<SbpChequesScreenRoute>(path: SbpChequeScreen.routeName)
+class SbpChequesScreenRoute extends GoRouteData with $SbpChequesScreenRoute {
   final String extId;
 
-  const ChequesScreenRoute({required this.extId});
+  const SbpChequesScreenRoute({required this.extId});
 
   @override
-  Widget build(BuildContext context, GoRouterState state) {
-    return ChequeScreen(extId: extId,);
+  Page<void> buildPage(BuildContext context, GoRouterState state) {
+    return CustomTransitionPage(
+      key: state.pageKey,
+      child: SbpChequeScreen(extId: extId),
+      transitionsBuilder: (context, animation, secondaryAnimation, child) {
+        return SlideTransition(
+          position: Tween<Offset>(
+            begin: const Offset(0, 1), // 👈 from bottom
+            end: Offset.zero,
+          ).animate(CurvedAnimation(parent: animation, curve: Curves.easeOut)),
+          child: child,
+        );
+      },
+    );
   }
 }
 
 @TypedGoRoute<BankLauncherScreenRoute>(path: BankLauncherScreen.routeName)
-class BankLauncherScreenRoute extends GoRouteData with $BankLauncherScreenRoute {
+class BankLauncherScreenRoute extends GoRouteData
+    with $BankLauncherScreenRoute {
   final TransferCreateSbpResult sbpQrResult;
 
   const BankLauncherScreenRoute({required this.sbpQrResult});
 
   @override
   Widget build(BuildContext context, GoRouterState state) {
-    return BankLauncherScreen(sbpQrResult: sbpQrResult,);
+    return BankLauncherScreen(sbpQrResult: sbpQrResult);
   }
 }

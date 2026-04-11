@@ -16,8 +16,8 @@ import 'package:touristapp/utils/enums/api_status.dart' show ApiStatus;
 import 'package:touristapp/utils/extensions/color_extension.dart';
 import 'package:touristapp/utils/extensions/context_extensions.dart';
 import 'package:touristapp/utils/extensions/text_styles_extension.dart';
+import 'package:touristapp/utils/router/app_router.dart';
 
-import 'login_screen.dart' show LoginScreen;
 
 class AuthScreen extends StatefulWidget {
   const AuthScreen({super.key});
@@ -105,11 +105,7 @@ class _AuthScreenState extends State<AuthScreen> {
             );
           } else if (state.registerStatus == ApiStatus.success) {
             if (state.isRegistered ?? false) {
-              Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (context) => LoginScreen(phoneNumber: _getPhoneNumber()),
-                ),
-              );
+              LoginScreenRoute(phoneNumber: _getPhoneNumber()).go(context);
               return;
             }
             Navigator.of(context).push(

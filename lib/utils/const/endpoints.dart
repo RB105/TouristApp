@@ -23,6 +23,7 @@ class Endpoints {
   // Transfer services endpoint
   static const String transferServices = '/v1/mts-sbp/transfer-service/';
   static const String transferCreate = '/v1/mts-sbp/transfer-create/';
+  static const String transferState = '/v1/mts-sbp/transfer-state/';
 
   // Monitoring endpoint
   static const String monitoring = '/v1/monitoring/';

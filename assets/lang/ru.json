@@ -17,7 +17,7 @@
     "enter_phone": "Введите номер телефона, чтобы \nполучить код подтверждения.",
     "enter_phone_placeholder": "Введите номер телефона",
     "login_password": "Введите ваш пароль",
-    "login_password_desc": "Введите пароль для доступа к вашему аккаунту.",
+    "login_password_desc": "Введите пароль для доступа к вашему аккаунту."
   },
   "onboarding": {
     "tagline": "Один кошелёк. Без границ.",
@@ -36,7 +36,6 @@
     "all_in_one": "Всё в одном кошельке",
     "fast_qr": "Быстрые QR-платежи"
   },
-
   "home": {
     "main_title": "Главная",
     "profile_title": "Профиль",
@@ -47,7 +46,6 @@
     "chat_nav_title": "Чат",
     "monitoring_nav_title": "Мониторинг"
   },
-
   "main": {
     "total_balance": "Общий баланс",
     "top_up": "Пополнить баланс",
@@ -57,6 +55,22 @@
     "receive": "Получить",
     "transactions": "Транзакции",
     "last_transactions": "Последние транзакции"
+  },
+  "transfer": {
+    "tr_details": "Детали транзакции",
+    "date": "Дата",
+    "wallet_owner": "Владелец кошелька",
+    "transaction_type": "Тип транзакции",
+    "transaction_id": "ID транзакции",
+    "commission": "Комиссия",
+    "free": "Бесплатно",
+    "total": "Итого",
+    "back_to_home": "Вернуться на главную"
+  },
+  "common": {
+    "cancel": "Отмена",
+    "pop": "Закрыть",
+    "copied_to_clipboard": "Скопировано в буфер обмена"
   },
   "errors": {
     "error_other": "Произошла непредвиденная ошибка",

@@ -16,11 +16,10 @@ import 'package:touristapp/utils/extensions/color_extension.dart'
     show ColorExtension;
 import 'package:touristapp/utils/extensions/context_extensions.dart'
     show ContextExtensions;
+import 'package:touristapp/utils/extensions/dialog_ext.dart';
 import 'package:touristapp/utils/extensions/text_styles_extension.dart'
     show TextStyles;
-import 'package:touristapp/utils/modal/modal_dialogs.dart';
-
-import 'auth_wallet_create.dart' show AuthWalletCreate;
+import 'package:touristapp/utils/router/app_router.dart';
 
 class RegisterScreen extends StatefulWidget {
   final String phoneNumber;
@@ -60,21 +59,14 @@ class _RegisterScreenState extends State<RegisterScreen> {
         listener: (context, state) {
           switch (state.registerPasswordStatus) {
             case ApiStatus.success:
-              ModalDialogs.dismissCurrentDialog();
-              Navigator.of(context).pushAndRemoveUntil(
-                MaterialPageRoute(builder: (context) => AuthWalletCreate()),
-                (route) => false,
-              );
+              context.hideDialog();
+              AuthWalletCreateRoute().go(context);
               break;
             case ApiStatus.loading:
-              ModalDialogs.showLoader(context);
+              context.showLoading();
               break;
             case ApiStatus.error:
-              ModalDialogs.dismissCurrentDialog();
-              ModalDialogs.showErrorDialog(
-                context,
-                title: state.registerErrorMessage ?? "",
-              );
+              context.showErrorDialog(title: state.registerErrorMessage ?? "");
               break;
             case ApiStatus.initial:
               break;

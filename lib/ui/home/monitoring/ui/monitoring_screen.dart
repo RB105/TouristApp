@@ -76,7 +76,7 @@ class _MonitoringScreenState extends State<MonitoringScreen> {
               child: AnimationList(
                 padding: context.k16verticalPadding,
                 children: List.generate(groups.length, (index) {
-                  final date = groups[index].first.formatCreateDate();
+                  final date = groups[index].first.formattedDate;
                   return Column(
                     children: [
                       SizedBox(

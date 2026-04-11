@@ -21,6 +21,7 @@ import 'package:touristapp/utils/config/interceptors/auth_header_interceptor.dar
 import 'package:touristapp/utils/config/interceptors/base_headers_interceptor.dart'
     show BaseHeadersInterceptor;
 import 'package:touristapp/utils/config/interceptors/refresh_token_interceptor.dart';
+import 'package:touristapp/utils/service/device_info_service.dart';
 
 import '../../ui/auth/logic/service/biometric_auth_service.dart' show BiometricAuthService;
 import '../../ui/home/monitoring/logic/cubit/monitoring_cubit.dart' show MonitoringCubit;

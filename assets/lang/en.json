@@ -60,6 +60,17 @@
     "transactions": "Transactions",
     "last_transactions": "Recent transactions"
   },
+  "transfer": {
+    "tr_details": "Transaction Details",
+    "date": "Date",
+    "wallet_owner": "Wallet owner",
+    "transaction_type": "Transaction type",
+    "transaction_id": "Transaction ID",
+    "commission": "Commission",
+    "free": "Free",
+    "total": "Total",
+    "back_to_home": "Back to Home"
+  },
   "errors": {
     "error_other": "An unexpected error occurred",
     "error_unknown": "Unknown error occurred",

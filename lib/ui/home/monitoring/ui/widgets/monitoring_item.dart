@@ -61,8 +61,8 @@ class MonitoringItem extends StatelessWidget {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
-                    Text(item.getAmount, style: context.textMd),
-                    Text(item.getCreateDateTime, style: context.textMutedXs),
+                    Text(item.formattedAmount, style: context.textMd),
+                    Text(item.formattedTime, style: context.textMutedXs),
                   ],
                 ),
               ],

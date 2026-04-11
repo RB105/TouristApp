@@ -11,6 +11,7 @@ class PrimaryContainer extends StatefulWidget {
   final Widget? child;
   final EdgeInsetsGeometry? padding;
   final Color? bgColor;
+  final BoxBorder? boxBorder;
 
   const PrimaryContainer({
     super.key,
@@ -18,7 +19,7 @@ class PrimaryContainer extends StatefulWidget {
     this.radius,
     this.child,
     this.padding,
-    this.bgColor,
+    this.bgColor, this.boxBorder,
   });
 
   @override
@@ -32,6 +33,7 @@ class _PrimaryContainerState extends State<PrimaryContainer> {
       width: double.infinity,
       child: DecoratedBox(
         decoration: BoxDecoration(
+          border: widget.boxBorder,
           borderRadius: BorderRadius.circular(widget.radius ?? 16),
           color: widget.bgColor ?? context.bgElevated,
         ),

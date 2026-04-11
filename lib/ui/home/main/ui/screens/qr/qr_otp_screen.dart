@@ -10,8 +10,8 @@ import 'package:touristapp/ui/home/main/logic/cubit/qr_cubit.dart';
 import 'package:touristapp/ui/home/main/logic/model/payment_create_result.dart';
 import 'package:touristapp/utils/di/di.dart';
 import 'package:touristapp/utils/extensions/context_extensions.dart';
+import 'package:touristapp/utils/extensions/dialog_ext.dart';
 import 'package:touristapp/utils/extensions/text_styles_extension.dart';
-import 'package:touristapp/utils/modal/modal_dialogs.dart';
 import 'package:touristapp/utils/modal/modal_sheets.dart';
 import 'package:touristapp/utils/styled_text_parser.dart' show StyledTextParser;
 
@@ -37,12 +37,11 @@ class _QrOtpScreenState extends State<QrOtpScreen> {
       child: BlocConsumer<QrCubit,QrState>(
         listener: (context, state) {
           if (state.paymentConfirmStatus == .loading) {
-            ModalDialogs.showLoader(context);
+            context.showLoading();
           } else if (state.paymentConfirmStatus == .error) {
-            ModalDialogs.dismissCurrentDialog();
-            ModalDialogs.showErrorDialog(context, title: state.paymentConfirmError);
+            context.showErrorDialog(title: state.paymentConfirmError);
           } else if (state.paymentConfirmStatus == .success) {
-            ModalDialogs.dismissCurrentDialog();
+            context.hideDialog();
             // show check screen
             ModalSheets.showQrCheque(context, transaction: state.transaction!);
             debugPrint("Payment confirmed successfully");

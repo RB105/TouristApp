@@ -4,8 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:go_router/go_router.dart';
 import 'package:touristapp/utils/di/di.dart';
+import 'package:touristapp/utils/router/app_router.dart';
 
-import '../../ui/auth/view/screens/pin_code_screen.dart' show PinCodeScreen, PinStep;
+import '../../ui/auth/view/screens/pin_code_screen.dart' show PinCodeScreen;
 import '../router/router.dart' show navigatorKey;
 
 class AppLockService with WidgetsBindingObserver {
@@ -39,7 +40,7 @@ class AppLockService with WidgetsBindingObserver {
 
       final diff = DateTime.now().difference(_backgroundTime!).inSeconds;
 
-      if (diff >= 300) _showPinScreen();
+      if (diff >= 5) _showPinScreen();
 
       _backgroundTime = null;
     }
@@ -61,9 +62,7 @@ class AppLockService with WidgetsBindingObserver {
       return;
     }
 
-    await GoRouter.of(
-      context,
-    ).push(PinCodeScreen.routeName, extra: PinStep.unlock);
+    await PinCodeScreenRoute(initialStep: .unlock).push(context);
 
     _isPinScreenOpen = false;
   }

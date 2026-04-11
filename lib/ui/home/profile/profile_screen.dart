@@ -9,8 +9,8 @@ import 'package:touristapp/ui/widgets/primary_container.dart';
 import 'package:touristapp/utils/extensions/color_extension.dart';
 import 'package:touristapp/utils/extensions/context_extensions.dart'
     show ContextExtensions;
+import 'package:touristapp/utils/extensions/dialog_ext.dart';
 import 'package:touristapp/utils/extensions/text_styles_extension.dart';
-import 'package:touristapp/utils/modal/modal_dialogs.dart';
 
 
 class ProfileScreen extends StatefulWidget {
@@ -40,7 +40,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     const Spacer(),
                     InkWell(
                       onTap: () {
-                        ModalDialogs.showLogOutDialog(context);
+                        context.showLogOutDialog();
                       },
                       child: SizedBox(
                         width: 24,
@@ -50,9 +50,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     ),
                   ],
                 ),
-
                 context.szBoxHeight20,
-
                 Row(
                   children: [
                     Container(
@@ -81,23 +79,23 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   children: [
                     _buildOptionsItem(
                       icon: Assets.iconsProfileOption,
-                      title: "Personal information",
-                      subtitle: "Name , Avatar",
+                      title: "profile.personal_information".tr(),
+                      subtitle: "profile.name_avatar".tr(),
                     ),
                     context.szBoxHeight4,
                     Divider(indent: 36),
                     context.szBoxHeight4,
                     _buildOptionsItem(
-                      icon: Assets.iconsProfileOption,
-                      title: "Preferences",
-                      subtitle: "Theme, Language",
+                      icon: Assets.iconsSettings,
+                      title: "profile.preferences".tr(),
+                      subtitle: "profile.theme_language".tr(),
                     ),
                     context.szBoxHeight4,
                     Divider(indent: 36),
                     _buildOptionsItem(
-                      icon: Assets.iconsProfileOption,
-                      title: "Privacy",
-                      subtitle: "Biometric, Password",
+                      icon: Assets.iconsSecurityOption,
+                      title: "profile.privacy".tr(),
+                      subtitle: "profile.biometric_password".tr(),
                     ),
                   ],
                 ),

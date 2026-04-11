@@ -6,11 +6,12 @@ import 'package:flutter_svg/flutter_svg.dart' show SvgPicture;
 import 'package:mobile_scanner/mobile_scanner.dart';
 import 'package:touristapp/generated/assets.dart' show Assets;
 import 'package:touristapp/ui/home/main/logic/cubit/qr_cubit.dart';
-import 'package:touristapp/ui/home/main/ui/screens/qr/qr_amoun_screen.dart';
 import 'package:touristapp/ui/widgets/custom_button.dart';
 import 'package:touristapp/utils/di/di.dart';
 import 'package:touristapp/utils/extensions/context_extensions.dart';
-import 'package:touristapp/utils/modal/modal_dialogs.dart';
+import 'package:touristapp/utils/router/app_router.dart';
+
+import '../../../../../../utils/extensions/dialog_ext.dart' show DialogExt;
 
 class QrScannerWidget extends StatefulWidget {
   const QrScannerWidget({super.key});
@@ -38,26 +39,19 @@ class _QrScannerWidgetState extends State<QrScannerWidget> {
     value: _qrCubit,
     child: Scaffold(
       body: BlocConsumer<QrCubit, QrState>(
-        listener: (context, state) {
+        listener: (context, state) async {
           if (state.qrCheckStatus == .loading) {
-            ModalDialogs.showLoader(context);
+            context.showLoading();
           } else if (state.qrCheckStatus == .error) {
-            ModalDialogs.dismissCurrentDialog();
-            ModalDialogs.showErrorDialog(
-              context,
-              title: state.qrCheckError ?? "",
-            );
+            context.showErrorDialog(title: state.qrCheckError ?? "");
             debugPrint("QR Check Error: ${state.qrCheckError}");
           } else if (state.qrCheckStatus == .success) {
-            ModalDialogs.dismissCurrentDialog();
+            context.hideDialog();
             debugPrint(state.qrCheckResult?.amount.toString());
             Navigator.of(context).pop();
-            Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (context) =>
-                    QrAmounScreen(qrCheckResult: state.qrCheckResult!),
-              ),
-            );
+            QrAmountScreenRoute(
+              qrCheckResult: state.qrCheckResult!,
+            ).push(context);
           }
         },
         builder: (context, state) => Stack(

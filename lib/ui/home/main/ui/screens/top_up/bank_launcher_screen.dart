@@ -19,12 +19,12 @@ import 'package:url_launcher/url_launcher.dart';
 import '../../../../../../generated/assets.dart' show Assets;
 import '../../../../../../utils/extensions/context_extensions.dart'
     show ContextExtensions;
+import '../../../../../../utils/extensions/dialog_ext.dart' show DialogExt;
 import '../../../../../../utils/extensions/primary_decoration_ext.dart'
     show PrimaryDecorationExt;
 import '../../../../../../utils/extensions/string_ext.dart' show StringExt;
 import '../../../../../../utils/extensions/text_styles_extension.dart'
     show TextStyles;
-import '../../../../../../utils/modal/modal_dialogs.dart' show ModalDialogs;
 import '../../../../../widgets/asset_svg.dart' show AssetSvg;
 import '../../../logic/service/bank_list_service.dart' show BankListService;
 import '../../../logic/service/launch_app_service.dart' show LaunchAppInStoreService;
@@ -65,14 +65,13 @@ class _BankLauncherScreenState extends State<BankLauncherScreen> {
     if (launched) {
       // App opened successfully
       GetStorage().write('recently_used', jsonEncode(bank.toJson()));
-      ChequesScreenRoute(extId: widget.sbpQrResult.extId ?? "").go(context);
+      SbpChequesScreenRoute(extId: widget.sbpQrResult.extId ?? "").go(context);
       return;
     }
 
     // App not installed → show dialog
-    ModalDialogs.showConfirmDialog(
+    context.showConfirmDialog(
       iconUrl: Assets.imagesAppNotInstalled,
-      ctx,
       title: "The selected bank app is not installed.",
       message: "The selected bank app is not installed on your device. To continue, please install it from the official app store.",
       buttonText: "Install app",

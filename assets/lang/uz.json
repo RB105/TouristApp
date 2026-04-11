@@ -42,8 +42,7 @@
     "all_in_one": "Hammasi bitta hamyonda",
     "fast_qr": "Tez QR to'lovlar"
   },
-
-  "home" : {
+  "home": {
     "main_title": "Asosiy",
     "profile_title": "Profil",
     "chat_title": "Chat",
@@ -53,8 +52,7 @@
     "chat_nav_title": "Chat",
     "monitoring_nav_title": "Monitoring"
   },
-
-  "main" : {
+  "main": {
     "total_balance": "Umumiy balans",
     "top_up": "To'ldirish",
     "send_money": "Pul yuborish",
@@ -64,8 +62,22 @@
     "transactions": "Tranzaksiyalar",
     "last_transactions": "So'ngi tranzaksiyalar"
   },
-
-
+  "transfer": {
+    "tr_details": "Tranzaksiya tafsilotlari",
+    "date": "Sana",
+    "wallet_owner": "Hamyon egasi",
+    "transaction_type": "Tranzaksiya turi",
+    "transaction_id": "Tranzaksiya ID",
+    "commission": "Komissiya",
+    "free": "Bepul",
+    "total": "Jami",
+    "back_to_home": "Asosiyga qaytish"
+  },
+  "common": {
+    "cancel": "Bekor qilish",
+    "pop": "Yopish",
+    "copied_to_clipboard": "Buferiga nusxalandi"
+  },
   "errors": {
     "error_other": "Kutilmagan xatolik yuz berdi",
     "error_unknown": "Noma'lum xatolik yuz berdi",

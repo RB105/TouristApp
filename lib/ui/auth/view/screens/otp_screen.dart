@@ -8,24 +8,22 @@ import 'package:easy_localization/easy_localization.dart'
 import 'package:pinput/pinput.dart';
 import 'package:touristapp/generated/assets.dart' show Assets;
 import 'package:touristapp/ui/auth/logic/cubit/auth_cubit.dart';
-import 'package:touristapp/ui/auth/view/screens/register_screen.dart' show RegisterScreen;
+import 'package:touristapp/ui/auth/view/screens/register_screen.dart'
+    show RegisterScreen;
 import 'package:touristapp/utils/di/di.dart';
 import 'package:touristapp/utils/extensions/color_extension.dart'
     show ColorExtension;
 import 'package:touristapp/utils/extensions/context_extensions.dart'
     show ContextExtensions;
+import 'package:touristapp/utils/extensions/dialog_ext.dart';
 import 'package:touristapp/utils/extensions/text_styles_extension.dart'
     show TextStyles;
-import 'package:touristapp/utils/modal/modal_dialogs.dart';
 import 'package:touristapp/utils/styled_text_parser.dart' show StyledTextParser;
 
 class OtpScreen extends StatefulWidget {
   final String phoneNumber;
 
-  const OtpScreen({
-    super.key,
-    required this.phoneNumber,
-  });
+  const OtpScreen({super.key, required this.phoneNumber});
 
   @override
   State<OtpScreen> createState() => _OtpScreenState();
@@ -51,25 +49,19 @@ class _OtpScreenState extends State<OtpScreen> {
       body: BlocConsumer<AuthCubit, AuthState>(
         listener: (context, state) {
           if (state.confirmStatus == .success) {
-            ModalDialogs.dismissCurrentDialog();
-              Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (context) => RegisterScreen(
-                    phoneNumber: widget.phoneNumber,
-                    secretKey: state.secretKey ?? "",
-                  ),
+            context.hideDialog();
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) => RegisterScreen(
+                  phoneNumber: widget.phoneNumber,
+                  secretKey: state.secretKey ?? "",
                 ),
-              );
-
-          } else if (state.confirmStatus == .error) {
-            ModalDialogs.dismissCurrentDialog();
-            ModalDialogs.showErrorDialog(
-              context,
-              title: state.confirmErrorMessage ?? "",
+              ),
             );
+          } else if (state.confirmStatus == .error) {
+            context.showErrorDialog(title: state.confirmErrorMessage ?? "");
           } else if (state.confirmStatus == .loading) {
-            // Optionally show a loading indicator
-            ModalDialogs.showLoader(context);
+            context.showLoading();
           }
         },
         builder: (context, state) => Stack(
@@ -129,9 +121,11 @@ class _OtpScreenState extends State<OtpScreen> {
                             'auth.verification_message'.tr(),
                             placeholders: {'phone': widget.phoneNumber},
                             tagStyles: {
-                              'bold': (style) => style.copyWith(fontWeight: FontWeight.bold),
+                              'bold': (style) =>
+                                  style.copyWith(fontWeight: FontWeight.bold),
                               // Add more tags here, e.g., 'italic': (style) => style.copyWith(fontStyle: FontStyle.italic),
-                            }, defaultStyle: context.textSm,
+                            },
+                            defaultStyle: context.textSm,
                           ),
                         ),
                         context.szBoxHeight20,

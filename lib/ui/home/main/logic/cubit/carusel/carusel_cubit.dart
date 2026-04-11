@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:touristapp/ui/home/main/logic/model/carusel_transfer_service.dart';
 import 'package:touristapp/ui/home/main/logic/model/transfer_create_sbp_result.dart';
 import 'package:touristapp/ui/home/main/logic/service/transfer_service.dart';
+import 'package:touristapp/ui/home/monitoring/logic/model/monitoring_result.dart';
 import 'package:touristapp/utils/enums/api_status.dart';
 
 part 'carusel_state.dart';
@@ -13,6 +14,26 @@ class CaruselCubit extends Cubit<CaruselState> {
   CaruselCubit(this._transferService) : super(CaruselState());
 
   final TransferService _transferService;
+
+  void getTransactionState(String extId) async {
+    emit(state.copyWith(transactionStateStatus: .loading));
+    final response = await _transferService.transferState(extId: extId);
+    if (response.isSuccess) {
+      emit(
+        state.copyWith(
+          transactionStateStatus: .success,
+          transactionState: response.data,
+        ),
+      );
+    } else {
+      emit(
+        state.copyWith(
+          transactionStateStatus: .error,
+          transactionStateError: response.error.toString(),
+        ),
+      );
+    }
+  }
 
   Future<void> getTransferServices() async {
     emit(CaruselState(transferServiceStatus: ApiStatus.loading));

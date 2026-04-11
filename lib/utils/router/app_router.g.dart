@@ -8,6 +8,7 @@ part of 'app_router.dart';
 
 List<RouteBase> get $appRoutes => [
   $rootRoute,
+  $loginScreenRoute,
   $pinCodeScreenRoute,
   $authRoute,
   $onBoardingRoute,
@@ -15,7 +16,7 @@ List<RouteBase> get $appRoutes => [
   $homeShellRoute,
   $qrAmountScreenRoute,
   $qrOtpScreenRoute,
-  $chequesScreenRoute,
+  $sbpChequesScreenRoute,
   $bankLauncherScreenRoute,
 ];
 
@@ -27,6 +28,35 @@ mixin $RootRoute on GoRouteData {
 
   @override
   String get location => GoRouteData.$location('/');
+
+  @override
+  void go(BuildContext context) => context.go(location);
+
+  @override
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  @override
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  @override
+  void replace(BuildContext context) => context.replace(location);
+}
+
+RouteBase get $loginScreenRoute =>
+    GoRouteData.$route(path: '/login', factory: $LoginScreenRoute._fromState);
+
+mixin $LoginScreenRoute on GoRouteData {
+  static LoginScreenRoute _fromState(GoRouterState state) =>
+      LoginScreenRoute(phoneNumber: state.uri.queryParameters['phone-number']!);
+
+  LoginScreenRoute get _self => this as LoginScreenRoute;
+
+  @override
+  String get location => GoRouteData.$location(
+    '/login',
+    queryParams: {'phone-number': _self.phoneNumber},
+  );
 
   @override
   void go(BuildContext context) => context.go(location);
@@ -383,20 +413,22 @@ mixin $QrOtpScreenRoute on GoRouteData {
   void replace(BuildContext context) => context.replace(location);
 }
 
-RouteBase get $chequesScreenRoute => GoRouteData.$route(
-  path: '/cheque',
-  factory: $ChequesScreenRoute._fromState,
+RouteBase get $sbpChequesScreenRoute => GoRouteData.$route(
+  path: '/sbp-cheque',
+  factory: $SbpChequesScreenRoute._fromState,
 );
 
-mixin $ChequesScreenRoute on GoRouteData {
-  static ChequesScreenRoute _fromState(GoRouterState state) =>
-      ChequesScreenRoute(extId: state.uri.queryParameters['ext-id']!);
+mixin $SbpChequesScreenRoute on GoRouteData {
+  static SbpChequesScreenRoute _fromState(GoRouterState state) =>
+      SbpChequesScreenRoute(extId: state.uri.queryParameters['ext-id']!);
 
-  ChequesScreenRoute get _self => this as ChequesScreenRoute;
+  SbpChequesScreenRoute get _self => this as SbpChequesScreenRoute;
 
   @override
-  String get location =>
-      GoRouteData.$location('/cheque', queryParams: {'ext-id': _self.extId});
+  String get location => GoRouteData.$location(
+    '/sbp-cheque',
+    queryParams: {'ext-id': _self.extId},
+  );
 
   @override
   void go(BuildContext context) => context.go(location);

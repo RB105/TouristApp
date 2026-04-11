@@ -3,7 +3,7 @@
 import 'package:dio/dio.dart'
     show Dio, DioException, DioExceptionType, Response;
 import 'package:easy_localization/easy_localization.dart'
-    show StringTranslateExtension, Intl;
+    show StringTranslateExtension;
 import 'package:get_storage/get_storage.dart';
 import 'package:touristapp/utils/config/response_config.dart'
     show NetworkResponse;
@@ -26,6 +26,7 @@ class ApiClient {
         dio.options.headers['Authorization'] =
             "Bearer ${storage.read("access_token")}";
       }
+
       final response = await dio.post(endPoint, data: params);
       return _getResponse(response);
     } on DioException catch (e) {
@@ -72,7 +73,7 @@ class ApiClient {
   }
 
   NetworkResponse _getErrorMessage(Response response) {
-    final lang = Intl.getCurrentLocale();
+    final lang = storage.read('lang') ?? 'uz';
 
     // Defensive parsing
     final error = response.data['error'];

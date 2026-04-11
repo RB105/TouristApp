@@ -11,6 +11,10 @@ class CaruselState extends Equatable {
   final ApiStatus transferCreateStatus;
   final String transferCreateError;
   final TransferCreateSbpResult? transferCreateSbpResult;
+  //
+  final ApiStatus transactionStateStatus;
+  final String transactionStateError;
+  final MonitoringHistory? transactionState;
 
   const CaruselState({
     this.transferServiceStatus = ApiStatus.initial,
@@ -20,6 +24,12 @@ class CaruselState extends Equatable {
     this.transferCreateStatus = .initial,
     this.transferCreateError = '',
     this.transferCreateSbpResult,
+    //
+    this.transactionStateStatus = .initial,
+    this.transactionStateError = '',
+    this.transactionState
+    //
+
   });
 
   @override
@@ -31,6 +41,10 @@ class CaruselState extends Equatable {
     transferCreateStatus,
     transferCreateError,
     transferCreateSbpResult,
+    //
+    transactionStateStatus,
+    transactionStateError,
+    transactionState
   ];
 
   CaruselState copyWith({
@@ -41,6 +55,10 @@ class CaruselState extends Equatable {
     ApiStatus? transferCreateStatus,
     String? transferCreateError,
     TransferCreateSbpResult? transferCreateSbpResult,
+    //
+    ApiStatus? transactionStateStatus,
+    String? transactionStateError,
+    MonitoringHistory? transactionState,
   }) {
     return CaruselState(
       transferServiceStatus:
@@ -53,6 +71,10 @@ class CaruselState extends Equatable {
       transferCreateError: transferCreateError ?? this.transferCreateError,
       transferCreateSbpResult:
           transferCreateSbpResult ?? this.transferCreateSbpResult,
+      //
+      transactionStateStatus: transactionStateStatus ?? this.transactionStateStatus,
+      transactionStateError: transactionStateError ?? this.transactionStateError,
+      transactionState: transactionState ?? this.transactionState
     );
   }
 }
