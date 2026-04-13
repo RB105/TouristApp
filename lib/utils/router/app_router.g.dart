@@ -16,6 +16,7 @@ List<RouteBase> get $appRoutes => [
   $homeShellRoute,
   $qrAmountScreenRoute,
   $qrOtpScreenRoute,
+  $amountScreenRoute,
   $sbpChequesScreenRoute,
   $bankLauncherScreenRoute,
 ];
@@ -398,6 +399,32 @@ mixin $QrOtpScreenRoute on GoRouteData {
       'payment-create-result': jsonEncode(_self.paymentCreateResult.toJson()),
     },
   );
+
+  @override
+  void go(BuildContext context) => context.go(location);
+
+  @override
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  @override
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  @override
+  void replace(BuildContext context) => context.replace(location);
+}
+
+RouteBase get $amountScreenRoute => GoRouteData.$route(
+  path: '/amount-screen',
+  factory: $AmountScreenRoute._fromState,
+);
+
+mixin $AmountScreenRoute on GoRouteData {
+  static AmountScreenRoute _fromState(GoRouterState state) =>
+      const AmountScreenRoute();
+
+  @override
+  String get location => GoRouteData.$location('/amount-screen');
 
   @override
   void go(BuildContext context) => context.go(location);

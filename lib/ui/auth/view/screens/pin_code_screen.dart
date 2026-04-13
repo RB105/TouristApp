@@ -8,6 +8,7 @@ import 'package:get_storage/get_storage.dart' show GetStorage;
 import 'package:go_router/go_router.dart' show GoRouterHelper;
 import 'package:touristapp/ui/widgets/asset_svg.dart';
 import 'package:touristapp/utils/extensions/color_extension.dart';
+import 'package:touristapp/utils/extensions/dialog_ext.dart';
 import 'package:touristapp/utils/extensions/text_styles_extension.dart';
 import 'package:touristapp/utils/router/app_router.dart';
 
@@ -196,7 +197,7 @@ class _PinCodeScreenState extends State<PinCodeScreen> {
                             Spacer(),
                             TextButton(
                               onPressed: () {
-                                // ModalDialogs.showLogoutDialog(context);
+                                context.showLogOutDialog();
                               },
                               child: Text("auth.cant_login".tr()),
                             ),

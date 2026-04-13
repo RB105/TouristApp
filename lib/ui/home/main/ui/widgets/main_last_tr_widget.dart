@@ -5,9 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart' show SvgPicture;
 import 'package:go_router/go_router.dart' show StatefulNavigationShell;
 import 'package:touristapp/generated/assets.dart' show Assets;
-import 'package:touristapp/ui/home/main/logic/model/home_details_result.dart';
 import 'package:touristapp/ui/home/main/logic/model/transaction_result.dart'
     show TransactionResult;
+import 'package:touristapp/ui/home/monitoring/logic/model/monitoring_result.dart';
 import 'package:touristapp/utils/extensions/color_extension.dart'
     show ColorExtension;
 import 'package:touristapp/utils/extensions/context_extensions.dart'
@@ -17,9 +17,14 @@ import 'package:touristapp/utils/extensions/text_styles_extension.dart'
 import 'package:touristapp/utils/modal/modal_sheets.dart' show ModalSheets;
 
 class MainLastTrWidget extends StatelessWidget {
-  final List<HistoryGroup> historyGroups;
+  final List<MonitoringHistory> history;
+  final bool isLoading;
 
-  const MainLastTrWidget({super.key, required this.historyGroups});
+  const MainLastTrWidget({
+    super.key,
+    required this.history,
+    required this.isLoading,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -48,103 +53,69 @@ class MainLastTrWidget extends StatelessWidget {
               child: Image.asset(Assets.iconsEmptyBox),
             ),
           ),
-          visible: historyGroups.isNotEmpty,
+          visible: history.isNotEmpty,
           child: ListView.builder(
             physics: NeverScrollableScrollPhysics(),
+            itemCount: history.length,
             shrinkWrap: true,
-            itemCount: 1,
-            itemBuilder: (context, index) {
-              return Column(
-                children: [
-                  SizedBox(
-                    width: double.infinity,
-                    child: DecoratedBox(
-                      decoration: BoxDecoration(color: context.bgElevated),
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 16,
-                          vertical: 4,
+            itemBuilder: (context, i) => SizedBox(
+              width: double.infinity,
+              child: DecoratedBox(
+                decoration: BoxDecoration(color: context.bgMain),
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 16,
+                    vertical: 4,
+                  ),
+                  child: InkWell(
+                    onTap: () => ModalSheets.showQrCheque(
+                      context,
+                      transaction: TransactionResult.sample(),
+                    ),
+                    child: Row(
+                      children: [
+                        SizedBox(
+                          width: 24,
+                          height: 24,
+                          child: SvgPicture.asset(Assets.iconsTrOutSuccess),
                         ),
-                        child: Row(
+                        context.szBoxWidth16,
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              historyGroups.first.date,
-                              style: context.semiboldMd,
+                              history[i].receiver ?? "",
+                              style: context.textMd,
+                              overflow: .ellipsis,
+                            ),
+                            Text(
+                              history[i].description ?? "",
+                              style: context.textMutedXs,
                             ),
                           ],
                         ),
-                      ),
-                    ),
-                  ),
-                  ListView.builder(
-                    physics: NeverScrollableScrollPhysics(),
-                    itemCount: historyGroups.first.items.length > 5
-                        ? 5
-                        : historyGroups.first.items.length,
-                    shrinkWrap: true,
-                    itemBuilder: (context, i) => SizedBox(
-                      width: double.infinity,
-                      child: DecoratedBox(
-                        decoration: BoxDecoration(color: context.bgMain),
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 16,
-                            vertical: 4,
-                          ),
-                          child: InkWell(
-                            onTap: () => ModalSheets.showQrCheque(
-                              context,
-                              transaction: TransactionResult.sample(),
+                        const Spacer(),
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          children: [
+                            Text(
+                              history[i].formattedAmount,
+                              style: context.textMd,
                             ),
-                            child: Row(
-                              children: [
-                                SizedBox(
-                                  width: 24,
-                                  height: 24,
-                                  child: SvgPicture.asset(
-                                    Assets.iconsTrOutSuccess,
-                                  ),
-                                ),
-                                context.szBoxWidth16,
-                                Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      historyGroups.first.items[i].receiver,
-                                      style: context.textMd,
-                                    ),
-                                    Text(
-                                      historyGroups.first.items[i].description,
-                                      style: context.textMutedXs,
-                                    ),
-                                  ],
-                                ),
-                                const Spacer(),
-                                Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  crossAxisAlignment: CrossAxisAlignment.end,
-                                  children: [
-                                    Text(
-                                      historyGroups.first.items[i].getBalance(),
-                                      style: context.textMd,
-                                    ),
-                                    Text(
-                                      historyGroups.first.items[i].getDate(),
-                                      style: context.textMutedXs,
-                                    ),
-                                  ],
-                                ),
-                              ],
+                            Text(
+                              history[i].formattedDate,
+                              style: context.textMutedXs,
                             ),
-                          ),
+                          ],
                         ),
-                      ),
+                      ],
                     ),
                   ),
-                ],
-              );
-            },
+                ),
+              ),
+            ),
           ),
         ),
       ],

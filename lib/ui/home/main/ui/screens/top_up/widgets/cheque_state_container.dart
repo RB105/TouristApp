@@ -59,7 +59,7 @@ class _ChequeStateContainerState extends State<ChequeStateContainer> {
           ),
         ],
       );
-    } else if (tr.getTransactionStatus == .pending) {
+    } else if (tr.getTransactionStatus == .pending || tr.getTransactionStatus == .created) {
       return Column(
         children: [
           PrimaryContainer(
@@ -111,7 +111,7 @@ class _ChequeStateContainerState extends State<ChequeStateContainer> {
                   if (widget.status == .loading) context.szBoxWidth8,
 
                   Text(
-                    "transfer.check_status".tr(),
+                    "Check Status".tr(), // transfer.check_status
                     style: TextStyle(
                       fontWeight: FontWeight.w600,
                       fontSize: 16,

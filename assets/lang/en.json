@@ -18,12 +18,17 @@
     "enter_phone_placeholder": "Enter phone number",
     "login_password": "Enter your password",
     "login_password_desc": "Enter your password to access your account.",
-    "pins_do_not_match": "PIN-коды не совпадают",
-    "incorrect_pin": "Неверный PIN",
-    "cant_login": "Не удается войти",
-    "set_pin": "Установить PIN",
-    "confirm_pin": "Подтвердить PIN",
-    "enter_pin": "Введите PIN"
+    "pins_do_not_match": "PIN codes do not match",
+    "incorrect_pin": "Incorrect PIN",
+    "cant_login": "Can't login",
+    "set_pin": "Set PIN",
+    "confirm_pin": "Confirm PIN",
+    "enter_pin": "Enter PIN",
+
+    "forgot_pin_title": "Forgot your PIN?",
+    "forgot_pin_description": "You'll need to log in again and create a new PIN to access your account.",
+    "reset_pin": "Reset PIN",
+    "cancel": "Cancel"
   },
   "onboarding": {
     "tagline": "One wallet. No limits.",
@@ -70,6 +75,14 @@
     "free": "Free",
     "total": "Total",
     "back_to_home": "Back to Home"
+  },
+  "profile": {
+    "personal_information": "Personal information",
+    "name_avatar": "Name and avatar",
+    "preferences": "Preferences",
+    "theme_language": "Theme and language",
+    "privacy": "Privacy",
+    "biometric_password": "Biometric & password"
   },
   "errors": {
     "error_other": "An unexpected error occurred",

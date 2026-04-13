@@ -5,21 +5,25 @@ import 'package:shimmer/shimmer.dart';
 import 'package:touristapp/utils/extensions/color_extension.dart'
     show ColorExtension;
 
-import '../../../../../utils/extensions/context_extensions.dart' show ContextExtensions;
+import '../../../../../utils/extensions/context_extensions.dart'
+    show ContextExtensions;
 
 class MonitoringShimmerLoading extends StatelessWidget {
   final int groupCount;
   final int itemsPerGroup;
+  final bool? shrinkWrap;
 
   const MonitoringShimmerLoading({
     super.key,
     this.groupCount = 3,
     this.itemsPerGroup = 3,
+    this.shrinkWrap,
   });
 
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
+      shrinkWrap: shrinkWrap ?? false,
       padding: context.k16verticalPadding,
       itemBuilder: (context, index) => Column(
         children: [

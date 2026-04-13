@@ -16,6 +16,7 @@ import 'package:touristapp/utils/extensions/primary_decoration_ext.dart'
 import 'package:touristapp/utils/extensions/text_styles_extension.dart'
     show TextStyles;
 
+import '../../generated/assets.dart' show Assets;
 import '../../ui/home/main/logic/model/carusel_transfer_service.dart'
     show CaruselTransferService;
 import '../router/app_router.dart' show OnBoardingRoute;
@@ -48,6 +49,7 @@ extension DialogExt on BuildContext {
     _updateDialog();
     showDialog(
       context: this,
+      useRootNavigator: true,
       barrierDismissible: isDismissible ?? true,
       barrierColor: Colors.black.withOpacity(0.3),
       builder: (ctx) {
@@ -92,7 +94,7 @@ extension DialogExt on BuildContext {
       barrierColor: Colors.transparent,
       transitionDuration: const Duration(milliseconds: 260),
       pageBuilder: (_, _, _) => const SizedBox(),
-      transitionBuilder: (context, animation, secondaryAnimation, child) {
+      transitionBuilder: (sheetContext, animation, secondaryAnimation, child) {
         final curve = CurvedAnimation(
           parent: animation,
           curve: Curves.easeOutCubic,
@@ -101,9 +103,8 @@ extension DialogExt on BuildContext {
 
         return Stack(
           children: [
-            /// BLUR + OVERLAY
             GestureDetector(
-              onTap: () => Navigator.pop(context),
+              onTap: () => sheetContext.pop(),
               child: FadeTransition(
                 opacity: curve,
                 child: BackdropFilter(
@@ -137,7 +138,6 @@ extension DialogExt on BuildContext {
                         child: Column(
                           mainAxisSize: MainAxisSize.min,
                           children: [
-                            /// Header
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
@@ -149,32 +149,29 @@ extension DialogExt on BuildContext {
                                   ),
                                 ),
                                 GestureDetector(
-                                  onTap: () => Navigator.pop(context),
+                                  onTap: () => sheetContext.pop(),
                                   child: const Icon(Icons.close),
                                 ),
                               ],
                             ),
-
-                            context.szBoxHeight16,
+                            szBoxHeight16,
                             ListView.builder(
                               itemCount: services?.length ?? 0,
                               padding: EdgeInsets.zero,
                               shrinkWrap: true,
-                              itemBuilder: (context, index) => Padding(
+                              itemBuilder: (itemContext, index) => Padding(
                                 padding: const EdgeInsets.only(bottom: 12),
                                 child: _item(
-                                  context: context,
-                                  title:
-                                      services?[index].getName(
-                                        context.locale.languageCode,
-                                      ) ??
+                                  context: itemContext,
+                                  title: services?[index].getName(
+                                    itemContext.locale.languageCode,
+                                  ) ??
                                       "",
                                   subtitle: services?[index].description ?? "",
                                   onTap: () {
                                     if (services?[index].providerId == 9) {
-                                      // Navigate to Bank Launcher Screen
-                                      context.pop();
                                       onSelected(services![index]);
+                                      sheetContext.pop();
                                     }
                                   },
                                 ),
@@ -286,12 +283,110 @@ extension DialogExt on BuildContext {
     ).whenComplete(_afterComplete);
   }
 
-  Future<void> showLogOutDialog() async {
+  /// Add this method to the DialogExt extension in dialog_ext.dart
+  /// Place it after the showLogOutDialog() method (around line 341)
+
+  Future<void> showForgotPinDialog({
+    VoidCallback? onResetPin,
+  }) async {
     _updateDialog();
     showDialog(
       context: this,
       barrierDismissible: true,
       barrierColor: Colors.black.withOpacity(0.3),
+      builder: (ctx) {
+        return Center(
+          child: Padding(
+            padding: k20horizontalPadding,
+            child: Container(
+              width: double.infinity,
+              padding: k16Padding,
+              decoration: decoration,
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  /// Icon/Header
+                  SvgPicture.asset(
+                    Assets.iconsLock,
+                    width: 48,
+                    height: 48,
+                    colorFilter: ColorFilter.mode(
+                      primary,
+                      BlendMode.srcIn,
+                    ),
+                  ),
+                  szBoxHeight16,
+                  Text(
+                    "auth.forgot_pin_title".tr(),
+                    textAlign: TextAlign.center,
+                    style: ctx.boldDisplayXs,
+                  ),
+                  szBoxHeight12,
+                  Text(
+                    "auth.forgot_pin_description".tr(),
+                    textAlign: TextAlign.center,
+                    style: ctx.mediumMd.copyWith(
+                      color: textSecondary,
+                    ),
+                  ),
+                  szBoxHeight24,
+                  Row(
+                    children: [
+                      Expanded(
+                        child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: bgMain,
+                            padding: const EdgeInsets.symmetric(vertical: 12),
+                          ),
+                          onPressed: () => pop(),
+                          child: Text(
+                            "auth.cancel".tr(),
+                            style: mediumMd,
+                            textAlign: TextAlign.center,
+                          ),
+                        ),
+                      ),
+                      szBoxWidth8,
+                      Expanded(
+                        child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: primary,
+                            padding: const EdgeInsets.symmetric(vertical: 12),
+                          ),
+                          onPressed: () {
+                            pop();
+                            GetStorage().erase();
+                            OnBoardingRoute().go(this);
+                            if (onResetPin != null) onResetPin();
+                          },
+                          child: Text(
+                            "auth.reset_pin".tr(),
+                            textAlign: TextAlign.center,
+                            style: const TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 16,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          ),
+        );
+      },
+    ).whenComplete(_afterComplete);
+  }
+
+
+  Future<void> showLogOutDialog() async {
+    _updateDialog();
+    showDialog(
+      context: this,
+      barrierDismissible: true,
       builder: (ctx) {
         return Center(
           child: Padding(

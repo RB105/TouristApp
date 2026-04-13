@@ -17,7 +17,18 @@
     "enter_phone": "Введите номер телефона, чтобы \nполучить код подтверждения.",
     "enter_phone_placeholder": "Введите номер телефона",
     "login_password": "Введите ваш пароль",
-    "login_password_desc": "Введите пароль для доступа к вашему аккаунту."
+    "login_password_desc": "Введите пароль для доступа к вашему аккаунту.",
+    "pins_do_not_match": "PIN-коды не совпадают",
+    "incorrect_pin": "Неверный PIN",
+    "cant_login": "Не удается войти",
+    "set_pin": "Установить PIN",
+    "confirm_pin": "Подтвердить PIN",
+    "enter_pin": "Введите PIN",
+
+    "forgot_pin_title": "Забыли PIN-код?",
+    "forgot_pin_description": "Вам нужно будет снова войти в систему и создать новый PIN-код для доступа к аккаунту.",
+    "reset_pin": "Сбросить PIN-код",
+    "cancel": "Отмена"
   },
   "onboarding": {
     "tagline": "Один кошелёк. Без границ.",
@@ -71,6 +82,14 @@
     "cancel": "Отмена",
     "pop": "Закрыть",
     "copied_to_clipboard": "Скопировано в буфер обмена"
+  },
+  "profile": {
+    "personal_information": "Личная информация",
+    "name_avatar": "Имя и аватар",
+    "preferences": "Настройки",
+    "theme_language": "Тема и язык",
+    "privacy": "Конфиденциальность",
+    "biometric_password": "Биометрия и пароль"
   },
   "errors": {
     "error_other": "Произошла непредвиденная ошибка",

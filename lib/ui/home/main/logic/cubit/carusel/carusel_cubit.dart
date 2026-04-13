@@ -57,11 +57,11 @@ class CaruselCubit extends Cubit<CaruselState> {
     }
   }
 
-  void transferSbpCreate() async {
+  void transferSbpCreate(int amount) async {
     emit(CaruselState(transferCreateStatus: .loading));
     final response = await _transferService.transferCreate(
       currency: "643",
-      amount: 100,
+      amount: amount,
       creditCode: "V2S0008",
       debitCode: "V2S0008",
     );

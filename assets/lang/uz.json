@@ -23,7 +23,12 @@
     "cant_login": "Kirib bo'lmadi",
     "set_pin": "PIN kodni o'rnating",
     "confirm_pin": "PIN kodni tasdiqlang",
-    "enter_pin": "PIN kodni kiriting"
+    "enter_pin": "PIN kodni kiriting",
+
+    "forgot_pin_title": "PIN kodni unutdingizmi?",
+    "forgot_pin_description": "Hisobingizga kirish uchun qayta tizimga kirib, yangi PIN kod yaratishingiz kerak bo‘ladi.",
+    "reset_pin": "PIN kodni tiklash",
+    "cancel": "Bekor qilish"
   },
   "onboarding": {
     "tagline": "Bitta hamyon. Chegarasiz.",
@@ -77,6 +82,14 @@
     "cancel": "Bekor qilish",
     "pop": "Yopish",
     "copied_to_clipboard": "Buferiga nusxalandi"
+  },
+  "profile": {
+    "personal_information": "Shaxsiy ma'lumotlar",
+    "name_avatar": "Ism va avatar",
+    "preferences": "Sozlamalar",
+    "theme_language": "Mavzu va til",
+    "privacy": "Maxfiylik",
+    "biometric_password": "Biometrik va parol"
   },
   "errors": {
     "error_other": "Kutilmagan xatolik yuz berdi",

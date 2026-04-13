@@ -16,6 +16,7 @@ import 'package:touristapp/ui/home/main/logic/model/qr_check_result.dart'
     show QrCheckResult;
 import 'package:touristapp/ui/home/main/ui/main_screen.dart';
 import 'package:touristapp/ui/home/main/ui/payments_screen.dart';
+import 'package:touristapp/ui/home/main/ui/screens/top_up/amount_screen.dart';
 import 'package:touristapp/ui/home/main/ui/screens/top_up/bank_launcher_screen.dart';
 import 'package:touristapp/ui/home/main/ui/screens/top_up/sbp_cheque_screen.dart';
 import 'package:touristapp/ui/home/monitoring/ui/monitoring_screen.dart';
@@ -254,6 +255,16 @@ class QrOtpScreenRoute extends GoRouteData with $QrOtpScreenRoute {
   @override
   Widget build(BuildContext context, GoRouterState state) {
     return QrOtpScreen(paymentCreateResult: paymentCreateResult);
+  }
+}
+
+@TypedGoRoute<AmountScreenRoute>(path: AmountScreen.routeName)
+class AmountScreenRoute extends GoRouteData with $AmountScreenRoute {
+  const AmountScreenRoute();
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) {
+    return AmountScreen();
   }
 }
 

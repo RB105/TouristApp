@@ -40,7 +40,7 @@ class AppLockService with WidgetsBindingObserver {
 
       final diff = DateTime.now().difference(_backgroundTime!).inSeconds;
 
-      if (diff >= 5) _showPinScreen();
+      if (diff >= 300) _showPinScreen();
 
       _backgroundTime = null;
     }

@@ -1,0 +1,336 @@
+PODS:
+  - appmetrica_plugin (4.0.0):
+    - AppMetricaAdSupport (~> 6.1)
+    - AppMetricaCore (~> 6.1)
+    - AppMetricaCoreExtension (~> 6.1)
+    - AppMetricaCrashes (~> 6.1)
+    - AppMetricaIDSync (~> 6.1)
+    - AppMetricaLibraryAdapter (~> 6.1)
+    - AppMetricaScreenshot (~> 6.1)
+    - AppMetricaWebKit (~> 6.1)
+    - Flutter
+  - AppMetricaAdSupport (6.1.0):
+    - AppMetricaCore (= 6.1.0)
+    - AppMetricaCoreExtension (= 6.1.0)
+  - AppMetricaCore (6.1.0):
+    - AppMetricaCoreUtils (= 6.1.0)
+    - AppMetricaEncodingUtils (= 6.1.0)
+    - AppMetricaFMDB (= 6.1.0)
+    - AppMetricaHostState (= 6.1.0)
+    - AppMetricaIdentifiers (= 6.1.0)
+    - AppMetricaKeychain (= 6.1.0)
+    - AppMetricaLog (= 6.1.0)
+    - AppMetricaNetwork (= 6.1.0)
+    - AppMetricaPlatform (= 6.1.0)
+    - AppMetricaProtobuf (= 6.1.0)
+    - AppMetricaProtobufUtils (= 6.1.0)
+    - AppMetricaStorageUtils (= 6.1.0)
+  - AppMetricaCoreExtension (6.1.0):
+    - AppMetricaCore (= 6.1.0)
+    - AppMetricaStorageUtils (= 6.1.0)
+  - AppMetricaCoreUtils (6.1.0):
+    - AppMetricaLog (= 6.1.0)
+  - AppMetricaCrashes (6.1.0):
+    - AppMetricaCore (= 6.1.0)
+    - AppMetricaCoreExtension (= 6.1.0)
+    - AppMetricaCoreUtils (= 6.1.0)
+    - AppMetricaEncodingUtils (= 6.1.0)
+    - AppMetricaHostState (= 6.1.0)
+    - AppMetricaLog (= 6.1.0)
+    - AppMetricaPlatform (= 6.1.0)
+    - AppMetricaProtobufUtils (= 6.1.0)
+    - AppMetricaStorageUtils (= 6.1.0)
+    - KSCrash/Recording (< 2.2.0, >= 2.1.0)
+  - AppMetricaEncodingUtils (6.1.0):
+    - AppMetricaCoreUtils (= 6.1.0)
+    - AppMetricaLog (= 6.1.0)
+    - AppMetricaPlatform (= 6.1.0)
+  - AppMetricaFMDB (6.1.0)
+  - AppMetricaHostState (6.1.0):
+    - AppMetricaCoreUtils (= 6.1.0)
+    - AppMetricaLog (= 6.1.0)
+  - AppMetricaIdentifiers (6.1.0):
+    - AppMetricaKeychain (= 6.1.0)
+    - AppMetricaLogSwift (= 6.1.0)
+    - AppMetricaPlatform (= 6.1.0)
+    - AppMetricaStorageUtils (= 6.1.0)
+    - AppMetricaSynchronization (= 6.1.0)
+  - AppMetricaIDSync (6.1.0):
+    - AppMetricaCore (= 6.1.0)
+    - AppMetricaCoreExtension (= 6.1.0)
+    - AppMetricaCoreUtils (= 6.1.0)
+    - AppMetricaLog (= 6.1.0)
+    - AppMetricaNetwork (= 6.1.0)
+    - AppMetricaPlatform (= 6.1.0)
+    - AppMetricaStorageUtils (= 6.1.0)
+  - AppMetricaKeychain (6.1.0):
+    - AppMetricaCoreUtils (= 6.1.0)
+    - AppMetricaLog (= 6.1.0)
+    - AppMetricaStorageUtils (= 6.1.0)
+  - AppMetricaLibraryAdapter (6.1.0):
+    - AppMetricaCore (= 6.1.0)
+    - AppMetricaCoreExtension (= 6.1.0)
+  - AppMetricaLog (6.1.0)
+  - AppMetricaLogSwift (6.1.0):
+    - AppMetricaLog (= 6.1.0)
+  - AppMetricaNetwork (6.1.0):
+    - AppMetricaCoreUtils (= 6.1.0)
+    - AppMetricaLog (= 6.1.0)
+    - AppMetricaPlatform (= 6.1.0)
+  - AppMetricaPlatform (6.1.0):
+    - AppMetricaCoreUtils (= 6.1.0)
+    - AppMetricaLog (= 6.1.0)
+  - AppMetricaProtobuf (6.1.0)
+  - AppMetricaProtobufUtils (6.1.0):
+    - AppMetricaProtobuf (= 6.1.0)
+  - AppMetricaScreenshot (6.1.0):
+    - AppMetricaCore (= 6.1.0)
+    - AppMetricaCoreExtension (= 6.1.0)
+    - AppMetricaStorageUtils (= 6.1.0)
+  - AppMetricaStorageUtils (6.1.0):
+    - AppMetricaCoreUtils (= 6.1.0)
+    - AppMetricaLog (= 6.1.0)
+  - AppMetricaSynchronization (6.1.0):
+    - AppMetricaLogSwift (= 6.1.0)
+  - AppMetricaWebKit (6.1.0):
+    - AppMetricaCore (= 6.1.0)
+    - AppMetricaCoreUtils (= 6.1.0)
+    - AppMetricaLog (= 6.1.0)
+  - device_info_plus (0.0.1):
+    - Flutter
+  - Firebase/CoreOnly (12.9.0):
+    - FirebaseCore (~> 12.9.0)
+  - Firebase/Messaging (12.9.0):
+    - Firebase/CoreOnly
+    - FirebaseMessaging (~> 12.9.0)
+  - firebase_core (4.6.0):
+    - Firebase/CoreOnly (= 12.9.0)
+    - Flutter
+  - firebase_messaging (16.1.3):
+    - Firebase/Messaging (= 12.9.0)
+    - firebase_core
+    - Flutter
+  - FirebaseCore (12.9.0):
+    - FirebaseCoreInternal (~> 12.9.0)
+    - GoogleUtilities/Environment (~> 8.1)
+    - GoogleUtilities/Logger (~> 8.1)
+  - FirebaseCoreInternal (12.9.0):
+    - "GoogleUtilities/NSData+zlib (~> 8.1)"
+  - FirebaseInstallations (12.9.0):
+    - FirebaseCore (~> 12.9.0)
+    - GoogleUtilities/Environment (~> 8.1)
+    - GoogleUtilities/UserDefaults (~> 8.1)
+    - PromisesObjC (~> 2.4)
+  - FirebaseMessaging (12.9.0):
+    - FirebaseCore (~> 12.9.0)
+    - FirebaseInstallations (~> 12.9.0)
+    - GoogleDataTransport (~> 10.1)
+    - GoogleUtilities/AppDelegateSwizzler (~> 8.1)
+    - GoogleUtilities/Environment (~> 8.1)
+    - GoogleUtilities/Reachability (~> 8.1)
+    - GoogleUtilities/UserDefaults (~> 8.1)
+    - nanopb (~> 3.30910.0)
+  - Flutter (1.0.0)
+  - flutter_local_notifications (0.0.1):
+    - Flutter
+  - flutter_native_splash (2.4.3):
+    - Flutter
+  - fluttertoast (0.0.2):
+    - Flutter
+  - GoogleDataTransport (10.1.0):
+    - nanopb (~> 3.30910.0)
+    - PromisesObjC (~> 2.4)
+  - GoogleUtilities/AppDelegateSwizzler (8.1.0):
+    - GoogleUtilities/Environment
+    - GoogleUtilities/Logger
+    - GoogleUtilities/Network
+    - GoogleUtilities/Privacy
+  - GoogleUtilities/Environment (8.1.0):
+    - GoogleUtilities/Privacy
+  - GoogleUtilities/Logger (8.1.0):
+    - GoogleUtilities/Environment
+    - GoogleUtilities/Privacy
+  - GoogleUtilities/Network (8.1.0):
+    - GoogleUtilities/Logger
+    - "GoogleUtilities/NSData+zlib"
+    - GoogleUtilities/Privacy
+    - GoogleUtilities/Reachability
+  - "GoogleUtilities/NSData+zlib (8.1.0)":
+    - GoogleUtilities/Privacy
+  - GoogleUtilities/Privacy (8.1.0)
+  - GoogleUtilities/Reachability (8.1.0):
+    - GoogleUtilities/Logger
+    - GoogleUtilities/Privacy
+  - GoogleUtilities/UserDefaults (8.1.0):
+    - GoogleUtilities/Logger
+    - GoogleUtilities/Privacy
+  - JNKeychain (0.1.4)
+  - KSCrash/Core (2.1.2)
+  - KSCrash/Recording (2.1.2):
+    - KSCrash/RecordingCore
+  - KSCrash/RecordingCore (2.1.2):
+    - KSCrash/Core
+  - local_auth_darwin (0.0.1):
+    - Flutter
+    - FlutterMacOS
+  - mobile_device_identifier (0.0.1):
+    - Flutter
+    - JNKeychain
+  - mobile_scanner (7.0.0):
+    - Flutter
+    - FlutterMacOS
+  - nanopb (3.30910.0):
+    - nanopb/decode (= 3.30910.0)
+    - nanopb/encode (= 3.30910.0)
+  - nanopb/decode (3.30910.0)
+  - nanopb/encode (3.30910.0)
+  - PromisesObjC (2.4.0)
+  - share_plus (0.0.1):
+    - Flutter
+  - shared_preferences_foundation (0.0.1):
+    - Flutter
+    - FlutterMacOS
+  - sqflite_darwin (0.0.4):
+    - Flutter
+    - FlutterMacOS
+  - url_launcher_ios (0.0.1):
+    - Flutter
+
+DEPENDENCIES:
+  - appmetrica_plugin (from `.symlinks/plugins/appmetrica_plugin/ios`)
+  - device_info_plus (from `.symlinks/plugins/device_info_plus/ios`)
+  - firebase_core (from `.symlinks/plugins/firebase_core/ios`)
+  - firebase_messaging (from `.symlinks/plugins/firebase_messaging/ios`)
+  - Flutter (from `Flutter`)
+  - flutter_local_notifications (from `.symlinks/plugins/flutter_local_notifications/ios`)
+  - flutter_native_splash (from `.symlinks/plugins/flutter_native_splash/ios`)
+  - fluttertoast (from `.symlinks/plugins/fluttertoast/ios`)
+  - local_auth_darwin (from `.symlinks/plugins/local_auth_darwin/darwin`)
+  - mobile_device_identifier (from `.symlinks/plugins/mobile_device_identifier/ios`)
+  - mobile_scanner (from `.symlinks/plugins/mobile_scanner/darwin`)
+  - share_plus (from `.symlinks/plugins/share_plus/ios`)
+  - shared_preferences_foundation (from `.symlinks/plugins/shared_preferences_foundation/darwin`)
+  - sqflite_darwin (from `.symlinks/plugins/sqflite_darwin/darwin`)
+  - url_launcher_ios (from `.symlinks/plugins/url_launcher_ios/ios`)
+
+SPEC REPOS:
+  trunk:
+    - AppMetricaAdSupport
+    - AppMetricaCore
+    - AppMetricaCoreExtension
+    - AppMetricaCoreUtils
+    - AppMetricaCrashes
+    - AppMetricaEncodingUtils
+    - AppMetricaFMDB
+    - AppMetricaHostState
+    - AppMetricaIdentifiers
+    - AppMetricaIDSync
+    - AppMetricaKeychain
+    - AppMetricaLibraryAdapter
+    - AppMetricaLog
+    - AppMetricaLogSwift
+    - AppMetricaNetwork
+    - AppMetricaPlatform
+    - AppMetricaProtobuf
+    - AppMetricaProtobufUtils
+    - AppMetricaScreenshot
+    - AppMetricaStorageUtils
+    - AppMetricaSynchronization
+    - AppMetricaWebKit
+    - Firebase
+    - FirebaseCore
+    - FirebaseCoreInternal
+    - FirebaseInstallations
+    - FirebaseMessaging
+    - GoogleDataTransport
+    - GoogleUtilities
+    - JNKeychain
+    - KSCrash
+    - nanopb
+    - PromisesObjC
+
+EXTERNAL SOURCES:
+  appmetrica_plugin:
+    :path: ".symlinks/plugins/appmetrica_plugin/ios"
+  device_info_plus:
+    :path: ".symlinks/plugins/device_info_plus/ios"
+  firebase_core:
+    :path: ".symlinks/plugins/firebase_core/ios"
+  firebase_messaging:
+    :path: ".symlinks/plugins/firebase_messaging/ios"
+  Flutter:
+    :path: Flutter
+  flutter_local_notifications:
+    :path: ".symlinks/plugins/flutter_local_notifications/ios"
+  flutter_native_splash:
+    :path: ".symlinks/plugins/flutter_native_splash/ios"
+  fluttertoast:
+    :path: ".symlinks/plugins/fluttertoast/ios"
+  local_auth_darwin:
+    :path: ".symlinks/plugins/local_auth_darwin/darwin"
+  mobile_device_identifier:
+    :path: ".symlinks/plugins/mobile_device_identifier/ios"
+  mobile_scanner:
+    :path: ".symlinks/plugins/mobile_scanner/darwin"
+  share_plus:
+    :path: ".symlinks/plugins/share_plus/ios"
+  shared_preferences_foundation:
+    :path: ".symlinks/plugins/shared_preferences_foundation/darwin"
+  sqflite_darwin:
+    :path: ".symlinks/plugins/sqflite_darwin/darwin"
+  url_launcher_ios:
+    :path: ".symlinks/plugins/url_launcher_ios/ios"
+
+SPEC CHECKSUMS:
+  appmetrica_plugin: 9e361bd8fbe26c65bddf660594c4c472606ad29e
+  AppMetricaAdSupport: 751575955613b23e7ce0ef0426265518d790b16e
+  AppMetricaCore: 3393a79e2a8ecc6ab9771836b57756d7b23c7f32
+  AppMetricaCoreExtension: eadaf054b3a0828fc18d2fa6317dd2f2c40fa14b
+  AppMetricaCoreUtils: c2f90bbabca393e82296c1fb487756cbb6a67a04
+  AppMetricaCrashes: cc70469f977e326fd8f99464160f7c3bf0ac7113
+  AppMetricaEncodingUtils: 1ac3d4907dbdc87a0be5cf3603629cc27d82def7
+  AppMetricaFMDB: c8023e9caceb69681c59c244cfee28c13ce2188e
+  AppMetricaHostState: c3d737e35ba37b56d32b2e5e18d290065567c045
+  AppMetricaIdentifiers: fd85cf46041b109eb7751513925b8bbd12b0a992
+  AppMetricaIDSync: fb16acbd45c20d94fe77b8fe63df71cb72a4cff0
+  AppMetricaKeychain: 88cfdc958c65951c4caff601df4186008dfb1dee
+  AppMetricaLibraryAdapter: 338b4c49def1bc0d619a4c030e8687e3d920d5fd
+  AppMetricaLog: f6699a4d3af5e41f7bbcf066481045f78236ca0d
+  AppMetricaLogSwift: ec4fe7eb97b3f6bc4be0cc3a1a62a2212684e4c6
+  AppMetricaNetwork: 8723641c961ac090eaa7c72030accfb9e1b0f6e5
+  AppMetricaPlatform: e7e361f90ce1c69bea7fa5af622fb4ad68b4160e
+  AppMetricaProtobuf: 874a97cde1329da554876b6c3b7b641abaabdfb5
+  AppMetricaProtobufUtils: cf9dcc7ec1bc552be17dce2a208b6808952ae75d
+  AppMetricaScreenshot: 5737fff5f1869d0ae9fdbf1d4744e804c194bba5
+  AppMetricaStorageUtils: a32543471f8ae2dd4838b7439eb667c1736efb7e
+  AppMetricaSynchronization: 99987d2d7d73c486a07ee24191252642c82c1ff2
+  AppMetricaWebKit: 8eda520fd4eee9e413d37ef7e4c44b1e052f7f27
+  device_info_plus: 21fcca2080fbcd348be798aa36c3e5ed849eefbe
+  Firebase: 065f2bb395062046623036d8e6dc857bc2521d56
+  firebase_core: 8e6f58412ca227827c366b92e7cee047a2148c60
+  firebase_messaging: c3aa897e0d40109cfb7927c40dc0dea799863f3b
+  FirebaseCore: 428912f751178b06bef0a1793effeb4a5e09a9b8
+  FirebaseCoreInternal: b321eafae5362113bc182956fafc9922cfc77b72
+  FirebaseInstallations: 7b64ffd006032b2b019a59b803858df5112d9eaa
+  FirebaseMessaging: 7d6cdbff969127c4151c824fe432f0e301210f15
+  Flutter: cabc95a1d2626b1b06e7179b784ebcf0c0cde467
+  flutter_local_notifications: 643a3eda1ce1c0599413ca31672536d423dee214
+  flutter_native_splash: c32d145d68aeda5502d5f543ee38c192065986cf
+  fluttertoast: 2c67e14dce98bbdb200df9e1acf610d7a6264ea1
+  GoogleDataTransport: aae35b7ea0c09004c3797d53c8c41f66f219d6a7
+  GoogleUtilities: 00c88b9a86066ef77f0da2fab05f65d7768ed8e1
+  JNKeychain: fb6cc9ec95959ba46cd95d0ee6f7a05e41da9f42
+  KSCrash: bd950ede6c40a50bfc9f246c38a7f3408705fa3c
+  local_auth_darwin: c3ee6cce0a8d56be34c8ccb66ba31f7f180aaebb
+  mobile_device_identifier: fc935973d028805e3e09428cc615ecfc22624e5a
+  mobile_scanner: 9157936403f5a0644ca3779a38ff8404c5434a93
+  nanopb: fad817b59e0457d11a5dfbde799381cd727c1275
+  PromisesObjC: f5707f49cb48b9636751c5b2e7d227e43fba9f47
+  share_plus: 50da8cb520a8f0f65671c6c6a99b3617ed10a58a
+  shared_preferences_foundation: 7036424c3d8ec98dfe75ff1667cb0cd531ec82bb
+  sqflite_darwin: 20b2a3a3b70e43edae938624ce550a3cbf66a3d0
+  url_launcher_ios: 7a95fa5b60cc718a708b8f2966718e93db0cef1b
+
+PODFILE CHECKSUM: 53a6aebc29ccee84c41f92f409fc20cd4ca011f1
+
+COCOAPODS: 1.16.2
