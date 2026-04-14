@@ -63,6 +63,7 @@ class _MainScreenState extends State<MainScreen> {
                 // context.showLoading();
                 // context.showErrorDialog(title: "Hello World");
                 // SbpChequesScreenRoute(extId: "tourist_ap_ext_id_mts_sbpa2d6c553-a14e-4ea4-a952-7948e277d87b").push(context);
+                AmountScreenRoute().push(context);
               },
               icon: Icon(Icons.notifications),
             ),

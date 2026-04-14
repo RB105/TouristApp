@@ -48,6 +48,9 @@ class _QrAmounScreenState extends State<QrAmounScreen> {
   }
 
   void _onKeyboardTap(String text) {
+    if (_amount.length == 1 && _amount == '0') {
+      _amount = '';
+    }
     setState(() {
       _amount += text;
     });
@@ -83,6 +86,10 @@ class _QrAmounScreenState extends State<QrAmounScreen> {
             debugPrint("Payment Create Error: ${state.paymentCreateError}");
           } else if (state.paymentCreateStatus == .success) {
             context.hideDialog();
+            if (state.paymentCreateResult?.otpRequired??false) {
+              SbpChequesScreenRoute(extId: state.paymentCreateResult?.extId ?? "" ).go(context);
+              return;
+            }
             QrOtpScreenRoute(
               paymentCreateResult: state.paymentCreateResult!,
             ).push(context);

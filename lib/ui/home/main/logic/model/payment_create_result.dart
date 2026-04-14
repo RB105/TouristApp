@@ -2,35 +2,35 @@
 
 class PaymentCreateResult {
   final String extId;
-  final int status;
+  final String status;
   final String description;
   final String phoneNumber;
   final String? refNum;
-  final bool otpRequired;
-  final int otpCodeLength;
-  final DateTime expireTimeOtpCode;
+  final bool? otpRequired;
+  final int? otpCodeLength;
+  final int? expireTimeOtpCode;
 
   PaymentCreateResult({
     required this.extId,
     required this.status,
     required this.description,
     this.refNum,
-     required this.phoneNumber,
+    required this.phoneNumber,
     required this.otpRequired,
-    required this.otpCodeLength,
-    required this.expireTimeOtpCode,
+    this.otpCodeLength,
+    this.expireTimeOtpCode,
   });
 
   factory PaymentCreateResult.fromJson(Map<String, dynamic> json) {
     return PaymentCreateResult(
       extId: json['ext_id'] as String,
-      status: json['status'] as int,
+      status: json['status'].toString(),
       description: json['description'] as String,
       refNum: json['ref_num'] as String?,
       phoneNumber: json['phone_number'].toString(),
-      otpRequired: json['otp_requared'] as bool,
-      otpCodeLength: json['otp_code_length'] as int,
-      expireTimeOtpCode: DateTime.parse(json['expire_time_otp_code']),
+      otpRequired: json['otp_requared'] ?? false,
+      otpCodeLength: json['otp_code_length'] ?? 0,
+      expireTimeOtpCode: json['expire_time_otp_code'] ?? 0,
     );
   }
 
@@ -43,13 +43,12 @@ class PaymentCreateResult {
       'phone_number': phoneNumber,
       'otp_requared': otpRequired,
       'otp_code_length': otpCodeLength,
-      'expire_time_otp_code': expireTimeOtpCode.toIso8601String(),
+      'expire_time_otp_code': expireTimeOtpCode,
     };
   }
 
   @override
   String toString() {
-    // TODO: implement toString
     return "PaymentCreateResult(extId: $extId, status: $status, description: $description, refNum: $refNum, phoneNumber: $phoneNumber, otpRequired: $otpRequired, otpCodeLength: $otpCodeLength, expireTimeOtpCode: $expireTimeOtpCode)";
   }
 }

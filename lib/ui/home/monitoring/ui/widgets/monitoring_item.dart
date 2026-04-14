@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart' show SvgPicture;
 import 'package:touristapp/utils/modal/modal_sheets.dart';
+import 'package:touristapp/utils/router/app_router.dart';
 
 import '../../../../../generated/assets.dart' show Assets;
 import '../../../../../utils/extensions/color_extension.dart'
@@ -29,10 +30,9 @@ class MonitoringItem extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
           child: InkWell(
-            onTap: () => ModalSheets.showQrCheque(
-              context,
-              transaction: TransactionResult.sample(),
-            ),
+            onTap: () {
+              SbpChequesScreenRoute(monitoringItem: item).push(context);
+            },
             child: Row(
               children: [
                 SizedBox(

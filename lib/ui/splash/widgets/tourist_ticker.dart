@@ -13,37 +13,39 @@ class TouristTicker extends StatefulWidget {
 
   @override
   State<TouristTicker> createState() => _TouristTickerState();
-}
-
-class _TouristTickerState extends State<TouristTicker> {
-  // Your specific list of texts and icons
+}class _TouristTickerState extends State<TouristTicker> {
   late final List<Map<String, dynamic>> _items;
-
-  late FixedExtentScrollController _controller;
+  late PageController _controller;
   Timer? _timer;
-  int _currentIndex = 0;
+  int _absoluteIndex = 0;
+
+  static const int _startOffset = 30000;
 
   @override
   void initState() {
     super.initState();
-
     _items = [
       {'text': 'ticker.cashback_bonuses'.tr(), 'icon': Assets.iconsTextBonus},
-      {'text': 'ticker.safe_with_you'.tr(), 'icon': Assets.iconsTextSafe},
-      {'text': 'ticker.worldwide_usage'.tr(), 'icon': Assets.iconsTextGlobe},
-      {'text': 'ticker.fast_transfers'.tr(), 'icon': Assets.iconsTextCard},
-      {'text': 'ticker.all_in_one'.tr(), 'icon': Assets.iconsTextWallet},
-      {'text': 'ticker.fast_qr'.tr(), 'icon': Assets.iconsTextQr},
+      {'text': 'ticker.safe_with_you'.tr(),    'icon': Assets.iconsTextSafe},
+      {'text': 'ticker.worldwide_usage'.tr(),  'icon': Assets.iconsTextGlobe},
+      {'text': 'ticker.fast_transfers'.tr(),   'icon': Assets.iconsTextCard},
+      {'text': 'ticker.all_in_one'.tr(),       'icon': Assets.iconsTextWallet},
+      {'text': 'ticker.fast_qr'.tr(),          'icon': Assets.iconsTextQr},
     ];
 
-    _controller = FixedExtentScrollController();
 
-    // Start the auto-scroll timer
-    _timer = Timer.periodic(Duration(seconds: 2), (timer) {
-      _currentIndex = (_currentIndex + 1) % _items.length;
-      _controller.animateToItem(
-        _currentIndex,
-        duration: Duration(milliseconds: 800),
+    _absoluteIndex = _startOffset;
+
+    _controller = PageController(
+      initialPage: _absoluteIndex,
+      viewportFraction: 50 / 150,
+    );
+
+    _timer = Timer.periodic(const Duration(seconds: 2), (_) {
+      _absoluteIndex++;
+      _controller.animateToPage(
+        _absoluteIndex,
+        duration: const Duration(milliseconds: 800),
         curve: Curves.easeInOutCubic,
       );
     });
@@ -60,51 +62,58 @@ class _TouristTickerState extends State<TouristTicker> {
   Widget build(BuildContext context) {
     return SizedBox(
       height: 150,
-      child: ListWheelScrollView.useDelegate(
-        controller: _controller,
-        itemExtent: 50,
-        physics: NeverScrollableScrollPhysics(),
-        perspective: 0.00001,
-        onSelectedItemChanged: (index) {
-          setState(() => _currentIndex = index % _items.length);
-        },
-        childDelegate: ListWheelChildLoopingListDelegate(
-          children: _items.map((item) {
-            bool isActive =
-                _items.indexOf(item) == (_currentIndex % _items.length);
-            return Row(
-              mainAxisAlignment: .start,
-              crossAxisAlignment: .center,
-              children: [
-                AppAnimatedSwitcher(
-                  reverseDuration: Duration(milliseconds: 100),
-                  child: isActive
-                      ? Row(
-                    children: [
-                      SizedBox(
-                        width: 24,
-                        height: 24,
-                        child: Center(
-                          child: SvgPicture.asset(item['icon']),
+      child: AnimatedBuilder(
+        animation: _controller,
+        builder: (context, _) {
+          final page = _controller.hasClients
+              ? (_controller.page ?? _absoluteIndex.toDouble())
+              : _absoluteIndex.toDouble();
+
+          return PageView.builder(
+            controller: _controller,
+            scrollDirection: Axis.vertical,
+            physics: const NeverScrollableScrollPhysics(),
+            itemBuilder: (context, index) {
+              final realIndex = index % _items.length;
+              final item = _items[realIndex];
+
+              final isActive = (index - page).abs() < 0.5;
+
+              return Row(
+                children: [
+                  AppAnimatedSwitcher(
+                    reverseDuration: const Duration(milliseconds: 100),
+                    child: isActive
+                        ? Row(
+                      key: ValueKey(realIndex),
+                      children: [
+                        SizedBox(
+                          width: 24,
+                          height: 24,
+                          child: Center(
+                            child: SvgPicture.asset(item['icon']),
+                          ),
                         ),
-                      ),
-                      const SizedBox(width: 4),
-                    ],
-                  )
-                      : SizedBox.shrink(),
-                ),
-                Text(
-                  item['text'],
-                  style: TextStyle(
-                    fontSize: 22,
-                    fontWeight: isActive ? FontWeight.bold : FontWeight.w400,
-                    color: isActive ? Colors.black : Colors.black26,
+                        const SizedBox(width: 4),
+                      ],
+                    )
+                        : const SizedBox.shrink(),
                   ),
-                ),
-              ],
-            );
-          }).toList(),
-        ),
+                  Text(
+                    item['text'],
+                    style: TextStyle(
+                      fontSize: 22,
+                      fontWeight:
+                      isActive ? FontWeight.bold : FontWeight.w400,
+                      color:
+                      isActive ? Colors.black : Colors.black26,
+                    ),
+                  ),
+                ],
+              );
+            },
+          );
+        },
       ),
     );
   }

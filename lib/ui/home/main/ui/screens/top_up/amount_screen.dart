@@ -50,6 +50,9 @@ class _AmountScreenState extends State<AmountScreen> {
   }
 
   void _onKeyboardTap(String text) {
+    if (_amount.length == 1 && _amount == '0') {
+      _amount = '';
+    }
     setState(() {
       _amount += text;
     });

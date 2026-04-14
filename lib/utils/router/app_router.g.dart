@@ -447,14 +447,29 @@ RouteBase get $sbpChequesScreenRoute => GoRouteData.$route(
 
 mixin $SbpChequesScreenRoute on GoRouteData {
   static SbpChequesScreenRoute _fromState(GoRouterState state) =>
-      SbpChequesScreenRoute(extId: state.uri.queryParameters['ext-id']!);
+      SbpChequesScreenRoute(
+        extId: state.uri.queryParameters['ext-id'],
+        monitoringItem: _$convertMapValue(
+          'monitoring-item',
+          state.uri.queryParameters,
+          (String json0) {
+            return MonitoringHistory.fromJson(
+              jsonDecode(json0) as Map<String, dynamic>,
+            );
+          },
+        ),
+      );
 
   SbpChequesScreenRoute get _self => this as SbpChequesScreenRoute;
 
   @override
   String get location => GoRouteData.$location(
     '/sbp-cheque',
-    queryParams: {'ext-id': _self.extId},
+    queryParams: {
+      if (_self.extId != null) 'ext-id': _self.extId,
+      if (_self.monitoringItem != null)
+        'monitoring-item': jsonEncode(_self.monitoringItem!.toJson()),
+    },
   );
 
   @override
@@ -469,6 +484,15 @@ mixin $SbpChequesScreenRoute on GoRouteData {
 
   @override
   void replace(BuildContext context) => context.replace(location);
+}
+
+T? _$convertMapValue<T>(
+  String key,
+  Map<String, String> map,
+  T? Function(String) converter,
+) {
+  final value = map[key];
+  return value == null ? null : converter(value);
 }
 
 RouteBase get $bankLauncherScreenRoute => GoRouteData.$route(

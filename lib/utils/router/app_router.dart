@@ -19,6 +19,8 @@ import 'package:touristapp/ui/home/main/ui/payments_screen.dart';
 import 'package:touristapp/ui/home/main/ui/screens/top_up/amount_screen.dart';
 import 'package:touristapp/ui/home/main/ui/screens/top_up/bank_launcher_screen.dart';
 import 'package:touristapp/ui/home/main/ui/screens/top_up/sbp_cheque_screen.dart';
+import 'package:touristapp/ui/home/monitoring/logic/model/monitoring_result.dart';
+import 'package:touristapp/ui/home/monitoring/ui/cheque_screen.dart';
 import 'package:touristapp/ui/home/monitoring/ui/monitoring_screen.dart';
 import 'package:touristapp/ui/home/profile/profile_screen.dart';
 import 'package:touristapp/ui/splash/on_boarding_screen.dart';
@@ -270,15 +272,16 @@ class AmountScreenRoute extends GoRouteData with $AmountScreenRoute {
 
 @TypedGoRoute<SbpChequesScreenRoute>(path: SbpChequeScreen.routeName)
 class SbpChequesScreenRoute extends GoRouteData with $SbpChequesScreenRoute {
-  final String extId;
+  final MonitoringHistory? monitoringItem;
+  final String? extId;
 
-  const SbpChequesScreenRoute({required this.extId});
+  const SbpChequesScreenRoute({this.extId, this.monitoringItem});
 
   @override
   Page<void> buildPage(BuildContext context, GoRouterState state) {
     return CustomTransitionPage(
       key: state.pageKey,
-      child: SbpChequeScreen(extId: extId),
+      child: ChequeScreen(extId: extId , item: monitoringItem,),
       transitionsBuilder: (context, animation, secondaryAnimation, child) {
         return SlideTransition(
           position: Tween<Offset>(
