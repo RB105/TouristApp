@@ -2,7 +2,6 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart' show SvgPicture;
-import 'package:touristapp/utils/modal/modal_sheets.dart';
 import 'package:touristapp/utils/router/app_router.dart';
 
 import '../../../../../generated/assets.dart' show Assets;
@@ -12,8 +11,6 @@ import '../../../../../utils/extensions/context_extensions.dart'
     show ContextExtensions;
 import '../../../../../utils/extensions/text_styles_extension.dart'
     show TextStyles;
-import '../../../main/logic/model/transaction_result.dart'
-    show TransactionResult;
 import '../../logic/model/monitoring_result.dart' show MonitoringHistory;
 
 class MonitoringItem extends StatelessWidget {

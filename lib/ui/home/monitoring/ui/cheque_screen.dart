@@ -83,8 +83,36 @@ class _ChequeScreenState extends State<ChequeScreen> {
             if (state.transactionStateStatus == .loading &&
                 state.transactionState == null && widget.item == null) {
               return const ChequeLoadingSkeleton();
-            } else if (state.transactionStateStatus == .error) {
-              return SizedBox();
+            } else if (state.transactionStateStatus == .error ) {
+              final transaction =
+                  state.transactionState ?? widget.item ?? MonitoringHistory();
+              return Center(
+                child: SizedBox(
+                  width: 200,
+                  height: 200,
+                  child: InkWell(
+                    onTap: () => _caruselCubit.getTransactionState(widget.extId ?? transaction.extId ?? ""),
+                    borderRadius: BorderRadius.circular(24),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          state.transactionStateError,
+                          style: context.semiboldLg.copyWith(color: context.error),
+                          textAlign: TextAlign.center,
+                        ),
+                        context.szBoxHeight8,
+                        Text(
+                          "transfer.cheque.retry".tr(),
+                          style: context.mediumMd  //b16W500H20Manrope,
+                        ),
+                        context.szBoxHeight8,
+                        Icon(Icons.refresh_outlined),
+                      ],
+                    ),
+                  ),
+                ),
+              );
             } else if (state.transactionStateStatus == .success ||
                 state.transactionState != null ||
                 widget.item != null) {
