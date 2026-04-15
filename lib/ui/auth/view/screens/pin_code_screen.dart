@@ -166,124 +166,127 @@ class _PinCodeScreenState extends State<PinCodeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Stack(
-        children: [
-          Positioned.fill(
-            child: SvgPicture.asset(Assets.imagesPinCodeBg, fit: .cover),
-          ),
-          SafeArea(
-            child: Padding(
-              padding: context.k16Padding,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  // top content
-                  Expanded(
-                    flex: 3,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: .start,
-                      children: [
-                        Row(
-                          children: [
-                            SizedBox(
-                              width: 100,
-                              height: 32,
-                              child: SvgPicture.asset(
-                                Assets.iconsAppLogo100X32Black,
+    return PopScope(
+      canPop: false,
+      child: Scaffold(
+        body: Stack(
+          children: [
+            Positioned.fill(
+              child: SvgPicture.asset(Assets.imagesPinCodeBg, fit: .cover),
+            ),
+            SafeArea(
+              child: Padding(
+                padding: context.k16Padding,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    // top content
+                    Expanded(
+                      flex: 3,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: .start,
+                        children: [
+                          Row(
+                            children: [
+                              SizedBox(
+                                width: 100,
+                                height: 32,
+                                child: SvgPicture.asset(
+                                  Assets.iconsAppLogo100X32Black,
+                                ),
                               ),
-                            ),
-                            Spacer(),
-                            TextButton(
-                              onPressed: () {
-                                context.showLogOutDialog();
-                              },
-                              child: Text("auth.cant_login".tr()),
-                            ),
-                          ],
-                        ),
-                        context.szBoxFromHeight(128),
-                        AssetSvg(Assets.iconsLock),
-                        context.szBoxHeight8,
-                        Text(
-                          step == PinStep.set
-                              ? "auth.set_pin".tr()
-                              : step == PinStep.confirm
-                              ? "auth.confirm_pin".tr()
-                              : "auth.enter_pin".tr(),
-                          style: context.boldDisplayXs, //b18W500H24Manrope
-                          textAlign: TextAlign.center,
-                        ),
-                        context.szBoxHeight24,
-                        PinCodeIndicatorsRaw(shakeKey: _shakeKey, input: input),
-                        AppAnimatedSwitcher(
-                          child: step == .confirm
-                              ? Padding(
-                                  padding: const EdgeInsets.only(top: 28.0),
-                                  child: PinCodeIndicatorsRaw(
-                                    shakeKey: _shakeKey2,
-                                    input: input2,
-                                  ),
-                                )
-                              : SizedBox(),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(top: 12),
-                          child: AppAnimatedSwitcher(
-                            child: _errorText != null
-                                ? Text(
-                                    _errorText!,
-                                    style: context.textMd.copyWith(
-                                      color: context.error,
+                              Spacer(),
+                              TextButton(
+                                onPressed: () {
+                                  context.showLogOutDialog();
+                                },
+                                child: Text("auth.cant_login".tr()),
+                              ),
+                            ],
+                          ),
+                          context.szBoxFromHeight(128),
+                          AssetSvg(Assets.iconsLock),
+                          context.szBoxHeight8,
+                          Text(
+                            step == PinStep.set
+                                ? "auth.set_pin".tr()
+                                : step == PinStep.confirm
+                                ? "auth.confirm_pin".tr()
+                                : "auth.enter_pin".tr(),
+                            style: context.boldDisplayXs, //b18W500H24Manrope
+                            textAlign: TextAlign.center,
+                          ),
+                          context.szBoxHeight24,
+                          PinCodeIndicatorsRaw(shakeKey: _shakeKey, input: input),
+                          AppAnimatedSwitcher(
+                            child: step == .confirm
+                                ? Padding(
+                                    padding: const EdgeInsets.only(top: 28.0),
+                                    child: PinCodeIndicatorsRaw(
+                                      shakeKey: _shakeKey2,
+                                      input: input2,
                                     ),
-                                    textAlign: TextAlign.center,
                                   )
                                 : SizedBox(),
                           ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  Expanded(
-                    flex: 2,
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric().copyWith(
-                        bottom: 24,
-                      ),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          PinCodeKeyboard(
-                            leftButtonFn: useBio ? _tryBiometricAuth : null,
-                            leftIcon: useBio
-                                ? SizedBox(
-                                    width: 50,
-                                    height: 50,
-                                    child: SvgPicture.asset(
-                                      Assets.iconsFaceIdIos,
-                                    ),
-                                  )
-                                : null,
-                            rightButtonFn: _onDelete,
-                            rightIcon: Icon(
-                              Icons.backspace,
-                              color: context.textSecondary,
+                          Padding(
+                            padding: const EdgeInsets.only(top: 12),
+                            child: AppAnimatedSwitcher(
+                              child: _errorText != null
+                                  ? Text(
+                                      _errorText!,
+                                      style: context.textMd.copyWith(
+                                        color: context.error,
+                                      ),
+                                      textAlign: TextAlign.center,
+                                    )
+                                  : SizedBox(),
                             ),
-                            onKeyboardTap: (text) {
-                              HapticFeedback.lightImpact();
-                              _onNumberTap(text);
-                            },
                           ),
                         ],
                       ),
                     ),
-                  ),
-                ],
+                    Expanded(
+                      flex: 2,
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric().copyWith(
+                          bottom: 24,
+                        ),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            PinCodeKeyboard(
+                              leftButtonFn: useBio ? _tryBiometricAuth : null,
+                              leftIcon: useBio
+                                  ? SizedBox(
+                                      width: 50,
+                                      height: 50,
+                                      child: SvgPicture.asset(
+                                        Assets.iconsFaceIdIos,
+                                      ),
+                                    )
+                                  : null,
+                              rightButtonFn: _onDelete,
+                              rightIcon: Icon(
+                                Icons.backspace,
+                                color: context.textSecondary,
+                              ),
+                              onKeyboardTap: (text) {
+                                HapticFeedback.lightImpact();
+                                _onNumberTap(text);
+                              },
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
