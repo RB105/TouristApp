@@ -13,8 +13,12 @@ class QrService {
   QrService(this.api);
 
   Future<NetworkResponse> check(String qrId) async {
-    final response = await api.get(
-      endPoint: "${Endpoints.checkQr}/$qrId/?currency=860",
+    final response = await api.post(
+      endPoint: Endpoints.checkQr,
+      params: {
+        "currency": 860,
+        "qr_code": qrId
+      },
       bearToken: true,
     );
 

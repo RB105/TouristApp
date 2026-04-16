@@ -63,7 +63,6 @@ class _MainScreenState extends State<MainScreen> {
                 // context.showLoading();
                 // context.showErrorDialog(title: "Hello World");
                 // SbpChequesScreenRoute(extId: "tourist_ap_ext_id_mts_sbpa2d6c553-a14e-4ea4-a952-7948e277d87b").push(context);
-                AmountScreenRoute().push(context);
               },
               icon: Icon(Icons.notifications),
             ),
@@ -73,7 +72,11 @@ class _MainScreenState extends State<MainScreen> {
           onPressed: () => Future.delayed(
             Duration(milliseconds: 500),
             // ignore: use_build_context_synchronously
-            () => ModalSheets.showQrScanner(context),
+            () => ModalSheets.showQrScanner(context,onResult: (qrCheckResult) {
+              QrAmountScreenRoute(
+                qrCheckResult: qrCheckResult,
+              ).push(context);
+            },),
           ),
           child: SizedBox(
             width: 64,

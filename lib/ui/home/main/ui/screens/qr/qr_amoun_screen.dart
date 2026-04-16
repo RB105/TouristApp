@@ -86,13 +86,14 @@ class _QrAmounScreenState extends State<QrAmounScreen> {
             debugPrint("Payment Create Error: ${state.paymentCreateError}");
           } else if (state.paymentCreateStatus == .success) {
             context.hideDialog();
-            if (state.paymentCreateResult?.otpRequired??false) {
-              SbpChequesScreenRoute(extId: state.paymentCreateResult?.extId ?? "" ).go(context);
+            if (state.paymentCreateResult?.otpRequired ?? false) {
+              QrOtpScreenRoute(
+                paymentCreateResult: state.paymentCreateResult!,
+              ).push(context);
               return;
             }
-            QrOtpScreenRoute(
-              paymentCreateResult: state.paymentCreateResult!,
-            ).push(context);
+            SbpChequesScreenRoute(extId: state.paymentCreateResult?.extId ?? "" ).go(context);
+            return;
           }
         },
         builder: (context, state) => Padding(
@@ -120,21 +121,26 @@ class _QrAmounScreenState extends State<QrAmounScreen> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const Text("Wallet balance: "),
+                  const Text("Merchant: "),
                   Text(
-                    "100.00",
+                    widget.qrCheckResult.merchant,
                     style: context.semiboldSm.copyWith(color: context.primary),
                   ),
                 ],
               ),
               context.szBoxHeight16,
-              const Divider(),
-              context.szBoxHeight16,
-              const Text("Commission (1.5%)"),
-              context.szBoxHeight16,
-              const Text("0.00 USD"),
-              context.szBoxHeight8,
-              const Divider(),
+              Visibility(
+                visible: widget.qrCheckResult.amount == 0,
+                child: Column(
+                  children: [
+                    const Divider(),
+                    context.szBoxHeight16,
+                    Text('${widget.qrCheckResult.minAmount} - ${widget.qrCheckResult.minAmount} ${widget.qrCheckResult.settlementCurrency}'),
+                    context.szBoxHeight16,
+                    const Divider(),
+                  ],
+                ),
+              ),
               Spacer(),
               Visibility(
                 visible: widget.qrCheckResult.amount == 0,

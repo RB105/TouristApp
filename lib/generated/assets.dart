@@ -33,6 +33,7 @@ class Assets {
   static const String iconsUzCard = 'assets/icons/uz_card.svg';
   static const String iconsDownload = 'assets/icons/download.svg';
   static const String iconsPassword = 'assets/icons/password.svg';
+  static const String iconsQrTorch = 'assets/icons/qr_torch.svg';
   static const String iconsSettings = 'assets/icons/settings.svg';
   static const String iconsAppLogos = 'assets/icons/app_logos.svg';
   static const String iconsBankLogo = 'assets/icons/bank_logo.svg';
@@ -48,6 +49,7 @@ class Assets {
   static const String iconsTextGlobe = 'assets/icons/text_globe.svg';
   static const String iconsChequeLogo = 'assets/icons/cheque_logo.svg';
   static const String iconsFaceIdIos = 'assets/icons/face_id_ios.svg';
+  static const String iconsFlashLight = 'assets/icons/flash_light.svg';
   static const String iconsNavbarChat = 'assets/icons/navbar_chat.svg';
   static const String iconsNavbarMain = 'assets/icons/navbar_main.svg';
   static const String iconsPreferences = 'assets/icons/preferences.svg';

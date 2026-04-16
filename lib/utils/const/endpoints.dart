@@ -9,7 +9,7 @@ class Endpoints {
   static const String refreshToken = '/v1/auth/refresh/token/';
 
   // QR code endpoints
-  static const String checkQr = '/v1/qr/check';
+  static const String checkQr = '/v1/qr/check/';
   static const String createPayment =
       '/v1/qr/wallet/pay-out/create/transaction/';
   static const String checkConfirm = '/v1/qr/confirm/';

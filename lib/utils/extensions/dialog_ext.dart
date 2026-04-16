@@ -47,7 +47,7 @@ extension DialogExt on BuildContext {
     VoidCallback? onConfirm,
   }) async {
     _updateDialog();
-    showDialog(
+    await showDialog(
       context: this,
       useRootNavigator: true,
       barrierDismissible: isDismissible ?? true,

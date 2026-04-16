@@ -2,22 +2,29 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:touristapp/ui/home/main/logic/model/transaction_result.dart';
-import 'package:touristapp/ui/home/main/ui/screens/qr/qr_cheque_screen.dart' show QrChequeScreen;
-import 'package:touristapp/ui/home/main/ui/screens/qr/qr_scanner_widget.dart' show QrScannerWidget;
+import 'package:touristapp/ui/home/main/ui/screens/qr/qr_cheque_screen.dart'
+    show QrChequeScreen;
+import 'package:touristapp/ui/home/main/ui/screens/qr/qr_scan_screen.dart';
+
+import '../../ui/home/main/logic/model/qr_check_result.dart' show QrCheckResult;
 
 class ModalSheets {
   static BuildContext? _dialogContext;
-  static void showQrScanner(BuildContext context) {
+
+  static void showQrScanner(BuildContext context , {required void Function(QrCheckResult qrCheckResult) onResult}) {
     showCupertinoSheet(
       context: context,
       builder: (ctx) {
         _updateDialogContext(ctx);
-        return QrScannerWidget();
+        return QrScanWidget(onResult: onResult);
       },
     ).whenComplete(_afterComplete);
   }
 
-  static void showQrCheque(BuildContext context, {required TransactionResult transaction}) {
+  static void showQrCheque(
+    BuildContext context, {
+    required TransactionResult transaction,
+  }) {
     showCupertinoSheet(
       context: context,
       builder: (ctx) {
