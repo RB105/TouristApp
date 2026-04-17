@@ -1,6 +1,7 @@
 /* April 2026 , Baxrom Rajabov, Tashkent , Uzbekistan */
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart' show HapticFeedback;
 import 'package:flutter_svg/svg.dart' show SvgPicture;
 import 'package:touristapp/utils/router/app_router.dart';
 
@@ -28,6 +29,7 @@ class MonitoringItem extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
           child: InkWell(
             onTap: () {
+              HapticFeedback.mediumImpact();
               SbpChequesScreenRoute(monitoringItem: item).push(context);
             },
             child: Row(

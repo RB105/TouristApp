@@ -71,13 +71,15 @@ class _MainScreenState extends State<MainScreen> {
         ),
         floatingActionButton: ScaleWidgetAnim(
           onPressed: () => Future.delayed(
-            Duration(milliseconds: 500),
-            // ignore: use_build_context_synchronously
-            () => ModalSheets.showQrScanner(context,wallet: state.details?.wallet.first??Wallet(),onResult: (qrCheckResult) {
-              QrAmountScreenRoute(
-                qrCheckResult: qrCheckResult,
-              ).push(context);
-            },),
+            Duration(milliseconds: 250),
+            () => ModalSheets.showQrScanner(
+              // ignore: use_build_context_synchronously
+              context,
+              wallet: state.details?.wallet.first ?? Wallet(),
+              onResult: (qrCheckResult) {
+                QrAmountScreenRoute(qrCheckResult: qrCheckResult).push(context);
+              },
+            ),
           ),
           child: SizedBox(
             width: 64,
@@ -114,10 +116,7 @@ class _MainScreenState extends State<MainScreen> {
                       context.szBoxWidth16,
                       _buildBox(Assets.iconsP2p, "main.send_money".tr(), () {}),
                       context.szBoxWidth16,
-                      _buildBox(Assets.iconsWallet, "main.payments".tr(), () {
-                        // context.push('/main/payments');
-                        PaymentsRoute().push(context);
-                      }),
+                      _buildBox(Assets.iconsWallet, "main.payments".tr(), () => PaymentsRoute().push(context)),
                     ],
                   ),
                 ),
@@ -163,7 +162,7 @@ class _MainScreenState extends State<MainScreen> {
         onSelected: (service) {
           try {
             AmountScreenRoute().push(context);
-          // ignore: unused_catch_clause
+            // ignore: unused_catch_clause
           } on Exception catch (e) {
             // print("Hello");
           }

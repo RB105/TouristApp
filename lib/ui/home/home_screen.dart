@@ -9,6 +9,7 @@ import 'package:touristapp/generated/assets.dart';
 import 'package:touristapp/utils/extensions/color_extension.dart';
 import 'package:touristapp/utils/extensions/text_styles_extension.dart';
 
+
 class HomeScreen extends StatefulWidget {
   final StatefulNavigationShell shell;
 
@@ -22,6 +23,25 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      // floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      // floatingActionButton: ScaleWidgetAnim(
+      //   onPressed: () => Future.delayed(
+      //     Duration(milliseconds: 500),
+      //         () => ModalSheets.showQrScanner(
+      //       // ignore: use_build_context_synchronously
+      //       context,
+      //       wallet: Wallet(),
+      //       onResult: (qrCheckResult) {
+      //         QrAmountScreenRoute(qrCheckResult: qrCheckResult).push(context);
+      //       },
+      //     ),
+      //   ),
+      //   child: SizedBox(
+      //     width: 64,
+      //     height: 64,
+      //     child: SvgPicture.asset(Assets.iconsQrButton),
+      //   ),
+      // ),
       body: widget.shell,
       bottomNavigationBar: BottomNavigationBar(
         unselectedLabelStyle: context.mediumMutedMd,
