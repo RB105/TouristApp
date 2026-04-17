@@ -10,6 +10,7 @@ import 'package:touristapp/ui/home/main/logic/cubit/carusel/carusel_cubit.dart'
     show CaruselCubit, CaruselState;
 import 'package:touristapp/ui/home/main/logic/cubit/home/home_cubit.dart'
     show HomeCubit, HomeState;
+import 'package:touristapp/ui/home/main/logic/model/home_details_result.dart';
 import 'package:touristapp/ui/home/main/ui/widgets/main_last_tr_widget.dart'
     show MainLastTrWidget;
 import 'package:touristapp/ui/home/main/ui/widgets/main_total_balance_widget.dart'
@@ -72,7 +73,7 @@ class _MainScreenState extends State<MainScreen> {
           onPressed: () => Future.delayed(
             Duration(milliseconds: 500),
             // ignore: use_build_context_synchronously
-            () => ModalSheets.showQrScanner(context,onResult: (qrCheckResult) {
+            () => ModalSheets.showQrScanner(context,wallet: state.details?.wallet.first??Wallet(),onResult: (qrCheckResult) {
               QrAmountScreenRoute(
                 qrCheckResult: qrCheckResult,
               ).push(context);

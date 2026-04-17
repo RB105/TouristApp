@@ -5,8 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart' show SvgPicture;
 import 'package:go_router/go_router.dart' show StatefulNavigationShell;
 import 'package:touristapp/generated/assets.dart' show Assets;
-import 'package:touristapp/ui/home/main/logic/model/transaction_result.dart'
-    show TransactionResult;
 import 'package:touristapp/ui/home/monitoring/logic/model/monitoring_result.dart';
 import 'package:touristapp/utils/extensions/color_extension.dart'
     show ColorExtension;
@@ -14,7 +12,8 @@ import 'package:touristapp/utils/extensions/context_extensions.dart'
     show ContextExtensions;
 import 'package:touristapp/utils/extensions/text_styles_extension.dart'
     show TextStyles;
-import 'package:touristapp/utils/modal/modal_sheets.dart' show ModalSheets;
+
+import '../../../../../utils/router/app_router.dart' show SbpChequesScreenRoute;
 
 class MainLastTrWidget extends StatelessWidget {
   final List<MonitoringHistory> history;
@@ -68,10 +67,7 @@ class MainLastTrWidget extends StatelessWidget {
                     vertical: 4,
                   ),
                   child: InkWell(
-                    onTap: () => ModalSheets.showQrCheque(
-                      context,
-                      transaction: TransactionResult.sample(),
-                    ),
+                    onTap: () => SbpChequesScreenRoute(monitoringItem: history[i]).push(context),
                     child: Row(
                       children: [
                         SizedBox(

@@ -67,9 +67,7 @@ class RootRoute extends GoRouteData with $RootRoute {
   }
 
   @override
-  Widget build(BuildContext context, GoRouterState state) {
-    return const SizedBox(); // never shown
-  }
+  Widget build(BuildContext context, GoRouterState state) => const SizedBox(); // never shown
 }
 
 @TypedGoRoute<LoginScreenRoute>(path: LoginScreen.routeName)
@@ -79,9 +77,7 @@ class LoginScreenRoute extends GoRouteData with $LoginScreenRoute {
   const LoginScreenRoute({required this.phoneNumber});
 
   @override
-  Widget build(BuildContext context, GoRouterState state) {
-    return LoginScreen(phoneNumber: phoneNumber);
-  }
+  Widget build(BuildContext context, GoRouterState state) => LoginScreen(phoneNumber: phoneNumber);
 }
 
 @TypedGoRoute<PinCodeScreenRoute>(path: PinCodeScreen.routeName)
@@ -128,9 +124,7 @@ class AuthRoute extends GoRouteData with $AuthRoute {
   const AuthRoute();
 
   @override
-  Widget build(BuildContext context, GoRouterState state) {
-    return const AuthScreen();
-  }
+  Widget build(BuildContext context, GoRouterState state) => const AuthScreen();
 }
 
 @TypedGoRoute<OnBoardingRoute>(path: '/onboarding')
@@ -138,9 +132,7 @@ class OnBoardingRoute extends GoRouteData with $OnBoardingRoute {
   const OnBoardingRoute();
 
   @override
-  Widget build(BuildContext context, GoRouterState state) {
-    return const OnBoardingScreen();
-  }
+  Widget build(BuildContext context, GoRouterState state) => const OnBoardingScreen();
 }
 
 @TypedGoRoute<AuthWalletCreateRoute>(path: '/auth-wallet-create')
@@ -148,9 +140,7 @@ class AuthWalletCreateRoute extends GoRouteData with $AuthWalletCreateRoute {
   const AuthWalletCreateRoute();
 
   @override
-  Widget build(BuildContext context, GoRouterState state) {
-    return const AuthWalletCreate();
-  }
+  Widget build(BuildContext context, GoRouterState state) => const AuthWalletCreate();
 }
 
 /// MAIN SHELL
@@ -181,9 +171,7 @@ class HomeShellRoute extends StatefulShellRouteData {
     BuildContext context,
     GoRouterState state,
     StatefulNavigationShell navigationShell,
-  ) {
-    return HomeScreen(shell: navigationShell);
-  }
+  ) => HomeScreen(shell: navigationShell);
 }
 
 /// MAIN TAB
@@ -191,9 +179,7 @@ class MainRoute extends GoRouteData with $MainRoute {
   const MainRoute();
 
   @override
-  Widget build(BuildContext context, GoRouterState state) {
-    return const MainScreen();
-  }
+  Widget build(BuildContext context, GoRouterState state) => const MainScreen();
 }
 
 /// PAYMENTS
@@ -201,9 +187,7 @@ class PaymentsRoute extends GoRouteData with $PaymentsRoute {
   const PaymentsRoute();
 
   @override
-  Widget build(BuildContext context, GoRouterState state) {
-    return PaymentsScreen();
-  }
+  Widget build(BuildContext context, GoRouterState state) => PaymentsScreen();
 }
 
 /// CHAT
@@ -211,9 +195,7 @@ class ChatRoute extends GoRouteData with $ChatRoute {
   const ChatRoute();
 
   @override
-  Widget build(BuildContext context, GoRouterState state) {
-    return const ChatScreen();
-  }
+  Widget build(BuildContext context, GoRouterState state) => const ChatScreen();
 }
 
 /// MONITORING
@@ -221,9 +203,8 @@ class MonitoringRoute extends GoRouteData with $MonitoringRoute {
   const MonitoringRoute();
 
   @override
-  Widget build(BuildContext context, GoRouterState state) {
-    return const MonitoringScreen();
-  }
+  Widget build(BuildContext context, GoRouterState state) =>
+      const MonitoringScreen();
 }
 
 /// PROFILE
@@ -231,9 +212,8 @@ class ProfileRoute extends GoRouteData with $ProfileRoute {
   const ProfileRoute();
 
   @override
-  Widget build(BuildContext context, GoRouterState state) {
-    return const ProfileScreen();
-  }
+  Widget build(BuildContext context, GoRouterState state) =>
+      const ProfileScreen();
 }
 
 @TypedGoRoute<QrAmountScreenRoute>(path: '/qr-amount-screen')
@@ -243,9 +223,8 @@ class QrAmountScreenRoute extends GoRouteData with $QrAmountScreenRoute {
   const QrAmountScreenRoute({required this.qrCheckResult});
 
   @override
-  Widget build(BuildContext context, GoRouterState state) {
-    return QrAmounScreen(qrCheckResult: qrCheckResult);
-  }
+  Widget build(BuildContext context, GoRouterState state) =>
+      QrAmounScreen(qrCheckResult: qrCheckResult);
 }
 
 @TypedGoRoute<QrOtpScreenRoute>(path: '/qr-otp-screen')
@@ -255,9 +234,8 @@ class QrOtpScreenRoute extends GoRouteData with $QrOtpScreenRoute {
   const QrOtpScreenRoute({required this.paymentCreateResult});
 
   @override
-  Widget build(BuildContext context, GoRouterState state) {
-    return QrOtpScreen(paymentCreateResult: paymentCreateResult);
-  }
+  Widget build(BuildContext context, GoRouterState state) =>
+      QrOtpScreen(paymentCreateResult: paymentCreateResult);
 }
 
 @TypedGoRoute<AmountScreenRoute>(path: AmountScreen.routeName)
@@ -265,9 +243,7 @@ class AmountScreenRoute extends GoRouteData with $AmountScreenRoute {
   const AmountScreenRoute();
 
   @override
-  Widget build(BuildContext context, GoRouterState state) {
-    return AmountScreen();
-  }
+  Widget build(BuildContext context, GoRouterState state) => AmountScreen();
 }
 
 @TypedGoRoute<SbpChequesScreenRoute>(path: SbpChequeScreen.routeName)
@@ -278,21 +254,22 @@ class SbpChequesScreenRoute extends GoRouteData with $SbpChequesScreenRoute {
   const SbpChequesScreenRoute({this.extId, this.monitoringItem});
 
   @override
-  Page<void> buildPage(BuildContext context, GoRouterState state) {
-    return CustomTransitionPage(
-      key: state.pageKey,
-      child: ChequeScreen(extId: extId , item: monitoringItem,),
-      transitionsBuilder: (context, animation, secondaryAnimation, child) {
-        return SlideTransition(
+  Page<void> buildPage(
+    BuildContext context,
+    GoRouterState state,
+  ) => CustomTransitionPage(
+    key: state.pageKey,
+    opaque: true,
+    child: ChequeScreen(extId: extId, item: monitoringItem),
+    transitionsBuilder: (context, animation, secondaryAnimation, child) =>
+        SlideTransition(
           position: Tween<Offset>(
             begin: const Offset(0, 1), // 👈 from bottom
             end: Offset.zero,
           ).animate(CurvedAnimation(parent: animation, curve: Curves.easeOut)),
           child: child,
-        );
-      },
-    );
-  }
+        ),
+  );
 }
 
 @TypedGoRoute<BankLauncherScreenRoute>(path: BankLauncherScreen.routeName)
@@ -303,7 +280,5 @@ class BankLauncherScreenRoute extends GoRouteData
   const BankLauncherScreenRoute({required this.sbpQrResult});
 
   @override
-  Widget build(BuildContext context, GoRouterState state) {
-    return BankLauncherScreen(sbpQrResult: sbpQrResult);
-  }
+  Widget build(BuildContext context, GoRouterState state) => BankLauncherScreen(sbpQrResult: sbpQrResult);
 }

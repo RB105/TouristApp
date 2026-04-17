@@ -22,7 +22,7 @@ class HomeDetailsResult {
   }
 
   String getBalance() {
-    if(wallet.isEmpty) {
+    if (wallet.isEmpty) {
       return "0 UZS";
     }
     return wallet.first.getBalance();
@@ -30,24 +30,24 @@ class HomeDetailsResult {
 }
 
 class Wallet {
-  final String walletId;
-  final String phone;
-  final String firstName;
-  final String lastName;
-  final num balance;
-  final String currency;
-  final num status;
-  final String description;
+  final String? walletId;
+  final String? phone;
+  final String? firstName;
+  final String? lastName;
+  final num? balance;
+  final String? currency;
+  final num? status;
+  final String? description;
 
   Wallet({
-    required this.walletId,
-    required this.phone,
-    required this.firstName,
-    required this.lastName,
-    required this.balance,
-    required this.currency,
-    required this.status,
-    required this.description,
+    this.walletId,
+    this.phone,
+    this.firstName,
+    this.lastName,
+    this.balance,
+    this.currency,
+    this.status,
+    this.description,
   });
 
   factory Wallet.fromJson(Map<String, dynamic> json) {
@@ -65,6 +65,17 @@ class Wallet {
 
   String get fullName => "$firstName $lastName";
 
+  String get getName {
+    if ((firstName?.isEmpty ?? false) && (lastName?.isEmpty ?? false)) {
+      return "No Name";
+    } else if (firstName?.isEmpty ?? false) {
+      return lastName ?? "";
+    } else if (lastName?.isEmpty ?? false) {
+      return firstName ?? "";
+    }
+    return fullName;
+  }
+
   String getBalance() {
     String getCurrency() {
       if (currency == '860') {
@@ -73,7 +84,8 @@ class Wallet {
       return "";
     }
 
-    final balanceInDouble = balance / 100; // Assuming balance is in cents
+    final balanceInDouble =
+        (balance ?? 100) / 100; // Assuming balance is in cents
     return "${balanceInDouble.toStringAsFixed(1)} ${getCurrency()}";
   }
 }

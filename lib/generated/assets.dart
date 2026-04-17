@@ -11,11 +11,13 @@ class Assets {
   static const String imagesPinCodeBg = 'assets/images/pin_code_bg.svg';
   static const String imagesAppNotInstalled =
       'assets/images/app_not_installed.png';
+  static const String iconsQr = 'assets/icons/qr.svg';
   static const String iconsDot = 'assets/icons/dot.svg';
   static const String iconsKey = 'assets/icons/key.svg';
   static const String iconsP2p = 'assets/icons/p2p.svg';
   static const String iconsCopy = 'assets/icons/copy.svg';
   static const String iconsLock = 'assets/icons/lock.svg';
+  static const String iconsScan = 'assets/icons/scan.svg';
   static const String iconsCheck = 'assets/icons/check.svg';
   static const String iconsClock = 'assets/icons/clock.svg';
   static const String iconsClose = 'assets/icons/close.svg';

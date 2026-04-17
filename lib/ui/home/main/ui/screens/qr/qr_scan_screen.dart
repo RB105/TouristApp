@@ -1,14 +1,14 @@
 /* April 2026 , Baxrom Rajabov, Tashkent , Uzbekistan */
 
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
-import 'package:touristapp/ui/home/main/ui/screens/qr/widgets/scan_animation_widget.dart'
-    show ScannerOverlay;
+import 'package:touristapp/ui/home/main/logic/model/home_details_result.dart';
+import 'package:touristapp/ui/home/main/ui/screens/qr/widgets/qr_image_widget.dart';
+import 'package:touristapp/ui/home/main/ui/screens/qr/widgets/qr_scan_widget.dart';
+import 'package:touristapp/ui/widgets/animated_switcher.dart';
 import 'package:touristapp/ui/widgets/asset_svg.dart';
 import 'package:touristapp/utils/extensions/color_extension.dart';
 import 'package:touristapp/utils/extensions/context_extensions.dart';
@@ -17,27 +17,20 @@ import 'package:touristapp/utils/extensions/text_styles_extension.dart';
 
 import '../../../../../../generated/assets.dart';
 import '../../../../../../utils/di/di.dart' show getIt;
-import '../../../../../widgets/custom_button.dart' show CustomButton;
 import '../../../logic/cubit/qr_cubit.dart';
 import '../../../logic/model/qr_check_result.dart' show QrCheckResult;
 
-class QrScanWidget extends StatefulWidget {
+class QrScanScreen extends StatefulWidget {
+  final Wallet wallet;
   final void Function(QrCheckResult qrCheckResult) onResult;
-  const QrScanWidget({super.key, required this.onResult});
+
+  const QrScanScreen({super.key, required this.onResult, required this.wallet});
 
   @override
-  State<QrScanWidget> createState() => _QrScanWidgetState();
+  State<QrScanScreen> createState() => _QrScanScreenState();
 }
 
-class _QrScanWidgetState extends State<QrScanWidget>
-    with WidgetsBindingObserver, TickerProviderStateMixin {
-  late AnimationController _pulseController;
-  late AnimationController _cornerAnimationController;
-  late Animation<double> _pulseAnimation;
-  late Animation<double> _cornerScaleAnimation;
-  late Animation<double> _cornerOffsetAnimation;
-  late Animation<double> _scanLineAnimation;
-
+class _QrScanScreenState extends State<QrScanScreen> {
   final MobileScannerController controller = MobileScannerController(
     autoStart: true,
   );
@@ -49,66 +42,12 @@ class _QrScanWidgetState extends State<QrScanWidget>
 
   bool _isProcessing = false;
 
-  @override
-  void initState() {
-    super.initState();
-
-    WidgetsBinding.instance.addObserver(this);
-    animationController = AnimationController(
-      vsync: this,
-      duration: const Duration(milliseconds: 2500), // Slower for smoother feel
-    );
-
-    // Use a smoother curve
-    animationController.repeat(reverse: true);
-
-    // Pulse animation with smoother curve
-    _pulseController = AnimationController(
-      vsync: this,
-      duration: const Duration(milliseconds: 2000),
-    )..repeat(reverse: true);
-
-    _pulseAnimation = Tween<double>(begin: 0.4, end: 1.0).animate(
-      CurvedAnimation(
-        parent: _pulseController,
-        curve: Curves.easeInOutSine, // Smoother curve
-      ),
-    );
-
-    // Corner animation with smoother transitions
-    _cornerAnimationController = AnimationController(
-      vsync: this,
-      duration: const Duration(milliseconds: 2500),
-    )..repeat(reverse: true);
-
-    _cornerScaleAnimation = Tween<double>(begin: 1.0, end: 1.03).animate(
-      CurvedAnimation(
-        parent: _cornerAnimationController,
-        curve: Curves.easeInOutCubic, // Very smooth curve
-      ),
-    );
-
-    _cornerOffsetAnimation = Tween<double>(begin: 0.0, end: 2.0).animate(
-      CurvedAnimation(
-        parent: _cornerAnimationController,
-        curve: Curves.easeInOutCubic,
-      ),
-    );
-
-    // Scan line animation with smooth curve
-    _scanLineAnimation = CurvedAnimation(
-      parent: animationController,
-      curve: Curves.easeInOutSine,
-    );
-  }
+  bool _isScan = true;
 
   @override
   void dispose() {
     controller.dispose();
-
-    animationController.dispose();
-    _pulseController.dispose();
-    _cornerAnimationController.dispose();
+    debugPrint("QrScanScreen disposed");
     super.dispose();
   }
 
@@ -155,90 +94,131 @@ class _QrScanWidgetState extends State<QrScanWidget>
                           ),
                         ),
                         Spacer(),
-                        InkWell(
-                          onTap: () {
-                            setState(() => isTorchEnabled = !isTorchEnabled);
-                            controller.toggleTorch();
-                          },
-                          child: Row(
-                            children: [
-                              Text("Flashlight", style: context.textMd),
-                              context.szBoxWidth4,
-                              AssetSvg(
-                                Assets.iconsFlashLight,
-                                color: isTorchEnabled
-                                    ? context.success
-                                    : context.textMain,
-                              ),
-                            ],
-                          ),
+                        AppAnimatedSwitcher(
+                          reverseDuration: const Duration(milliseconds: 700),
+                          child: _isScan
+                              ? InkWell(
+                                  onTap: () {
+                                    setState(
+                                      () => isTorchEnabled = !isTorchEnabled,
+                                    );
+                                    controller.toggleTorch();
+                                  },
+                                  child: Row(
+                                    children: [
+                                      Text("Flashlight", style: context.textMd),
+                                      context.szBoxWidth4,
+                                      AssetSvg(
+                                        Assets.iconsFlashLight,
+                                        color: isTorchEnabled
+                                            ? context.success
+                                            : context.textMain,
+                                      ),
+                                    ],
+                                  ),
+                                )
+                              : const SizedBox(),
                         ),
                       ],
                     ),
                     context.szBoxHeight20,
                     Expanded(
-                      child: ClipRRect(
-                        borderRadius: context.borderRadius16,
-                        child: SizedBox(
-                          width: double.infinity,
-                          child: Stack(
+                      child: SizedBox(
+                        width: double.infinity,
+                        child: DecoratedBox(
+                          decoration: BoxDecoration(
+                            color: context.primary,
+                            borderRadius: context.borderRadius24,
+                          ),
+                          child: Column(
                             children: [
-                              // Camera view - isolated with RepaintBoundary
-                              RepaintBoundary(
-                                child: MobileScanner(
-                                  controller: controller,
-                                  onDetect: (v) {
-                                    if (_isProcessing) return;
-                                    final value = v.barcodes.first.rawValue;
-                                    if (value != null) {
-                                      _isProcessing = true;
-                                      _qrCubit.checkQr(value);
-                                    }
-                                  },
-                                ),
-                              ),
-
-                              // Blur overlay when loading
-                              Visibility(
-                                replacement: const SizedBox.shrink(),
-                                visible: state.qrCheckStatus == .loading,
-                                child: Positioned.fill(
-                                  child: RepaintBoundary(
-                                    child: BackdropFilter(
-                                      filter: ImageFilter.blur(
-                                        sigmaX: 7,
-                                        sigmaY: 7,
+                              Expanded(
+                                child: SizedBox(
+                                  width: double.infinity,
+                                  child: DecoratedBox(
+                                    decoration: BoxDecoration(
+                                      color: context.bgMuted,
+                                      borderRadius: context.borderRadius20,
+                                    ),
+                                    child: AnimatedSwitcher(
+                                      duration: const Duration(
+                                        milliseconds: 400,
                                       ),
-                                      child: Container(
-                                        color: Colors.black.withAlpha(115),
-                                      ),
+                                      switchInCurve: Curves.easeOutCubic,
+                                      switchOutCurve: Curves.easeInCubic,
+                                      transitionBuilder: (child, animation) {
+                                        return FadeTransition(
+                                          opacity: animation,
+                                          child: ScaleTransition(
+                                            scale: Tween<double>(
+                                              begin: 0.92,
+                                              end: 1.0,
+                                            ).animate(animation),
+                                            child: child,
+                                          ),
+                                        );
+                                      },
+                                      child: _isScan
+                                          ? KeyedSubtree(
+                                              key: const ValueKey('scan'),
+                                              child: QrScanWidget(
+                                                onDetect: (v) {
+                                                  if (_isProcessing) return;
+                                                  final value =
+                                                      v.barcodes.first.rawValue;
+                                                  if (value != null) {
+                                                    _isProcessing = true;
+                                                    _qrCubit.checkQr(value);
+                                                  }
+                                                },
+                                                controller: controller,
+                                                isLoading:
+                                                    state.qrCheckStatus ==
+                                                    .loading,
+                                              ),
+                                            )
+                                          : KeyedSubtree(
+                                              key: const ValueKey('image'),
+                                              child: QrImageWidget(
+                                                wallet: widget.wallet,
+                                              ),
+                                            ),
                                     ),
                                   ),
                                 ),
                               ),
-                              SizedBox(
-                                width: double.infinity,
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    // Scanner overlay with isolated animations
-                                    RepaintBoundary(
-                                      child: ScannerOverlay(
-                                        isLoading:
-                                            state.qrCheckStatus == .loading,
-                                        scanLineAnimation: _scanLineAnimation,
-                                        scanAnimationController:
-                                            animationController,
-                                        pulseAnimation: _pulseAnimation,
-                                        cornerScaleAnimation:
-                                            _cornerScaleAnimation,
-                                        cornerOffsetAnimation:
-                                            _cornerOffsetAnimation,
-                                        size: context.width * .50,
+                              Padding(
+                                padding: context.k12Padding,
+                                child: InkWell(
+                                  onTap: () =>
+                                      setState(() => _isScan = !_isScan),
+                                  child: Row(
+                                    children: [
+                                      AssetSvg(_isScan ? Assets.iconsQr : Assets.iconsScan),
+                                      context.szBoxWidth8,
+                                      Column(
+                                        crossAxisAlignment: .start,
+                                        children: [
+                                          Text(
+                                            _isScan
+                                                ? "Show my QR"
+                                                : "Scan QR code",
+                                            style: context.mediumSm.copyWith(
+                                              color: Colors.white,
+                                            ),
+                                          ),
+                                          Text(
+                                            _isScan
+                                                ? "Showing QR code to receive funds"
+                                                : "Scan a QR code to send funds",
+                                            style: context.textXs.copyWith(
+                                              color: Colors.white,
+                                            ),
+                                          ),
+                                        ],
                                       ),
-                                    ),
-                                  ],
+                                    ],
+                                  ),
                                 ),
                               ),
                             ],
@@ -246,8 +226,6 @@ class _QrScanWidgetState extends State<QrScanWidget>
                         ),
                       ),
                     ),
-                    context.szBoxHeight8,
-                    CustomButton(onPressed: () {}, text: "Show My Qr"),
                   ],
                 ),
               ),

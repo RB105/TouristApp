@@ -6,6 +6,7 @@ extension ContextExtensions on BuildContext {
   /// Border radius for rounded corners
   BorderRadius get borderRadius12 => BorderRadius.circular(SizeConfig.w(12));
   BorderRadius get borderRadius16 => BorderRadius.circular(SizeConfig.w(16));
+  BorderRadius get borderRadius20 => BorderRadius.circular(SizeConfig.w(20));
   BorderRadius get borderRadius24 => BorderRadius.circular(SizeConfig.w(24));
   ThemeData get theme => Theme.of(this);
   ColorScheme get colorScheme => Theme.of(this).colorScheme;
