@@ -16,6 +16,14 @@ class AuthState {
 
   final ApiStatus loginStatus;
   final String loginErrorMessage;
+  //
+  final ApiStatus forgotPasswordPhoneState;
+  final String forgotPasswordPhoneError;
+  final String? requestId;
+  //
+  final ApiStatus forgotPasswordState;
+  final String forgotPasswordError;
+
 
   AuthState({
     this.errorMessage,
@@ -31,6 +39,13 @@ class AuthState {
     //
     this.loginStatus = .initial,
     this.loginErrorMessage = '',
+    //
+    this.forgotPasswordPhoneState = ApiStatus.initial,
+    this.forgotPasswordPhoneError = '',
+    this.requestId,
+    //
+    this.forgotPasswordState = ApiStatus.initial,
+    this.forgotPasswordError = '',
   });
 
   AuthState copyWith({
@@ -48,6 +63,14 @@ class AuthState {
     //
     ApiStatus? loginStatus,
     String? loginErrorMessage,
+    //
+    ApiStatus? forgotPasswordPhoneState,
+    String? forgotPasswordPhoneError,
+    String? requestId,
+    //
+    ApiStatus? forgotPasswordState,
+    String? forgotPasswordError,
+    //
   }) {
     return AuthState(
       registerStatus: registerStatus ?? this.registerStatus,
@@ -64,6 +87,13 @@ class AuthState {
       //
       loginStatus: loginStatus ?? this.loginStatus,
       loginErrorMessage: loginErrorMessage ?? this.loginErrorMessage,
+      //
+      forgotPasswordPhoneState: forgotPasswordPhoneState ?? this.forgotPasswordPhoneState,
+      forgotPasswordPhoneError: forgotPasswordPhoneError ?? this.forgotPasswordPhoneError,
+      requestId: requestId ?? this.requestId,
+      //
+      forgotPasswordState: forgotPasswordState ?? this.forgotPasswordState,
+      forgotPasswordError: forgotPasswordError ?? this.forgotPasswordError
     );
   }
 }

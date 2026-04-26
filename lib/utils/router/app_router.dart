@@ -27,6 +27,8 @@ import 'package:touristapp/ui/splash/on_boarding_screen.dart';
 
 import '../../ui/auth/view/screens/auth_wallet_create.dart'
     show AuthWalletCreate;
+import '../../ui/auth/view/screens/otp_screen.dart' show OtpScreen;
+import '../../ui/auth/view/screens/register_screen.dart' show RegisterScreen;
 import '../../ui/home/main/logic/model/transfer_create_sbp_result.dart'
     show TransferCreateSbpResult;
 import '../../ui/home/main/ui/screens/qr/qr_amoun_screen.dart'
@@ -78,6 +80,33 @@ class LoginScreenRoute extends GoRouteData with $LoginScreenRoute {
 
   @override
   Widget build(BuildContext context, GoRouterState state) => LoginScreen(phoneNumber: phoneNumber);
+}
+
+@TypedGoRoute<OtpScreenRoute>(path: OtpScreen.routeName)
+class OtpScreenRoute extends GoRouteData with $OtpScreenRoute {
+  final String phoneNumber;
+  final String? reqId;
+
+  const OtpScreenRoute({required this.phoneNumber, this.reqId});
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) {
+    return OtpScreen(phoneNumber: phoneNumber,reqId: reqId,);
+  }
+}
+
+@TypedGoRoute<RegisterScreenRoute>(path: RegisterScreen.routeName)
+class RegisterScreenRoute extends GoRouteData with $RegisterScreenRoute {
+  final String phoneNumber;
+  final String secreyKey;
+  final bool? isForgot;
+
+  const RegisterScreenRoute({required this.phoneNumber, required this.secreyKey, this.isForgot});
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) {
+    return RegisterScreen(phoneNumber: phoneNumber,secretKey: secreyKey, isForgot: isForgot);
+  }
 }
 
 @TypedGoRoute<PinCodeScreenRoute>(path: PinCodeScreen.routeName)

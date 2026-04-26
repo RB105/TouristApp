@@ -5,6 +5,8 @@ class Endpoints {
   static const String confirmOtp = '/v1/auth/check/register/verify/';
   static const String setPassword = '/v1/auth/set/password/';
   static const String login = '/v1/auth/login/';
+  static const String forgotPasswordPhone = '/v1/auth/forget-password/user-phone/';
+  static const String forgotPassword = '/v1/auth/forget-password/';
 
   static const String refreshToken = '/v1/auth/refresh/token/';
 

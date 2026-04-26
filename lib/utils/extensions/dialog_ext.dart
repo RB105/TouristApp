@@ -22,6 +22,8 @@ import '../../ui/home/main/logic/model/carusel_transfer_service.dart'
 import '../router/app_router.dart' show OnBoardingRoute;
 import 'context_extensions.dart' show ContextExtensions;
 
+part 'sheets.ext.dart';
+
 extension DialogExt on BuildContext {
   static bool _isShowing = false;
 
@@ -435,6 +437,60 @@ extension DialogExt on BuildContext {
     ).whenComplete(_afterComplete);
   }
 
+
+  Future<bool?> showForgotPasswordDialog({bool? dismissible}) {
+    _updateDialog();
+    return showDialog<bool?>(
+      context: this,
+      barrierDismissible: dismissible ?? true,
+      builder: (ctx) {
+        return Center(
+          child: Padding(
+            padding: k20horizontalPadding,
+            child: Container(
+              width: double.infinity,
+              padding: k16Padding,
+              decoration: decoration,
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(
+                    "Do you forgot the password?",
+                    textAlign: TextAlign.center,
+                    style: ctx.mediumMd,
+                  ),
+                  szBoxHeight12,
+                  Text(
+                    "You will need to log in again to access your account.",
+                    textAlign: TextAlign.center,
+                    style: ctx.mediumMd,
+                  ),
+                  szBoxHeight24,
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      TextButton(
+                        onPressed: () => pop(),
+                        child: Text("Cancel", style: textMd),
+                      ),
+                      ElevatedButton(
+                        onPressed: () {
+                          GetStorage().erase();
+                          pop(true);
+                        },
+                        child: Text("Yes!", style: textMd),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          ),
+        );
+      },
+    ).whenComplete(_afterComplete);
+  }
+
   void hideDialog() {
     if (_isShowing) {
       Navigator.of(this, rootNavigator: true).pop();
@@ -442,17 +498,8 @@ extension DialogExt on BuildContext {
     }
   }
 
-  void _afterComplete() => _isShowing = false;
-
-  /// 🔥 Always remove previous dialog
-  void _updateDialog() {
-    if (_isShowing) {
-      Navigator.of(this, rootNavigator: true).pop();
-      _isShowing = false;
-    }
-
-    _isShowing = true;
-  }
+  void _updateDialog() => _OverlayState.beforeShow(this);
+  void _afterComplete() => _OverlayState.afterClose();
 }
 
 Widget _item({

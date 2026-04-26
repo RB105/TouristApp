@@ -31,10 +31,15 @@ class AuthService {
   Future<NetworkResponse> verifyOtp({
     required String phone,
     required String otp,
+    String? reqId,
   }) async {
+    final params = {"imprement": phone, "otp_code": otp, "social_type": 1};
+    if (reqId?.isNotEmpty ?? false) {
+      params['request_id'] = reqId!;
+    }
     final response = await apiClient.post(
       endPoint: Endpoints.confirmOtp,
-      params: {"imprement": phone, "otp_code": otp, "social_type": 1},
+      params: params,
     );
 
     if (response.isSuccess) {
@@ -84,6 +89,38 @@ class AuthService {
     if (response.isSuccess) {
       _getStorage.write("refresh_token", response.data['result']['refresh']);
       _getStorage.write("access_token", response.data['result']['access']);
+      return NetworkResponse.success(data: true);
+    }
+
+    return response;
+  }
+
+  Future<NetworkResponse> forgotPasswordPhone({required String phone}) async {
+    final response = await apiClient.post(
+      endPoint: Endpoints.forgotPasswordPhone,
+      params: {"social_type": 1, "imprement": phone},
+    );
+
+    if (response.isSuccess) {
+      return NetworkResponse.success(data: response.data);
+    }
+
+    return response;
+  }
+
+  Future<NetworkResponse> forgotPassword({required String phone,
+    required String password,
+    required String key,}) async {
+    final response = await apiClient.post(
+      endPoint: Endpoints.forgotPassword,
+      params: {
+        "imprement": phone,
+        "password": password,
+        "secret_key": key,
+      },
+    );
+
+    if (response.isSuccess) {
       return NetworkResponse.success(data: true);
     }
 

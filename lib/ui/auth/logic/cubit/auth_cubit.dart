@@ -39,10 +39,18 @@ class AuthCubit extends Cubit<AuthState> {
     }
   }
 
-  void verifyOtp({required String phone, required String otp}) async {
+  void verifyOtp({
+    required String phone,
+    required String otp,
+    String? reqId,
+  }) async {
     emit(state.copyWith(confirmStatus: ApiStatus.loading));
     try {
-      final response = await authService.verifyOtp(phone: phone, otp: otp);
+      final response = await authService.verifyOtp(
+        phone: phone,
+        otp: otp,
+        reqId: reqId,
+      );
       if (response.isSuccess) {
         emit(
           state.copyWith(
@@ -108,7 +116,10 @@ class AuthCubit extends Cubit<AuthState> {
   void login(String phone, password) async {
     emit(state.copyWith(loginStatus: .loading));
     try {
-      final response = await authService.login(phone: phone, password: password);
+      final response = await authService.login(
+        phone: phone,
+        password: password,
+      );
       if (response.isSuccess) {
         emit(state.copyWith(loginStatus: .success));
       } else {
@@ -121,9 +132,62 @@ class AuthCubit extends Cubit<AuthState> {
       }
     } catch (e) {
       emit(
+        state.copyWith(loginStatus: .error, loginErrorMessage: e.toString()),
+      );
+    }
+  }
+
+  void forgotPasswordPhone(String phone) async {
+    emit(state.copyWith(forgotPasswordPhoneState: .loading));
+    final response = await authService.forgotPasswordPhone(phone: phone);
+    if (response.isSuccess) {
+      emit(
         state.copyWith(
-          loginStatus: .error,
-          loginErrorMessage: e.toString(),
+          forgotPasswordPhoneState: .success,
+          requestId: response.data['request_id'].toString(),
+        ),
+      );
+    } else {
+      emit(
+        state.copyWith(
+          forgotPasswordPhoneError: response.error.toString(),
+          forgotPasswordPhoneState: .error,
+        ),
+      );
+    }
+  }
+
+  void forgotPassword({
+    required String password,
+    required String phone,
+    required String key,
+  }) async {
+    emit(state.copyWith(forgotPasswordState: .loading));
+    try {
+      final response = await authService.forgotPassword(
+        password: password,
+        phone: phone,
+        key: key,
+      );
+      if (response.isSuccess) {
+        emit(
+          state.copyWith(
+            forgotPasswordState: ApiStatus.success
+          ),
+        );
+      } else {
+        emit(
+          state.copyWith(
+            forgotPasswordState: ApiStatus.error,
+            forgotPasswordError: response.error.toString(),
+          ),
+        );
+      }
+    } catch (e) {
+      emit(
+        state.copyWith(
+          forgotPasswordState: ApiStatus.error,
+          forgotPasswordError: e.toString(),
         ),
       );
     }

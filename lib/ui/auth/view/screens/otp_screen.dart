@@ -8,8 +8,6 @@ import 'package:easy_localization/easy_localization.dart'
 import 'package:pinput/pinput.dart';
 import 'package:touristapp/generated/assets.dart' show Assets;
 import 'package:touristapp/ui/auth/logic/cubit/auth_cubit.dart';
-import 'package:touristapp/ui/auth/view/screens/register_screen.dart'
-    show RegisterScreen;
 import 'package:touristapp/utils/di/di.dart';
 import 'package:touristapp/utils/extensions/color_extension.dart'
     show ColorExtension;
@@ -18,15 +16,19 @@ import 'package:touristapp/utils/extensions/context_extensions.dart'
 import 'package:touristapp/utils/extensions/dialog_ext.dart';
 import 'package:touristapp/utils/extensions/text_styles_extension.dart'
     show TextStyles;
+import 'package:touristapp/utils/router/app_router.dart';
 import 'package:touristapp/utils/styled_text_parser.dart' show StyledTextParser;
 
 class OtpScreen extends StatefulWidget {
   final String phoneNumber;
+  final String? reqId;
 
-  const OtpScreen({super.key, required this.phoneNumber});
+  const OtpScreen({super.key, required this.phoneNumber, this.reqId});
 
   @override
   State<OtpScreen> createState() => _OtpScreenState();
+
+  static const routeName = '/auth-otp-screen';
 }
 
 class _OtpScreenState extends State<OtpScreen> {
@@ -49,15 +51,13 @@ class _OtpScreenState extends State<OtpScreen> {
       body: BlocConsumer<AuthCubit, AuthState>(
         listener: (context, state) {
           if (state.confirmStatus == .success) {
-            context.hideDialog();
-            Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (context) => RegisterScreen(
-                  phoneNumber: widget.phoneNumber,
-                  secretKey: state.secretKey ?? "",
-                ),
-              ),
-            );
+            context.hide();
+            RegisterScreenRoute(
+              phoneNumber: widget.phoneNumber,
+              secreyKey: state.secretKey ?? "",
+              isForgot: widget.reqId?.isNotEmpty,
+            ).push(context);
+            print("Hello");
           } else if (state.confirmStatus == .error) {
             context.showErrorDialog(title: state.confirmErrorMessage ?? "");
           } else if (state.confirmStatus == .loading) {
@@ -175,6 +175,7 @@ class _OtpScreenState extends State<OtpScreen> {
                             _authCubit.verifyOtp(
                               phone: widget.phoneNumber,
                               otp: _otpController.text,
+                              reqId: widget.reqId,
                             );
                           },
                           onTapOutside: (event) =>

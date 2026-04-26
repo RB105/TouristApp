@@ -1,7 +1,7 @@
 /* February 2026 , Baxrom Rajabov, Tashkent , Uzbekistan */
 
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart' show HapticFeedback;
+import 'package:flutter/services.dart' show HapticFeedback, TextInput;
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart' show SvgPicture;
 import 'package:easy_localization/easy_localization.dart'
@@ -21,7 +21,7 @@ import 'package:touristapp/utils/extensions/dialog_ext.dart';
 import 'package:touristapp/utils/extensions/text_styles_extension.dart'
     show TextStyles;
 import 'package:touristapp/utils/router/app_router.dart'
-    show PinCodeScreenRoute;
+    show PinCodeScreenRoute, OtpScreenRoute;
 
 class LoginScreen extends StatefulWidget {
   final String phoneNumber;
@@ -65,11 +65,23 @@ class _LoginScreen extends State<LoginScreen> {
           if (state.loginStatus == .loading) {
             context.showLoading();
           } else if (state.loginStatus == .error) {
+            TextInput.finishAutofillContext(shouldSave: false);
             context.showErrorDialog(title: state.loginErrorMessage);
             debugPrint("Login Error: ${state.loginErrorMessage}");
           } else if (state.loginStatus == .success) {
             context.hideDialog();
+            TextInput.finishAutofillContext(shouldSave: true); // ✅ save credentials
             PinCodeScreenRoute(initialStep: PinStep.set).go(context);
+          }
+          //
+          if (state.forgotPasswordPhoneState == .loading) {
+            context.showLoading();
+          } else if (state.forgotPasswordPhoneState == .error) {
+            context.showErrorDialog(title: state.forgotPasswordPhoneError);
+            debugPrint("Login Error: ${state.forgotPasswordPhoneError}");
+          } else if (state.forgotPasswordPhoneState == .success) {
+            context.hide();
+            OtpScreenRoute(phoneNumber: widget.phoneNumber, reqId: state.requestId).push(context);
           }
         },
         builder: (context, state) => Stack(
@@ -83,10 +95,27 @@ class _LoginScreen extends State<LoginScreen> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    SizedBox(
-                      width: 100,
-                      height: 32,
-                      child: SvgPicture.asset(Assets.iconsAppLogo100X32Black),
+                    Row(
+                      children: [
+                        SizedBox(
+                          width: 100,
+                          height: 32,
+                          child: SvgPicture.asset(
+                            Assets.iconsAppLogo100X32Black,
+                          ),
+                        ),
+                        Spacer(),
+                        TextButton(
+                          onPressed: () async {
+                            final result = await context
+                                .showForgotPasswordDialog();
+                            if (result ?? false) {
+                              _authCubit.forgotPasswordPhone(widget.phoneNumber);
+                            }
+                          },
+                          child: Text("auth.forgot_password".tr()),
+                        ),
+                      ],
                     ),
                     Spacer(),
                     Column(

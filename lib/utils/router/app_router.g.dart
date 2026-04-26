@@ -9,6 +9,8 @@ part of 'app_router.dart';
 List<RouteBase> get $appRoutes => [
   $rootRoute,
   $loginScreenRoute,
+  $otpScreenRoute,
+  $registerScreenRoute,
   $pinCodeScreenRoute,
   $authRoute,
   $onBoardingRoute,
@@ -71,6 +73,105 @@ mixin $LoginScreenRoute on GoRouteData {
 
   @override
   void replace(BuildContext context) => context.replace(location);
+}
+
+RouteBase get $otpScreenRoute => GoRouteData.$route(
+  path: '/auth-otp-screen',
+  factory: $OtpScreenRoute._fromState,
+);
+
+mixin $OtpScreenRoute on GoRouteData {
+  static OtpScreenRoute _fromState(GoRouterState state) => OtpScreenRoute(
+    phoneNumber: state.uri.queryParameters['phone-number']!,
+    reqId: state.uri.queryParameters['req-id'],
+  );
+
+  OtpScreenRoute get _self => this as OtpScreenRoute;
+
+  @override
+  String get location => GoRouteData.$location(
+    '/auth-otp-screen',
+    queryParams: {
+      'phone-number': _self.phoneNumber,
+      if (_self.reqId != null) 'req-id': _self.reqId,
+    },
+  );
+
+  @override
+  void go(BuildContext context) => context.go(location);
+
+  @override
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  @override
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  @override
+  void replace(BuildContext context) => context.replace(location);
+}
+
+RouteBase get $registerScreenRoute => GoRouteData.$route(
+  path: '/register-screen',
+  factory: $RegisterScreenRoute._fromState,
+);
+
+mixin $RegisterScreenRoute on GoRouteData {
+  static RegisterScreenRoute _fromState(GoRouterState state) =>
+      RegisterScreenRoute(
+        phoneNumber: state.uri.queryParameters['phone-number']!,
+        secreyKey: state.uri.queryParameters['secrey-key']!,
+        isForgot: _$convertMapValue(
+          'is-forgot',
+          state.uri.queryParameters,
+          _$boolConverter,
+        ),
+      );
+
+  RegisterScreenRoute get _self => this as RegisterScreenRoute;
+
+  @override
+  String get location => GoRouteData.$location(
+    '/register-screen',
+    queryParams: {
+      'phone-number': _self.phoneNumber,
+      'secrey-key': _self.secreyKey,
+      if (_self.isForgot != null) 'is-forgot': _self.isForgot!.toString(),
+    },
+  );
+
+  @override
+  void go(BuildContext context) => context.go(location);
+
+  @override
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  @override
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  @override
+  void replace(BuildContext context) => context.replace(location);
+}
+
+T? _$convertMapValue<T>(
+  String key,
+  Map<String, String> map,
+  T? Function(String) converter,
+) {
+  final value = map[key];
+  return value == null ? null : converter(value);
+}
+
+bool _$boolConverter(String value) {
+  switch (value) {
+    case 'true':
+      return true;
+    case 'false':
+      return false;
+    default:
+      throw UnsupportedError('Cannot convert "$value" into a bool.');
+  }
 }
 
 RouteBase get $pinCodeScreenRoute => GoRouteData.$route(
@@ -484,15 +585,6 @@ mixin $SbpChequesScreenRoute on GoRouteData {
 
   @override
   void replace(BuildContext context) => context.replace(location);
-}
-
-T? _$convertMapValue<T>(
-  String key,
-  Map<String, String> map,
-  T? Function(String) converter,
-) {
-  final value = map[key];
-  return value == null ? null : converter(value);
 }
 
 RouteBase get $bankLauncherScreenRoute => GoRouteData.$route(
