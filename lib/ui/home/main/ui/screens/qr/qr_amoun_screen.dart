@@ -135,7 +135,7 @@ class _QrAmounScreenState extends State<QrAmounScreen> {
                   children: [
                     const Divider(),
                     context.szBoxHeight16,
-                    Text('${widget.qrCheckResult.minAmount} - ${widget.qrCheckResult.minAmount} ${widget.qrCheckResult.settlementCurrency}'),
+                    Text('${widget.qrCheckResult.minAmount} - ${widget.qrCheckResult.maxAmount} ${widget.qrCheckResult.settlementCurrency}'),
                     context.szBoxHeight16,
                     const Divider(),
                   ],

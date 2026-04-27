@@ -108,296 +108,309 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       child: SvgPicture.asset(Assets.iconsAppLogo100X32Black),
                     ),
                     Spacer(),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            SizedBox(
-                              width: 24,
-                              height: 24,
-                              child: SvgPicture.asset(
-                                Assets.iconsPhoneDisabled,
+                    AutofillGroup(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              SizedBox(
+                                width: 24,
+                                height: 24,
+                                child: SvgPicture.asset(
+                                  Assets.iconsPhoneDisabled,
+                                ),
                               ),
-                            ),
-                            context.szBoxWidth8,
-                            Text(
-                              "auth.phone_number".tr(),
-                              style: context.semiboldMd.copyWith(
-                                color: context.textDisabled,
+                              context.szBoxWidth8,
+                              Text(
+                                "auth.phone_number".tr(),
+                                style: context.semiboldMd.copyWith(
+                                  color: context.textDisabled,
+                                ),
                               ),
-                            ),
-                          ],
-                        ),
-                        context.szBoxHeight20,
-                        Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            SizedBox(
-                              width: 24,
-                              height: 24,
-                              child: SvgPicture.asset(Assets.iconsVerification),
-                            ),
-                            context.szBoxWidth8,
-                            Text(
-                              "auth.verification_code".tr(),
-                              style: context.semiboldMd.copyWith(
-                                color: context.textDisabled,
-                              ),
-                            ),
-                          ],
-                        ),
-                        context.szBoxHeight20,
-                        SizedBox(
-                          width: 36,
-                          height: 36,
-                          child: SvgPicture.asset(Assets.iconsKey),
-                        ),
-                        Text(
-                          "auth.password".tr(),
-                          style: context.boldDisplayXs,
-                        ),
-                        context.szBoxHeight8,
-                        Text(
-                          "auth.create_password".tr(),
-                          style: context.textMd.copyWith(
-                            color: context.textSecondary,
+                            ],
                           ),
-                        ),
-                        context.szBoxHeight24,
-                        SizedBox(
-                          width: double.infinity,
-                          child: DecoratedBox(
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(24),
-                              color: context.bgElevated,
+                          context.szBoxHeight20,
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              SizedBox(
+                                width: 24,
+                                height: 24,
+                                child: SvgPicture.asset(Assets.iconsVerification),
+                              ),
+                              context.szBoxWidth8,
+                              Text(
+                                "auth.verification_code".tr(),
+                                style: context.semiboldMd.copyWith(
+                                  color: context.textDisabled,
+                                ),
+                              ),
+                            ],
+                          ),
+                          context.szBoxHeight20,
+                          SizedBox(
+                            width: 36,
+                            height: 36,
+                            child: SvgPicture.asset(Assets.iconsKey),
+                          ),
+                          Text(
+                            "auth.password".tr(),
+                            style: context.boldDisplayXs,
+                          ),
+                          context.szBoxHeight8,
+                          Text(
+                            "auth.create_password".tr(),
+                            style: context.textMd.copyWith(
+                              color: context.textSecondary,
                             ),
-                            child: AutofillGroup(
-                              child: Column(
-                                mainAxisSize: MainAxisSize.max,
-                                children: [
-                                  TextFormField(
-                                    focusNode: _focusNode1,
-                                    controller: _password1Controller,
-                                    onTapOutside: (event) =>
-                                        FocusScope.of(context).unfocus(),
-                                    onChanged: (value) {
-                                      if (value.isEmpty) nextTapped = false;
-                                      setState(() {});
-                                    },
-                                    autofillHints: const [AutofillHints.newPassword], // ✅
-                                    obscureText: isObs1,
-                                    decoration: InputDecoration(
-                                      contentPadding: context.k16Padding,
-                                      hintText: "auth.create_new_password".tr(),
-                                      hintStyle: context.mediumMutedMd.copyWith(
-                                        color: context.textDisabled,
+                          ),
+                          context.szBoxHeight24,
+                          SizedBox(
+                            width: double.infinity,
+                            child: DecoratedBox(
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(24),
+                                color: context.bgElevated,
+                              ),
+                              child: AutofillGroup(
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.max,
+                                  children: [
+                                    TextFormField(
+                                      initialValue: widget.phoneNumber,
+                                      autofillHints: const [AutofillHints.username],
+                                      enabled: true,
+                                      readOnly: true,
+                                      style: const TextStyle(fontSize: 0),
+                                      decoration: const InputDecoration(
+                                        border: InputBorder.none,
+                                        isCollapsed: true,
+                                        contentPadding: EdgeInsets.zero,
                                       ),
-                                      focusedBorder: OutlineInputBorder(
-                                        borderSide: BorderSide(
-                                          color: context.strokeBrand,
+                                    ),
+                                    TextFormField(
+                                      focusNode: _focusNode1,
+                                      controller: _password1Controller,
+                                      onTapOutside: (event) =>
+                                          FocusScope.of(context).unfocus(),
+                                      onChanged: (value) {
+                                        if (value.isEmpty) nextTapped = false;
+                                        setState(() {});
+                                      },
+                                      autofillHints: const [AutofillHints.newPassword], // ✅
+                                      obscureText: isObs1,
+                                      decoration: InputDecoration(
+                                        contentPadding: context.k16Padding,
+                                        hintText: "auth.create_new_password".tr(),
+                                        hintStyle: context.mediumMutedMd.copyWith(
+                                          color: context.textDisabled,
                                         ),
-                                        borderRadius: nextTapped
-                                            ? BorderRadius.vertical(
-                                                top: Radius.circular(28),
-                                              )
-                                            : BorderRadius.circular(28),
-                                      ),
-                                      enabledBorder: OutlineInputBorder(
-                                        borderRadius: BorderRadius.all(
-                                          Radius.circular(28),
+                                        focusedBorder: OutlineInputBorder(
+                                          borderSide: BorderSide(
+                                            color: context.strokeBrand,
+                                          ),
+                                          borderRadius: nextTapped
+                                              ? BorderRadius.vertical(
+                                                  top: Radius.circular(28),
+                                                )
+                                              : BorderRadius.circular(28),
                                         ),
-                                        borderSide: BorderSide.none,
-                                      ),
-                                      suffixIconConstraints: BoxConstraints(
-                                        maxWidth: 100,
-                                        maxHeight: 56,
-                                      ),
-                                      suffixIcon: Padding(
-                                        padding: const EdgeInsets.only(
-                                          right: 8.0,
+                                        enabledBorder: OutlineInputBorder(
+                                          borderRadius: BorderRadius.all(
+                                            Radius.circular(28),
+                                          ),
+                                          borderSide: BorderSide.none,
                                         ),
-                                        child: Row(
-                                          mainAxisAlignment: nextTapped
-                                              ? .end
-                                              : .spaceBetween,
-                                          children: [
-                                            InkWell(
-                                              child: SizedBox(
-                                                width: 24,
-                                                height: 24,
-                                                child: SvgPicture.asset(
-                                                  isObs1
-                                                      ? Assets.iconsEyeOn
-                                                      : Assets.iconsEyeOff,
+                                        suffixIconConstraints: BoxConstraints(
+                                          maxWidth: 100,
+                                          maxHeight: 56,
+                                        ),
+                                        suffixIcon: Padding(
+                                          padding: const EdgeInsets.only(
+                                            right: 8.0,
+                                          ),
+                                          child: Row(
+                                            mainAxisAlignment: nextTapped
+                                                ? .end
+                                                : .spaceBetween,
+                                            children: [
+                                              InkWell(
+                                                child: SizedBox(
+                                                  width: 24,
+                                                  height: 24,
+                                                  child: SvgPicture.asset(
+                                                    isObs1
+                                                        ? Assets.iconsEyeOn
+                                                        : Assets.iconsEyeOff,
+                                                  ),
                                                 ),
+                                                onTap: () => setState(() {
+                                                  isObs1 = !isObs1;
+                                                  // nextTapped = !nextTapped;
+                                                }),
                                               ),
-                                              onTap: () => setState(() {
-                                                isObs1 = !isObs1;
-                                                // nextTapped = !nextTapped;
-                                              }),
-                                            ),
-                                            AppAnimatedSwitcher(
-                                              child: nextTapped
-                                                  ? SizedBox.shrink()
-                                                  : SizedBox(
-                                                      width: 56,
-                                                      height: 40,
-                                                      child: DecoratedBox(
-                                                        decoration: BoxDecoration(
-                                                          color:
-                                                              _password1Controller
-                                                                  .text
-                                                                  .isEmpty
-                                                              ? context.bgMuted
-                                                              : context.primary,
-                                                          borderRadius:
-                                                              BorderRadius.circular(
-                                                                28,
-                                                              ),
-                                                        ),
-                                                        child: InkWell(
-                                                          onTap: () {
-                                                            HapticFeedback.mediumImpact();
-                                                            setState(() {
-                                                              nextTapped = true;
-                                                            });
-                                                            _focusNode2
-                                                                .requestFocus();
-                                                          },
-                                                          child: SizedBox(
-                                                            width: 24,
-                                                            height: 24,
-                                                            child: Center(
-                                                              child: AppAnimatedSwitcher(
-                                                                child: SvgPicture.asset(
-                                                                  Assets
-                                                                      .iconsArrowForward,
+                                              AppAnimatedSwitcher(
+                                                child: nextTapped
+                                                    ? SizedBox.shrink()
+                                                    : SizedBox(
+                                                        width: 56,
+                                                        height: 40,
+                                                        child: DecoratedBox(
+                                                          decoration: BoxDecoration(
+                                                            color:
+                                                                _password1Controller
+                                                                    .text
+                                                                    .isEmpty
+                                                                ? context.bgMuted
+                                                                : context.primary,
+                                                            borderRadius:
+                                                                BorderRadius.circular(
+                                                                  28,
+                                                                ),
+                                                          ),
+                                                          child: InkWell(
+                                                            onTap: () {
+                                                              HapticFeedback.mediumImpact();
+                                                              setState(() {
+                                                                nextTapped = true;
+                                                              });
+                                                              _focusNode2
+                                                                  .requestFocus();
+                                                            },
+                                                            child: SizedBox(
+                                                              width: 24,
+                                                              height: 24,
+                                                              child: Center(
+                                                                child: AppAnimatedSwitcher(
+                                                                  child: SvgPicture.asset(
+                                                                    Assets
+                                                                        .iconsArrowForward,
+                                                                  ),
                                                                 ),
                                                               ),
                                                             ),
                                                           ),
                                                         ),
                                                       ),
-                                                    ),
-                                            ),
-                                          ],
+                                              ),
+                                            ],
+                                          ),
                                         ),
                                       ),
                                     ),
-                                  ),
-                                  AppAnimatedSwitcher(
-                                    child:
-                                        nextTapped &&
-                                            _password1Controller.text.isNotEmpty
-                                        ? TextFormField(
-                                            focusNode: _focusNode2,
-                                            controller: _password2Controller,
-                                            onTapOutside: (event) =>
-                                                FocusScope.of(context).unfocus(),
-                                            onChanged: (value) {
-                                              setState(() {});
-                                            },
-                                            autofillHints: const [AutofillHints.newPassword], // ✅
-                                            obscureText: isObs2,
-                                            decoration: InputDecoration(
-                                              fillColor: context.bgElevated,
-                                              filled: true,
-                                              hintText:
-                                                  "auth.confirm_new_password"
-                                                      .tr(),
-                                              hintStyle: context.mediumMutedMd
-                                                  .copyWith(
-                                                    color: context.textDisabled,
-                                                  ),
-                                              focusedBorder: OutlineInputBorder(
-                                                borderSide: BorderSide(
-                                                  color: context.strokeBrand,
-                                                ),
-                                                borderRadius:
-                                                    BorderRadius.vertical(
-                                                      bottom: Radius.circular(28),
+                                    AppAnimatedSwitcher(
+                                      child:
+                                          nextTapped &&
+                                              _password1Controller.text.isNotEmpty
+                                          ? TextFormField(
+                                              focusNode: _focusNode2,
+                                              controller: _password2Controller,
+                                              onTapOutside: (event) =>
+                                                  FocusScope.of(context).unfocus(),
+                                              onChanged: (value) {
+                                                setState(() {});
+                                              },
+                                              obscureText: isObs2,
+                                              decoration: InputDecoration(
+                                                fillColor: context.bgElevated,
+                                                filled: true,
+                                                hintText:
+                                                    "auth.confirm_new_password"
+                                                        .tr(),
+                                                hintStyle: context.mediumMutedMd
+                                                    .copyWith(
+                                                      color: context.textDisabled,
                                                     ),
-                                              ),
-                                              enabledBorder: OutlineInputBorder(
-                                                borderRadius: BorderRadius.all(
-                                                  Radius.circular(28),
-                                                ),
-                                                borderSide: BorderSide.none,
-                                              ),
-                                              suffixIconConstraints:
-                                                  BoxConstraints(
-                                                    maxWidth: 100,
-                                                    maxHeight: 56,
+                                                focusedBorder: OutlineInputBorder(
+                                                  borderSide: BorderSide(
+                                                    color: context.strokeBrand,
                                                   ),
-                                              suffixIcon: Row(
-                                                mainAxisAlignment: .spaceBetween,
-                                                children: [
-                                                  InkWell(
-                                                    child: SizedBox(
-                                                      width: 24,
-                                                      height: 24,
-                                                      child: SvgPicture.asset(
-                                                        isObs2
-                                                            ? Assets.iconsEyeOn
-                                                            : Assets.iconsEyeOff,
+                                                  borderRadius:
+                                                      BorderRadius.vertical(
+                                                        bottom: Radius.circular(28),
+                                                      ),
+                                                ),
+                                                enabledBorder: OutlineInputBorder(
+                                                  borderRadius: BorderRadius.all(
+                                                    Radius.circular(28),
+                                                  ),
+                                                  borderSide: BorderSide.none,
+                                                ),
+                                                suffixIconConstraints:
+                                                    BoxConstraints(
+                                                      maxWidth: 100,
+                                                      maxHeight: 56,
+                                                    ),
+                                                suffixIcon: Row(
+                                                  mainAxisAlignment: .spaceBetween,
+                                                  children: [
+                                                    InkWell(
+                                                      child: SizedBox(
+                                                        width: 24,
+                                                        height: 24,
+                                                        child: SvgPicture.asset(
+                                                          isObs2
+                                                              ? Assets.iconsEyeOn
+                                                              : Assets.iconsEyeOff,
+                                                        ),
+                                                      ),
+                                                      onTap: () => setState(
+                                                        () => isObs2 = !isObs2,
                                                       ),
                                                     ),
-                                                    onTap: () => setState(
-                                                      () => isObs2 = !isObs2,
-                                                    ),
-                                                  ),
-                                                  Padding(
-                                                    padding: const EdgeInsets.all(
-                                                      6.0,
-                                                    ),
-                                                    child: SizedBox(
-                                                      width: 56,
-                                                      height: 40,
-                                                      child: DecoratedBox(
-                                                        decoration: BoxDecoration(
-                                                          color: _isValid
-                                                              ? context.primary
-                                                              : context.bgMuted,
-                                                          borderRadius:
-                                                              BorderRadius.circular(
-                                                                28,
-                                                              ),
-                                                        ),
-                                                        child: InkWell(
-                                                          onTap: () {
-                                                            HapticFeedback.mediumImpact();
-                                                            if (_isValid) {
-                                                              if(widget.isForgot ?? false) {
-                                                                _authCubit.forgotPassword(password:
-                                                                _password1Controller
-                                                                    .text,
+                                                    Padding(
+                                                      padding: const EdgeInsets.all(
+                                                        6.0,
+                                                      ),
+                                                      child: SizedBox(
+                                                        width: 56,
+                                                        height: 40,
+                                                        child: DecoratedBox(
+                                                          decoration: BoxDecoration(
+                                                            color: _isValid
+                                                                ? context.primary
+                                                                : context.bgMuted,
+                                                            borderRadius:
+                                                                BorderRadius.circular(
+                                                                  28,
+                                                                ),
+                                                          ),
+                                                          child: InkWell(
+                                                            onTap: () {
+                                                              HapticFeedback.mediumImpact();
+                                                              if (_isValid) {
+                                                                if(widget.isForgot ?? false) {
+                                                                  _authCubit.forgotPassword(password:
+                                                                  _password1Controller
+                                                                      .text,
+                                                                    phone: widget
+                                                                        .phoneNumber,
+                                                                    key: widget
+                                                                        .secretKey);
+                                                                  return;
+                                                                }
+                                                                _authCubit.setPassword(
+                                                                  password:
+                                                                      _password1Controller
+                                                                          .text,
                                                                   phone: widget
                                                                       .phoneNumber,
                                                                   key: widget
-                                                                      .secretKey);
-                                                                return;
+                                                                      .secretKey,
+                                                                );
                                                               }
-                                                              _authCubit.setPassword(
-                                                                password:
-                                                                    _password1Controller
-                                                                        .text,
-                                                                phone: widget
-                                                                    .phoneNumber,
-                                                                key: widget
-                                                                    .secretKey,
-                                                              );
-                                                            }
-                                                          },
-                                                          child: SizedBox(
-                                                            width: 24,
-                                                            height: 24,
-                                                            child: Center(
-                                                              child: AppAnimatedSwitcher(
-                                                                child: SvgPicture.asset(
-                                                                  Assets
-                                                                      .iconsArrowForward,
+                                                            },
+                                                            child: SizedBox(
+                                                              width: 24,
+                                                              height: 24,
+                                                              child: Center(
+                                                                child: AppAnimatedSwitcher(
+                                                                  child: SvgPicture.asset(
+                                                                    Assets
+                                                                        .iconsArrowForward,
+                                                                  ),
                                                                 ),
                                                               ),
                                                             ),
@@ -405,20 +418,20 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                                         ),
                                                       ),
                                                     ),
-                                                  ),
-                                                ],
+                                                  ],
+                                                ),
                                               ),
-                                            ),
-                                          )
-                                        : SizedBox(),
-                                  ),
-                                ],
+                                            )
+                                          : SizedBox(),
+                                    ),
+                                  ],
+                                ),
                               ),
                             ),
                           ),
-                        ),
-                        context.szBoxHeight20,
-                      ],
+                          context.szBoxHeight20,
+                        ],
+                      ),
                     ),
                   ],
                 ),

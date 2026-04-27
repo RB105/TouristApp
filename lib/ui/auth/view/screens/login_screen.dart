@@ -118,155 +118,169 @@ class _LoginScreen extends State<LoginScreen> {
                       ],
                     ),
                     Spacer(),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            SizedBox(
-                              width: 24,
-                              height: 24,
-                              child: SvgPicture.asset(
-                                Assets.iconsPhoneDisabled,
+                    AutofillGroup(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              SizedBox(
+                                width: 24,
+                                height: 24,
+                                child: SvgPicture.asset(
+                                  Assets.iconsPhoneDisabled,
+                                ),
                               ),
-                            ),
-                            context.szBoxWidth8,
-                            Text(
-                              "auth.phone_number".tr(),
-                              style: context.semiboldMd.copyWith(
-                                color: context.textDisabled,
+                              context.szBoxWidth8,
+                              Text(
+                                "auth.phone_number".tr(),
+                                style: context.semiboldMd.copyWith(
+                                  color: context.textDisabled,
+                                ),
                               ),
-                            ),
-                          ],
-                        ),
-                        context.szBoxHeight20,
-                        Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            SizedBox(
-                              width: 24,
-                              height: 24,
-                              child: SvgPicture.asset(Assets.iconsVerification),
-                            ),
-                            context.szBoxWidth8,
-                            Text(
-                              "auth.verification_code".tr(),
-                              style: context.semiboldMd.copyWith(
-                                color: context.textDisabled,
-                              ),
-                            ),
-                          ],
-                        ),
-                        context.szBoxHeight20,
-                        SizedBox(
-                          width: 36,
-                          height: 36,
-                          child: SvgPicture.asset(Assets.iconsKey),
-                        ),
-                        Text(
-                          "auth.password".tr(),
-                          style: context.boldDisplayXs,
-                        ),
-                        context.szBoxHeight8,
-                        Text(
-                          "auth.login_password_desc".tr(),
-                          style: context.textMd.copyWith(
-                            color: context.textSecondary,
+                            ],
                           ),
-                        ),
-                        context.szBoxHeight24,
-                        SizedBox(
-                          width: double.infinity,
-                          child: DecoratedBox(
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(24),
-                              color: context.bgElevated,
+                          context.szBoxHeight20,
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              SizedBox(
+                                width: 24,
+                                height: 24,
+                                child: SvgPicture.asset(Assets.iconsVerification),
+                              ),
+                              context.szBoxWidth8,
+                              Text(
+                                "auth.verification_code".tr(),
+                                style: context.semiboldMd.copyWith(
+                                  color: context.textDisabled,
+                                ),
+                              ),
+                            ],
+                          ),
+                          context.szBoxHeight20,
+                          SizedBox(
+                            width: 36,
+                            height: 36,
+                            child: SvgPicture.asset(Assets.iconsKey),
+                          ),
+                          Text(
+                            "auth.password".tr(),
+                            style: context.boldDisplayXs,
+                          ),
+                          context.szBoxHeight8,
+                          Text(
+                            "auth.login_password_desc".tr(),
+                            style: context.textMd.copyWith(
+                              color: context.textSecondary,
                             ),
-                            child: Column(
-                              mainAxisSize: MainAxisSize.max,
-                              children: [
-                                TextFormField(
-                                  focusNode: _focusNode1,
-                                  controller: _password1Controller,
-                                  onTapOutside: (event) =>
-                                      FocusScope.of(context).unfocus(),
-                                  onChanged: (value) => setState(() {}),
-                                  obscureText: isObs1,
-                                  decoration: InputDecoration(
-                                    contentPadding: context.k16Padding,
-                                    hintText: "auth.login_password".tr(),
-                                    hintStyle: context.mediumMutedMd.copyWith(
-                                      color: context.textDisabled,
+                          ),
+                          context.szBoxHeight24,
+                          SizedBox(
+                            width: double.infinity,
+                            child: DecoratedBox(
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(24),
+                                color: context.bgElevated,
+                              ),
+                              child: Column(
+                                mainAxisSize: MainAxisSize.max,
+                                children: [
+                                  TextFormField(
+                                    initialValue: widget.phoneNumber,
+                                    style: TextStyle(fontSize: 0),
+                                    autofillHints: const [AutofillHints.username],
+                                    readOnly: true,
+                                    decoration: const InputDecoration(
+                                      border: InputBorder.none,
+                                      isCollapsed: true,
+                                      contentPadding: EdgeInsets.zero,
                                     ),
-                                    focusedBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(
-                                        color: context.strokeBrand,
+                                  ),
+                                  TextFormField(
+                                    focusNode: _focusNode1,
+                                    controller: _password1Controller,
+                                    onTapOutside: (event) =>
+                                        FocusScope.of(context).unfocus(),
+                                    onChanged: (value) => setState(() {}),
+                                    obscureText: isObs1,
+                                    autofillHints: const [AutofillHints.password],
+                                    decoration: InputDecoration(
+                                      contentPadding: context.k16Padding,
+                                      hintText: "auth.login_password".tr(),
+                                      hintStyle: context.mediumMutedMd.copyWith(
+                                        color: context.textDisabled,
                                       ),
-                                      borderRadius: BorderRadius.circular(28),
-                                    ),
-                                    enabledBorder: OutlineInputBorder(
-                                      borderRadius: BorderRadius.all(
-                                        Radius.circular(28),
+                                      focusedBorder: OutlineInputBorder(
+                                        borderSide: BorderSide(
+                                          color: context.strokeBrand,
+                                        ),
+                                        borderRadius: BorderRadius.circular(28),
                                       ),
-                                      borderSide: BorderSide.none,
-                                    ),
-                                    suffixIconConstraints: BoxConstraints(
-                                      maxWidth: 100,
-                                      maxHeight: 56,
-                                    ),
-                                    suffixIcon: Padding(
-                                      padding: const EdgeInsets.only(
-                                        right: 8.0,
+                                      enabledBorder: OutlineInputBorder(
+                                        borderRadius: BorderRadius.all(
+                                          Radius.circular(28),
+                                        ),
+                                        borderSide: BorderSide.none,
                                       ),
-                                      child: Row(
-                                        mainAxisAlignment: .spaceBetween,
-                                        children: [
-                                          InkWell(
-                                            child: SizedBox(
-                                              width: 24,
-                                              height: 24,
-                                              child: SvgPicture.asset(
-                                                isObs1
-                                                    ? Assets.iconsEyeOn
-                                                    : Assets.iconsEyeOff,
+                                      suffixIconConstraints: BoxConstraints(
+                                        maxWidth: 100,
+                                        maxHeight: 56,
+                                      ),
+                                      suffixIcon: Padding(
+                                        padding: const EdgeInsets.only(
+                                          right: 8.0,
+                                        ),
+                                        child: Row(
+                                          mainAxisAlignment: .spaceBetween,
+                                          children: [
+                                            InkWell(
+                                              child: SizedBox(
+                                                width: 24,
+                                                height: 24,
+                                                child: SvgPicture.asset(
+                                                  isObs1
+                                                      ? Assets.iconsEyeOn
+                                                      : Assets.iconsEyeOff,
+                                                ),
+                                              ),
+                                              onTap: () => setState(
+                                                () => isObs1 = !isObs1,
                                               ),
                                             ),
-                                            onTap: () => setState(
-                                              () => isObs1 = !isObs1,
-                                            ),
-                                          ),
-                                          AppAnimatedSwitcher(
-                                            child: SizedBox(
-                                              width: 56,
-                                              height: 40,
-                                              child: DecoratedBox(
-                                                decoration: BoxDecoration(
-                                                  color:
-                                                      _password1Controller
-                                                          .text
-                                                          .isEmpty
-                                                      ? context.bgMuted
-                                                      : context.primary,
-                                                  borderRadius:
-                                                      BorderRadius.circular(28),
-                                                ),
-                                                child: InkWell(
-                                                  onTap: () {
-                                                    HapticFeedback.mediumImpact();
-                                                    _authCubit.login(
-                                                      widget.phoneNumber,
-                                                      _password1Controller.text,
-                                                    );
-                                                  },
-                                                  child: SizedBox(
-                                                    width: 24,
-                                                    height: 24,
-                                                    child: Center(
-                                                      child: AppAnimatedSwitcher(
-                                                        child: SvgPicture.asset(
-                                                          Assets
-                                                              .iconsArrowForward,
+                                            AppAnimatedSwitcher(
+                                              child: SizedBox(
+                                                width: 56,
+                                                height: 40,
+                                                child: DecoratedBox(
+                                                  decoration: BoxDecoration(
+                                                    color:
+                                                        _password1Controller
+                                                            .text
+                                                            .isEmpty
+                                                        ? context.bgMuted
+                                                        : context.primary,
+                                                    borderRadius:
+                                                        BorderRadius.circular(28),
+                                                  ),
+                                                  child: InkWell(
+                                                    onTap: () {
+                                                      HapticFeedback.mediumImpact();
+                                                      _authCubit.login(
+                                                        widget.phoneNumber,
+                                                        _password1Controller.text,
+                                                      );
+                                                    },
+                                                    child: SizedBox(
+                                                      width: 24,
+                                                      height: 24,
+                                                      child: Center(
+                                                        child: AppAnimatedSwitcher(
+                                                          child: SvgPicture.asset(
+                                                            Assets
+                                                                .iconsArrowForward,
+                                                          ),
                                                         ),
                                                       ),
                                                     ),
@@ -274,18 +288,18 @@ class _LoginScreen extends State<LoginScreen> {
                                                 ),
                                               ),
                                             ),
-                                          ),
-                                        ],
+                                          ],
+                                        ),
                                       ),
                                     ),
                                   ),
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
                           ),
-                        ),
-                        context.szBoxHeight20,
-                      ],
+                          context.szBoxHeight20,
+                        ],
+                      ),
                     ),
                   ],
                 ),

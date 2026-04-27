@@ -56,8 +56,7 @@ class _OtpScreenState extends State<OtpScreen> {
               phoneNumber: widget.phoneNumber,
               secreyKey: state.secretKey ?? "",
               isForgot: widget.reqId?.isNotEmpty,
-            ).push(context);
-            print("Hello");
+            ).go(context);
           } else if (state.confirmStatus == .error) {
             context.showErrorDialog(title: state.confirmErrorMessage ?? "");
           } else if (state.confirmStatus == .loading) {

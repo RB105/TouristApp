@@ -27,8 +27,12 @@ class RefreshTokenInterceptor extends Interceptor {
 
     if (_isRefreshing) {
       _queue.add(() async {
-        final response = await _retry(err.requestOptions);
-        handler.resolve(response);
+        try {
+          final response = await _retry(err.requestOptions);
+          handler.resolve(response);
+        } catch (e) {
+          handler.next(err); // forward the original error
+        }
       });
       return;
     }
@@ -57,14 +61,17 @@ class RefreshTokenInterceptor extends Interceptor {
     }
   }
 
+  // ✅ Let interceptors re-attach the fresh token
   Future<Response> _retry(RequestOptions options) {
-    final opts = Options(method: options.method, headers: options.headers);
+    final newAccessToken = storage.read<String>('access_token');
+    final headers = Map<String, dynamic>.from(options.headers);
+    headers['Authorization'] = 'Bearer $newAccessToken';
 
     return dio.request(
       options.path,
       data: options.data,
       queryParameters: options.queryParameters,
-      options: opts,
+      options: Options(method: options.method, headers: headers),
     );
   }
 

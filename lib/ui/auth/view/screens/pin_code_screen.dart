@@ -187,7 +187,9 @@ class _PinCodeScreenState extends State<PinCodeScreen> {
                         mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: .start,
                         children: [
-                          Row(
+                          Visibility(
+                            visible: step != .set,
+                            child: Row(
                             children: [
                               SizedBox(
                                 width: 100,
@@ -204,7 +206,7 @@ class _PinCodeScreenState extends State<PinCodeScreen> {
                                 child: Text("auth.cant_login".tr()),
                               ),
                             ],
-                          ),
+                          ),),
                           context.szBoxFromHeight(128),
                           AssetSvg(Assets.iconsLock),
                           context.szBoxHeight8,
@@ -218,16 +220,17 @@ class _PinCodeScreenState extends State<PinCodeScreen> {
                             textAlign: TextAlign.center,
                           ),
                           context.szBoxHeight24,
-                          PinCodeIndicatorsRaw(shakeKey: _shakeKey, input: input),
+                          PinCodeIndicatorsRaw(
+                              shakeKey: _shakeKey, input: input),
                           AppAnimatedSwitcher(
                             child: step == .confirm
                                 ? Padding(
-                                    padding: const EdgeInsets.only(top: 28.0),
-                                    child: PinCodeIndicatorsRaw(
-                                      shakeKey: _shakeKey2,
-                                      input: input2,
-                                    ),
-                                  )
+                              padding: const EdgeInsets.only(top: 28.0),
+                              child: PinCodeIndicatorsRaw(
+                                shakeKey: _shakeKey2,
+                                input: input2,
+                              ),
+                            )
                                 : SizedBox(),
                           ),
                           Padding(
@@ -235,12 +238,12 @@ class _PinCodeScreenState extends State<PinCodeScreen> {
                             child: AppAnimatedSwitcher(
                               child: _errorText != null
                                   ? Text(
-                                      _errorText!,
-                                      style: context.textMd.copyWith(
-                                        color: context.error,
-                                      ),
-                                      textAlign: TextAlign.center,
-                                    )
+                                _errorText!,
+                                style: context.textMd.copyWith(
+                                  color: context.error,
+                                ),
+                                textAlign: TextAlign.center,
+                              )
                                   : SizedBox(),
                             ),
                           ),
@@ -260,12 +263,12 @@ class _PinCodeScreenState extends State<PinCodeScreen> {
                               leftButtonFn: useBio ? _tryBiometricAuth : null,
                               leftIcon: useBio
                                   ? SizedBox(
-                                      width: 50,
-                                      height: 50,
-                                      child: SvgPicture.asset(
-                                        Assets.iconsFaceIdIos,
-                                      ),
-                                    )
+                                width: 50,
+                                height: 50,
+                                child: SvgPicture.asset(
+                                  Assets.iconsFaceIdIos,
+                                ),
+                              )
                                   : null,
                               rightButtonFn: _onDelete,
                               rightIcon: Icon(
