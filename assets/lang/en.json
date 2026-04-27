@@ -28,7 +28,10 @@
     "forgot_pin_title": "Forgot your PIN?",
     "forgot_pin_description": "You'll need to log in again and create a new PIN to access your account.",
     "reset_pin": "Reset PIN",
-    "cancel": "Cancel"
+    "cancel": "Cancel",
+    "forgot_password_title": "Forgot your password?",
+    "forgot_password_desc": "You will need to log in again to access your account.",
+    "forgot_password_confirm": "Yes!"
   },
   "onboarding": {
     "tagline": "One wallet. No limits.",

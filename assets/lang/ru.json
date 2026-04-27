@@ -28,7 +28,11 @@
     "forgot_pin_title": "Забыли PIN-код?",
     "forgot_pin_description": "Вам нужно будет снова войти в систему и создать новый PIN-код для доступа к аккаунту.",
     "reset_pin": "Сбросить PIN-код",
-    "cancel": "Отмена"
+    "cancel": "Отмена",
+
+    "forgot_password_title": "Забыли пароль?",
+    "forgot_password_desc": "Вам нужно будет снова войти в систему, чтобы получить доступ к аккаунту.",
+    "forgot_password_confirm": "Да!"
   },
   "onboarding": {
     "tagline": "Один кошелёк. Без границ.",

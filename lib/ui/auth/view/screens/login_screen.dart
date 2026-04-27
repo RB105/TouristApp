@@ -118,72 +118,72 @@ class _LoginScreen extends State<LoginScreen> {
                       ],
                     ),
                     Spacer(),
-                    AutofillGroup(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Row(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              SizedBox(
-                                width: 24,
-                                height: 24,
-                                child: SvgPicture.asset(
-                                  Assets.iconsPhoneDisabled,
-                                ),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            SizedBox(
+                              width: 24,
+                              height: 24,
+                              child: SvgPicture.asset(
+                                Assets.iconsPhoneDisabled,
                               ),
-                              context.szBoxWidth8,
-                              Text(
-                                "auth.phone_number".tr(),
-                                style: context.semiboldMd.copyWith(
-                                  color: context.textDisabled,
-                                ),
-                              ),
-                            ],
-                          ),
-                          context.szBoxHeight20,
-                          Row(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              SizedBox(
-                                width: 24,
-                                height: 24,
-                                child: SvgPicture.asset(Assets.iconsVerification),
-                              ),
-                              context.szBoxWidth8,
-                              Text(
-                                "auth.verification_code".tr(),
-                                style: context.semiboldMd.copyWith(
-                                  color: context.textDisabled,
-                                ),
-                              ),
-                            ],
-                          ),
-                          context.szBoxHeight20,
-                          SizedBox(
-                            width: 36,
-                            height: 36,
-                            child: SvgPicture.asset(Assets.iconsKey),
-                          ),
-                          Text(
-                            "auth.password".tr(),
-                            style: context.boldDisplayXs,
-                          ),
-                          context.szBoxHeight8,
-                          Text(
-                            "auth.login_password_desc".tr(),
-                            style: context.textMd.copyWith(
-                              color: context.textSecondary,
                             ),
-                          ),
-                          context.szBoxHeight24,
-                          SizedBox(
-                            width: double.infinity,
-                            child: DecoratedBox(
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(24),
-                                color: context.bgElevated,
+                            context.szBoxWidth8,
+                            Text(
+                              "auth.phone_number".tr(),
+                              style: context.semiboldMd.copyWith(
+                                color: context.textDisabled,
                               ),
+                            ),
+                          ],
+                        ),
+                        context.szBoxHeight20,
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            SizedBox(
+                              width: 24,
+                              height: 24,
+                              child: SvgPicture.asset(Assets.iconsVerification),
+                            ),
+                            context.szBoxWidth8,
+                            Text(
+                              "auth.verification_code".tr(),
+                              style: context.semiboldMd.copyWith(
+                                color: context.textDisabled,
+                              ),
+                            ),
+                          ],
+                        ),
+                        context.szBoxHeight20,
+                        SizedBox(
+                          width: 36,
+                          height: 36,
+                          child: SvgPicture.asset(Assets.iconsKey),
+                        ),
+                        Text(
+                          "auth.password".tr(),
+                          style: context.boldDisplayXs,
+                        ),
+                        context.szBoxHeight8,
+                        Text(
+                          "auth.login_password_desc".tr(),
+                          style: context.textMd.copyWith(
+                            color: context.textSecondary,
+                          ),
+                        ),
+                        context.szBoxHeight24,
+                        SizedBox(
+                          width: double.infinity,
+                          child: DecoratedBox(
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(24),
+                              color: context.bgElevated,
+                            ),
+                            child: AutofillGroup(
                               child: Column(
                                 mainAxisSize: MainAxisSize.max,
                                 children: [
@@ -297,9 +297,9 @@ class _LoginScreen extends State<LoginScreen> {
                               ),
                             ),
                           ),
-                          context.szBoxHeight20,
-                        ],
-                      ),
+                        ),
+                        context.szBoxHeight20,
+                      ],
                     ),
                   ],
                 ),

@@ -455,13 +455,13 @@ extension DialogExt on BuildContext {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Text(
-                    "Do you forgot the password?",
+                    "auth.forgot_password_title".tr(),
                     textAlign: TextAlign.center,
                     style: ctx.mediumMd,
                   ),
                   szBoxHeight12,
                   Text(
-                    "You will need to log in again to access your account.",
+                    "auth.forgot_password_desc".tr(),
                     textAlign: TextAlign.center,
                     style: ctx.mediumMd,
                   ),
@@ -471,14 +471,14 @@ extension DialogExt on BuildContext {
                     children: [
                       TextButton(
                         onPressed: () => pop(),
-                        child: Text("Cancel", style: textMd),
+                        child: Text("auth.cancel".tr(), style: textMd),
                       ),
                       ElevatedButton(
                         onPressed: () {
                           GetStorage().erase();
                           pop(true);
                         },
-                        child: Text("Yes!", style: textMd),
+                        child: Text("auth.forgot_password_confirm".tr(), style: textMd),
                       ),
                     ],
                   ),

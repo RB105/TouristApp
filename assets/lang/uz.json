@@ -28,7 +28,11 @@
     "forgot_pin_title": "PIN kodni unutdingizmi?",
     "forgot_pin_description": "Hisobingizga kirish uchun qayta tizimga kirib, yangi PIN kod yaratishingiz kerak bo‘ladi.",
     "reset_pin": "PIN kodni tiklash",
-    "cancel": "Bekor qilish"
+    "cancel": "Bekor qilish",
+
+    "forgot_password_title": "Parolni unutdingizmi?",
+    "forgot_password_desc": "Hisobingizga kirish uchun qayta tizimga kirishingiz kerak bo'ladi.",
+    "forgot_password_confirm": "Ha!"
   },
   "onboarding": {
     "tagline": "Bitta hamyon. Chegarasiz.",
